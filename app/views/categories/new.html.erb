@@ -1,0 +1,8 @@
+<h1>Nova Categoria</h1>
+
+<%= form_with model: @category do |f| %>
+    <%= f.label :name, 'Nome' %>
+    <%= f.text_field :name %>
+
+    <%= f.submit 'Criar Categoria' %>
+<% end %>
