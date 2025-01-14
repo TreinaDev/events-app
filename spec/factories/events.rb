@@ -1,11 +1,10 @@
 FactoryBot.define do
   factory :event do
-    name { "MyString" }
-    user { nil }
-    type { 1 }
-    address { "MyString" }
-    participants_limit { 1 }
-    url { "MyString" }
-    status { 1 }
+    name { "Lollapalooza" }
+    event_type { :inperson }
+    address { "Av dos Bancos" }
+    participants_limit { 30 }
+    url { "http::/evento.com" }
+    association :user
   end
 end
