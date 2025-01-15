@@ -8,4 +8,6 @@
   <h2>Nenhuma categoria cadastrada</h2>
 <% end %>
 
-<h3><%= link_to 'Nova Categoria', new_category_path %></h3>
+<% if user_signed_in? %>
+  <h3><%= link_to 'Nova Categoria', new_category_path %></h3>
+<% end %>
