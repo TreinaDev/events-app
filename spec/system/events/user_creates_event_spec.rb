@@ -34,10 +34,13 @@ describe 'User visits event creation page' do
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
     attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
     attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
+    find('trix-editor').set('<strong>test</strong>')
     click_on 'Criar'
 
     expect(page).to have_content 'Lollapaluza'
     expect(page).to have_content 'Evento criado com sucesso'
+    expect(page).to have_content '<strong>test</strong>'
+    expect(page).to have_selector "img"
   end
 
   it 'and cannot create an event' do

@@ -39,6 +39,9 @@
     <% end %>
   <% end %>
 
+  <%= f.label :description %>
+  <%= f.rich_textarea :description %>
+
   <%= f.label :logo %>
   <%= f.file_field :logo %>
   <% if @event.errors[:logo].any? %>

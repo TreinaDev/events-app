@@ -3,6 +3,7 @@ class Event < ApplicationRecord
 
   has_one_attached :logo
   has_one_attached :banner
+  has_rich_text :description
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]

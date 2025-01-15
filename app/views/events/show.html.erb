@@ -1,1 +1,6 @@
 <%= @event.name %>
+<%= image_tag url_for(@event.logo) %>
+
+<%= render layout: 'layouts/action_text/contents/content' do %>
+  <%= @event.description %>
+<% end %>
