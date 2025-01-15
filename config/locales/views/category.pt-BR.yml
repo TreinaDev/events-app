@@ -1,0 +1,11 @@
+pt-BR:
+  categories:
+    index:
+      title: 'Categorias'
+    new:
+      title: 'Nova Categoria'
+    create:
+      success: 'Categoria adicionada com sucesso.'
+      failure: 'Categoria não foi adicionada.'
+
+ 

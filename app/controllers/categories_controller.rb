@@ -10,9 +10,9 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      redirect_to categories_path, notice: "Categoria criada com sucesso!"
+      redirect_to categories_path, notice: t(".success")
     else
-      flash.now[:alert] = "Falha ao criar categoria!"
+      flash.now[:alert] = t(".failure")
       render :new, status: :unprocessable_entity
     end
   end

@@ -12,7 +12,7 @@ describe 'Usuário cadastra as categorias' do
 
         expect(page).to have_content('Lista de Categorias')
         expect(page).to have_content('Ruby')
-        expect(page).to have_content('Categoria criada com sucesso!')
+        expect(page).to have_content('Categoria adicionada com sucesso.')
         expect(current_path).to eq categories_path
     end
 
@@ -26,7 +26,7 @@ describe 'Usuário cadastra as categorias' do
         click_on 'Criar Categoria'
 
         expect(page).to have_content('Nova Categoria')
-        expect(page).to have_content('Falha ao criar categoria!')
+        expect(page).to have_content('Categoria não foi adicionada.')
         expect(current_path).to eq new_category_path
     end
 end
