@@ -39,6 +39,8 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  config.include FactoryBot::Syntax::Methods
+
   config.before(:each, type: :system) do
     driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
