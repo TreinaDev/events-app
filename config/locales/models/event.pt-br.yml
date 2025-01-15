@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      event: 'Evento'
+    attributes:
+      event:
+        name: 'Nome'
+        address: 'Endereço'
+        participants_limit: 'Limite de participantes'
+        url: 'URL do evento'
+        event_type: 'Tipo de evento'
+        status: 'Status'
