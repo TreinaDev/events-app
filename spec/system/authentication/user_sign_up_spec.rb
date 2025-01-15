@@ -32,7 +32,7 @@ describe 'User tries to sign up' do
 
     expect(current_path).to eq root_path
     expect(page).to have_button 'Sair'
-    expect(page).to have_content 'Welcome! You have signed up successfully.'
+    expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     expect(page).not_to have_content 'Criar Conta'
   end
 
@@ -52,7 +52,7 @@ describe 'User tries to sign up' do
 
     expect(current_path).to eq new_user_registration_path
     expect(page).to have_content 'Criar Conta'
-    expect(page).to have_content 'Registration number Não é um CPF válido'
+    expect(page).to have_content 'CPF Não é um CPF válido'
   end
 
   it 'and fails when informing invalid data' do
@@ -71,11 +71,11 @@ describe 'User tries to sign up' do
 
     expect(current_path).to eq new_user_registration_path
     expect(page).to have_content 'Criar Conta'
-    expect(page).to have_content "Family name can't be blank"
-    expect(page).to have_content "Name can't be blank"
-    expect(page).to have_content "Email can't be blank"
-    expect(page).to have_content "Password can't be blank"
-    expect(page).to have_content "Registration number can't be blank"
-    expect(page).to have_content 'Registration number Não é um CPF válido'
+    expect(page).to have_content "Sobrenome não pode ficar em branco"
+    expect(page).to have_content "Nome não pode ficar em branco"
+    expect(page).to have_content "E-mail não pode ficar em branco"
+    expect(page).to have_content "Senha não pode ficar em branco"
+    expect(page).to have_content "CPF não pode ficar em branco"
+    expect(page).to have_content 'CPF Não é um CPF válido'
   end
 end

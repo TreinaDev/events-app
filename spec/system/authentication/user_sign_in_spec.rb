@@ -37,7 +37,7 @@ describe 'User tries to sign in' do
 
     expect(current_path).to eq root_path
     expect(page).to have_button 'Sair'
-    expect(page).to have_content 'Signed in successfully.'
+    expect(page).to have_content 'Login efetuado com sucesso.'
     expect(page).not_to have_content 'Criar Conta'
   end
 
@@ -52,6 +52,6 @@ describe 'User tries to sign in' do
     end
 
     expect(current_path).to eq new_user_session_path
-    expect(page).to have_content 'Invalid Email or password.'
+    expect(page).to have_content 'E-mail ou senha inválidos.'
   end
 end
