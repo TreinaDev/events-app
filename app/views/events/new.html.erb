@@ -39,5 +39,21 @@
     <% end %>
   <% end %>
 
+  <%= f.label :logo %>
+  <%= f.file_field :logo %>
+  <% if @event.errors[:logo].any? %>
+    <% @event.errors.full_messages_for(:logo).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :banner %>
+  <%= f.file_field :banner %>
+  <% if @event.errors[:banner].any? %>
+    <% @event.errors.full_messages_for(:banner).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
   <%= f.submit 'Criar', class: 'cursor-pointer bg-[#5305cf]' %>
 <% end %>

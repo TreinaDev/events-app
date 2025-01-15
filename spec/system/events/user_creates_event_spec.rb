@@ -32,6 +32,8 @@ describe 'User visits event creation page' do
     select 'Presencial', from: 'Tipo de evento'
     fill_in 'Limite de participantes', with: 30
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
+    attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
+    attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
     click_on 'Criar'
 
     expect(page).to have_content 'Lollapaluza'

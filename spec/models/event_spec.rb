@@ -22,6 +22,20 @@ RSpec.describe Event, type: :model do
       event = FactoryBot.build(:event, url: '')
       expect(event.valid?).to eq false
     end
+
+    it 'false when logo has an invalid format' do
+      event = FactoryBot.build(:event)
+      event.logo.attach(io: File.open('spec/support/test_file.txt'), filename: 'test_file.txt', content_type: 'text/plain')
+
+      expect(event.valid?).to eq false
+    end
+
+    it 'false when banner has an invalid format' do
+      event = FactoryBot.build(:event)
+      event.banner.attach(io: File.open('spec/support/test_file.txt'), filename: 'test_file.txt', content_type: 'text/plain')
+
+      expect(event.valid?).to eq false
+    end
   end
 
   it 'status should be draft by default' do
@@ -34,4 +48,6 @@ RSpec.describe Event, type: :model do
 
     expect(event.valid?).to eq true
   end
+
+  
 end
