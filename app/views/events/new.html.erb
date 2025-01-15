@@ -1,0 +1,43 @@
+<%= form_with model: @event do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <% if @event.errors[:name].any? %>
+    <% @event.errors.full_messages_for(:name).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :address %>
+  <%= f.text_field :address %>
+  <% if @event.errors[:address].any? %>
+    <% @event.errors.full_messages_for(:address).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :event_type %>
+  <%= f.select :event_type, options_for_select([['Presencial', "inperson"], ['Online', "online"], ['Hibrido', "hybrid"]]) %>
+  <% if @event.errors[:event_type].any? %>
+    <% @event.errors.full_messages_for(:event_type).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :participants_limit %>
+  <%= f.number_field :participants_limit %>
+  <% if @event.errors[:participants_limit].any? %>
+    <% @event.errors.full_messages_for(:participants_limit).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+  <% if @event.errors[:url].any? %>
+    <% @event.errors.full_messages_for(:url).each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <%= f.submit 'Criar', class: 'cursor-pointer bg-[#5305cf]' %>
+<% end %>

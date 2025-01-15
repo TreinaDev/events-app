@@ -1,8 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
 
-  enum :status, [:draft, :published]
-  enum :event_type, [:inperson, :online, :hybrid]
+  enum :status, [ :draft, :published ]
+  enum :event_type, [ :inperson, :online, :hybrid ]
 
   validates :name, :participants_limit, :url, :status, presence: true
 
@@ -14,9 +14,5 @@ class Event < ApplicationRecord
 
   def set_status
     self.status ||= :draft
-  end
-
-  def address_required?
-    inperson? || hybrid?
   end
 end

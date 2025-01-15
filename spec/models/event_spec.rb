@@ -28,4 +28,10 @@ RSpec.describe Event, type: :model do
     event = FactoryBot.build(:event)
     expect(event.status).to eq "draft"
   end
+
+  it 'address should be required only when event type is inperson or hybrid' do
+    event = FactoryBot.build(:event, event_type: :online, address: '')
+
+    expect(event.valid?).to eq true
+  end
 end
