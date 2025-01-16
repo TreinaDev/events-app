@@ -26,8 +26,10 @@
   <body>
   <header>
     <nav>
-    <%= link_to 'Categorias', categories_path %>
-      <% if user_signed_in? %>
+      <% if current_user && current_user.role == 'event_manager' %>
+        <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+      <% elsif current_user && current_user.role == 'admin' %>
+        <%= link_to 'Categorias', categories_path %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to 'Entrar', new_user_session_path %>
