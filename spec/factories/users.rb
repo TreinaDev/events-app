@@ -8,7 +8,5 @@ FactoryBot.define do
     registration_number { CPF.generate }
     role { 1 }
     verification_status { 1 }
-    confirmed_at { Time.current }
-    confirmation_sent_at { Time.current }
   end
 end
