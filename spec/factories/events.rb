@@ -4,7 +4,7 @@ FactoryBot.define do
     event_type { :inperson }
     address { "Av dos Bancos" }
     participants_limit { 30 }
-    url { "http::/evento.com" }
+    url { "http://Lollapalooza.com" }
     association :user
   end
 end

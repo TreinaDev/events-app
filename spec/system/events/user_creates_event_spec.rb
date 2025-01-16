@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe 'User visits event creation page' do
-  it 'and is not authenticated' do
+describe 'Usuário visita a tela de criacao de evento' do
+  it 'e não está autenticado' do
     visit root_path
     click_on 'Eventos'
 
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 
-  it 'is authenticate' do
+  it 'e está autenticado' do
     user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
 
     login_as user
@@ -18,7 +18,7 @@ describe 'User visits event creation page' do
     expect(page).to have_content 'Eventos'
   end
 
-  it 'and creates an event with success' do
+  it 'e cria um evento com sucesso' do
     user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
 
     login_as user
@@ -43,7 +43,7 @@ describe 'User visits event creation page' do
     expect(page).to have_selector "img"
   end
 
-  it 'and cannot create an event' do
+  it 'e não consegue criar um evento' do
     user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
 
     login_as user
