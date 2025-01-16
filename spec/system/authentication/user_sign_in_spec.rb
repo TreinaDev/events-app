@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User tries to sign in' do
-  it 'and gets to the correct page' do
+describe 'Usuário tenta fazer login' do
+  it 'e chega na página correta' do
     visit root_path
     click_on 'Entrar'
 
@@ -16,7 +16,7 @@ describe 'User tries to sign in' do
     end
   end
 
-  it 'and succeeds' do
+  it 'e conclui com sucesso' do
     User.create(
       name: 'Luan',
       family_name: 'Carvalho',
@@ -41,7 +41,7 @@ describe 'User tries to sign in' do
     expect(page).not_to have_content 'Criar Conta'
   end
 
-  it 'and fails when informing invalid data' do
+  it 'e falha quando informa algum dado inválido' do
     visit root_path
     click_on 'Entrar'
 

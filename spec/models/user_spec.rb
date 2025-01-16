@@ -2,34 +2,34 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#valid?' do
-    context 'presence' do
-      it 'should have a name' do
+    context 'presenca' do
+      it 'deve ter um nome' do
         user = User.new()
         user.valid?
 
-        expect(user.errors.include?(:name)).to be true
+        expect(user.errors).to include(:name)
         expect(user).not_to be_valid
       end
 
-      it 'should have a family name' do
+      it 'deve ter um sobrenome' do
         user = User.new()
         user.valid?
 
-        expect(user.errors.include?(:family_name)).to be true
+        expect(user.errors).to include(:family_name)
         expect(user).not_to be_valid
       end
 
-      it 'should have a registration number' do
+      it 'deve ter um CPF' do
         user = User.new()
         user.valid?
 
-        expect(user.errors.include?(:registration_number)).to be true
+        expect(user.errors).to include(:registration_number)
         expect(user).not_to be_valid
       end
     end
 
     context '#uniqueness' do
-      it 'should have a unique registration number' do
+      it 'deve ter um CPF Unico' do
         registration_number = CPF.generate
         User.create!(email: 'wg0Hl@example.com', password: 'password123',
           name: 'Alice', family_name: 'Moreno',
@@ -42,13 +42,13 @@ RSpec.describe User, type: :model do
 
         second_user.valid?
 
-        expect(second_user.errors.include?(:registration_number)).to be true
+        expect(second_user.errors).to include(:registration_number)
         expect(second_user).not_to be_valid
       end
     end
 
-    context '#registration number validity' do
-      it 'should match the pattern' do
+    context '#CPF Válido' do
+      it 'deve se enquadrar no padrão válido' do
         user = User.new(
           name: 'Luan',
           family_name: 'Carvalho',
@@ -59,14 +59,14 @@ RSpec.describe User, type: :model do
 
         user.valid?
 
-        expect(user.errors.include?(:registration_number)).to be true
+        expect(user.errors).to include(:registration_number)
         expect(user).not_to be_valid
       end
     end
   end
 
-  describe 'receive a standard status not verified' do
-    it 'when created' do
+  describe 'recebe um status padrão de não verificado' do
+    it 'quando criado' do
       user = User.new(
         name: 'Luan',
         family_name: 'Carvalho',
@@ -79,8 +79,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'receive a role' do
-    it 'of event_manager when creating with any other email domain' do
+  describe 'recebe um tipo de usuario' do
+    it 'de event_manager quando cria uma conta com email de outro domínio' do
       user = User.new(
         name: 'Luan',
         family_name: 'Carvalho',
@@ -92,7 +92,7 @@ RSpec.describe User, type: :model do
       expect(user.role).to eq("event_manager")
     end
 
-    it 'of admin when creating with a @meuevento.com.br email' do
+    it 'de admin quando cria uma conta com email de dominio @meuevento.com.br' do
       user = User.create!(
         name: 'Luan',
         family_name: 'Carvalho',
