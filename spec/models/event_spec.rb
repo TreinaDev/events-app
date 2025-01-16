@@ -38,8 +38,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'falso quando não possui ao menos 1 categoria' do
-      event = FactoryBot.build(:event)
-      event.banner.attach(io: File.open('spec/support/test_file.txt'), filename: 'test_file.txt', content_type: 'text/plain')
+      event = FactoryBot.build(:event, categories: [])
 
       expect(event.valid?).to eq false
     end

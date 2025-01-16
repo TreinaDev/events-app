@@ -4,6 +4,8 @@ class Event < ApplicationRecord
   has_one_attached :logo
   has_one_attached :banner
   has_rich_text :description
+  has_many :event_categories
+  has_many :categories, through: :event_categories
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
@@ -14,6 +16,7 @@ class Event < ApplicationRecord
   validates :banner, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
 
   validate :participants_limit_for_unverified_user
+  validate :should_have_at_least_one_category
 
   after_initialize :set_status, if: :new_record?
 
@@ -29,5 +32,9 @@ class Event < ApplicationRecord
       errors.add(:participants_limit, "do evento não pode ser maior que 30 para usuários não verificados")
      end
    end
+  end
+
+  def should_have_at_least_one_category
+      errors.add(:categories, "deve ter ao menos uma categoria") if categories.empty?
   end
 end

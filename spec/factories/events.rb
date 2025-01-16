@@ -6,5 +6,7 @@ FactoryBot.define do
     participants_limit { 30 }
     url { "http://Lollapalooza.com" }
     association :user
+
+    categories { [ create(:category) ] }
   end
 end

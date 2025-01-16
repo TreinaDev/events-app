@@ -9,7 +9,7 @@ describe 'Usuário visita a tela de criacao de evento' do
   end
 
   it 'e está autenticado' do
-    user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
+    user = FactoryBot.create(:user)
 
     login_as user
 
@@ -19,7 +19,9 @@ describe 'Usuário visita a tela de criacao de evento' do
   end
 
   it 'e cria um evento com sucesso' do
-    user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
+    user = FactoryBot.create(:user)
+    Category.create!(name: 'Festa')
+    Category.create!(name: 'Palestra')
 
     login_as user
 
@@ -35,6 +37,8 @@ describe 'Usuário visita a tela de criacao de evento' do
     attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
     attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
     find('trix-editor').set('<strong>test</strong>')
+    check 'Festa'
+    check 'Palestra'
     click_on 'Criar'
 
     expect(page).to have_content 'Lollapaluza'
@@ -44,7 +48,7 @@ describe 'Usuário visita a tela de criacao de evento' do
   end
 
   it 'e não consegue criar um evento' do
-    user = User.create!(email: 'user@email.com', name: 'user', family_name: 'last name', password: 'senha123', registration_number: '20990882098', role: 'user', confirmed_at: Time.current, confirmation_sent_at: Time.current)
+    user = FactoryBot.create(:user)
 
     login_as user
 

@@ -58,5 +58,15 @@
     <% end %>
   <% end %>
 
+  <div>
+    <%= f.label :categories %>
+    <%= f.collection_checkboxes :category_ids, Category.all, :id, :name %>
+    <% if @event.errors[:categories].any? %>
+      <% @event.errors.full_messages_for(:categories).each do |e| %>
+        <%= e %>
+      <% end %>
+    <% end %>
+  </div>
+
   <%= f.submit 'Criar', class: 'cursor-pointer bg-[#5305cf]' %>
 <% end %>
