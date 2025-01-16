@@ -1,11 +1,10 @@
 pt-BR:
   activerecord:
     attributes:
-      employee:
+      user:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
         confirmed_at: Confirmado em
-        cpf: CPF
         created_at: Criado em
         current_password: Senha atual
         current_sign_in_at: Atualmente logado em
@@ -13,39 +12,9 @@ pt-BR:
         email: E-mail
         encrypted_password: Senha criptografada
         failed_attempts: Tentativas sem sucesso
-        last_name: Sobrenome
         last_sign_in_at: Último acesso em
         last_sign_in_ip: Último IP de acesso
         locked_at: Bloqueado em
-        name: Nome
-        password: Senha
-        password_confirmation: Confirme sua senha
-        remember_created_at: Lembrar criado em
-        remember_me: Lembre-se de mim
-        reset_password_sent_at: Resetar senha enviado em
-        reset_password_token: Resetar token de senha
-        sign_in_count: Contagem de acessos
-        unconfirmed_email: E-mail não confirmado
-        unlock_token: Token de desbloqueio
-        updated_at: Atualizado em
-        restaurant: Restaurante
-      admin:
-        confirmation_sent_at: Confirmação enviada em
-        confirmation_token: Token de confirmação
-        confirmed_at: Confirmado em
-        cpf: CPF
-        created_at: Criado em
-        current_password: Senha atual
-        current_sign_in_at: Atualmente logado em
-        current_sign_in_ip: IP do acesso atual
-        email: E-mail
-        encrypted_password: Senha criptografada
-        failed_attempts: Tentativas sem sucesso
-        last_name: Sobrenome
-        last_sign_in_at: Último acesso em
-        last_sign_in_ip: Último IP de acesso
-        locked_at: Bloqueado em
-        name: Nome
         password: Senha
         password_confirmation: Confirme sua senha
         remember_created_at: Lembrar criado em
@@ -57,11 +26,9 @@ pt-BR:
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
     models:
-      admin: "Dono de restaurante"
       user:
         one: Usuário
         other: Usuários
-      employee: "Funcionário"
   devise:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso.
@@ -83,7 +50,7 @@ pt-BR:
       confirmation_instructions:
         action: Confirmar minha conta
         greeting: Bem-vindo %{recipient}!
-        instruction: "Você pode confirmar sua conta através do link abaixo:"
+        instruction: 'Você pode confirmar sua conta através do link abaixo:'
         subject: Instruções de confirmação
       email_changed:
         greeting: Olá %{recipient}!
@@ -104,7 +71,7 @@ pt-BR:
       unlock_instructions:
         action: Desbloquear minha conta
         greeting: Olá %{recipient}!
-        instruction: "Clique no link abaixo para desbloquear sua conta:"
+        instruction: 'Clique no link abaixo para desbloquear sua conta:'
         message: Sua conta foi bloqueada devido ao excessivo número de tentativas acesso inválidas.
         subject: Instruções de desbloqueio
     omniauth_callbacks:
@@ -129,7 +96,7 @@ pt-BR:
       edit:
         are_you_sure: Você tem certeza?
         cancel_my_account: Cancelar minha conta
-        currently_waiting_confirmation_for_email: "No momento esperando por: %{email}"
+        currently_waiting_confirmation_for_email: 'No momento esperando por: %{email}'
         leave_blank_if_you_don_t_want_to_change_it: deixe em branco caso não queira alterá-la
         title: Editar %{resource}
         unhappy: Não está contente?
@@ -176,5 +143,5 @@ pt-BR:
       not_found: não encontrado
       not_locked: não foi bloqueado
       not_saved:
-        one: "Não foi possível criar %{resource}: 1 erro"
-        other: "Não foi possível criar %{resource}: %{count} erros."
+        one: 'Não foi possível salvar %{resource}: 1 erro'
+        other: 'Não foi possível salvar %{resource}: %{count} erros.'
