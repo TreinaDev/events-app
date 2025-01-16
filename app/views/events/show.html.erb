@@ -1,5 +1,13 @@
 <%= @event.name %>
-<%= image_tag url_for(@event.logo) %>
+<% if @event.logo.attached? %>
+  <%= image_tag url_for(@event.logo) %>
+<% end %>
+
+<p><%= Event.human_enum_name(:status, @event.status) %></p>
+
+<% if @event.draft? %>
+  <%= button_to 'Publicar', publish_event_path(@event), method: :patch %>
+<% end %>
 
 <%= render layout: 'layouts/action_text/contents/content' do %>
   <%= @event.description %>

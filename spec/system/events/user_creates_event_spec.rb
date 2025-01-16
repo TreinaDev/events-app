@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário visita a tela de criacao de evento' do
   it 'e não está autenticado' do
-    visit root_path
-    click_on 'Eventos'
+    visit new_event_path
 
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
@@ -13,9 +12,9 @@ describe 'Usuário visita a tela de criacao de evento' do
 
     login_as user
 
-    visit root_path
+    visit new_event_path
 
-    expect(page).to have_content 'Eventos'
+    expect(page).to have_content 'Novo Evento'
   end
 
   it 'e cria um evento com sucesso' do
@@ -25,9 +24,7 @@ describe 'Usuário visita a tela de criacao de evento' do
 
     login_as user
 
-    visit root_path
-    click_on 'Eventos'
-    click_on 'Criar Evento'
+    visit new_event_path
 
     fill_in 'Nome', with: 'Lollapaluza'
     fill_in 'Endereço', with: 'Rua X'
@@ -52,9 +49,7 @@ describe 'Usuário visita a tela de criacao de evento' do
 
     login_as user
 
-    visit root_path
-    click_on 'Eventos'
-    click_on 'Criar Evento'
+    visit new_event_path
 
     click_on 'Criar'
 

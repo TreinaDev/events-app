@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-
+    @events = current_user.events
   end
 
   def new
@@ -23,6 +23,14 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+  end
+
+  def publish
+    @event = Event.find(params[:id])
+    @event.status = :published
+    if @event.save
+      redirect_to @event, notice: "Evento publicado com sucesso."
+    end
   end
 
   private
