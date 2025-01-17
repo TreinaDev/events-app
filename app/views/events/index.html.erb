@@ -1,1 +1,11 @@
 <%= link_to 'Criar Evento', new_event_path %>
+
+<div class="mt-4 grid grid-cols-4">
+  <% if @events.any? %>
+    <% @events.each do |e| %>
+      <p><%= link_to e.name, event_path(e) %></p>
+    <% end %>
+  <% else %>
+    <p>Você não possui eventos cadastrados.</p>
+  <% end %>
+</div>

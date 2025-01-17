@@ -1,9 +1,11 @@
-<%= @event.name %>
 <% if @event.logo.attached? %>
   <%= image_tag url_for(@event.logo) %>
 <% end %>
 
-<p><%= Event.human_enum_name(:status, @event.status) %></p>
+<div class="flex gap-4">
+  <p class="font-bold"><%= @event.name %></p>
+  <p><%= Event.human_enum_name(:status, @event.status) %></p>
+</div>
 
 <% if @event.draft? %>
   <%= button_to 'Publicar', publish_event_path(@event), method: :patch %>
