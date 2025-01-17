@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :confirmable
 
   enum :verification_status, { unverified: 1, pending: 3, verified: 5 }, default: :unverified
   enum :role, { event_manager: 1, admin: 3 }, default: :event_manager
@@ -12,7 +13,11 @@ class User < ApplicationRecord
 
   validate :registration_number_validation
 
-  after_validation :verify_if_user_has_admin_email
+  after_create :skip_email_verification_for_non_admin_users
+
+  def after_confirmation
+    self.role = :admin if self.email.include? "@meuevento.com.br"
+  end
 
   def registration_number_validation
     return if CPF.valid?(registration_number)
@@ -20,7 +25,7 @@ class User < ApplicationRecord
     errors.add(:registration_number, "Não é um CPF válido")
   end
 
-  def verify_if_user_has_admin_email
-    self.role = :admin if self.email.include? "@meuevento.com.br"
+  def skip_email_verification_for_non_admin_users
+    self.confirm unless self.email.include? "@meuevento.com.br"
   end
 end

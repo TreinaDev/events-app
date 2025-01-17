@@ -93,13 +93,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'de admin quando cria uma conta com email de dominio @meuevento.com.br' do
-      user = User.create!(
+      user = User.new(
         name: 'Luan',
         family_name: 'Carvalho',
         registration_number: CPF.generate,
         email: 'luan@meuevento.com.br',
         password: 'fortissima12'
       )
+      user.confirm
 
       expect(user.role).to eq("admin")
     end
