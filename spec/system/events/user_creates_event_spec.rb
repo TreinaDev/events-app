@@ -14,7 +14,7 @@ describe 'Usuário visita a tela de criacao de evento' do
 
     visit new_event_path
 
-    expect(page).to have_content 'Novo Evento'
+    expect(page).to have_content 'Cadastro de Evento'
   end
 
   it 'e cria um evento com sucesso' do
