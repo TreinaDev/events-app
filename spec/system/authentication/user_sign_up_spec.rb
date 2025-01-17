@@ -15,7 +15,7 @@ describe 'Usuário tenta fazer cadastro' do
       click_on 'Criar Conta'
     end
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq dashboard_path
     expect(page).to have_button 'Sair'
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     expect(page).not_to have_content 'Criar Conta'

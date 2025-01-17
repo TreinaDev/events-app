@@ -35,7 +35,7 @@ describe 'Usuário tenta fazer login' do
       click_on 'Entrar'
     end
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq dashboard_path
     expect(page).to have_button 'Sair'
     expect(page).to have_content 'Login efetuado com sucesso.'
     expect(page).not_to have_content 'Criar Conta'
