@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      event: 'Evento'
+      event:
+        one: Evento
+        other: Eventos
     attributes:
       event:
         name: 'Nome'
@@ -11,5 +13,7 @@ pt-BR:
         event_type: 'Tipo de evento'
         status: 'Status'
         statuses:
-          draft: Rascunho
-          published: Publicado
+          draft: 'Rascunho'
+          published: 'Publicado'
+        categories: 'Categorias'
+        description: 'Descrição'
