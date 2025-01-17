@@ -1,0 +1,13 @@
+<h1>Lista de Categorias</h1>
+
+<% if @categories.any? %>
+  <% @categories.each do |category| %>
+    <h2><%= category.name %></h2>
+  <% end %>
+<% else %>
+  <h2>Nenhuma categoria cadastrada</h2>
+<% end %>
+
+<% if user_signed_in? %>
+  <h3><%= link_to 'Nova Categoria', new_category_path %></h3>
+<% end %>
