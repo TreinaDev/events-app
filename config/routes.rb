@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :events, only: [ :index, :new, :create, :show ] do
     patch :publish, on: :member
   end
+
+  resources :categories, only: [ :index, :new, :create ]
 end

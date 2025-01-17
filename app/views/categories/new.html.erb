@@ -1,0 +1,15 @@
+<h1>Nova Categoria</h1>
+
+<% if(@category.errors.any?) %>
+    <h4>Verifique os problemas:</h4>
+    <% @category.errors.full_messages.each do |msg| %>
+        <%= msg %>
+    <% end %>
+<% end %>
+
+<%= form_with model: @category do |f| %>
+    <%= f.label :name, 'Nome' %>
+    <%= f.text_field :name %>
+
+    <%= f.submit 'Criar Categoria' %>
+<% end %>

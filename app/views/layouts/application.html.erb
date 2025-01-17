@@ -24,20 +24,27 @@
   </head>
 
   <body>
-    <p class="notice"><%= flash[:notice] %></p>
-    <p class="alert"><%= flash[:alert] %></p>
-    <main class="container mx-auto">
-      <nav class="flex justify-center py-4 mb-4 gap-4">
-        <%= link_to 'Inicio', root_path%>
+    <header>
+      <nav>
+        <% if current_user %>
+          <% if current_user.role == 'event_manager' %>
+            <%= link_to 'Meus eventos', events_path %>
+          <% elsif current_user.role == 'admin' %>
+            <%= link_to 'Categorias', categories_path %>
+          <% end %>
 
-        <% if user_signed_in? %>
-          <%= link_to 'Meus eventos', events_path %>
           <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+
         <% else %>
           <%= link_to 'Entrar', new_user_session_path %>
           <%= link_to 'Criar Conta', new_user_registration_path %>
         <% end %>
       </nav>
+    </header>
+    <p class="notice"><%= flash[:notice] %></p>
+    <p class="alert"><%= flash[:alert] %></p>
+
+    <main class="container mx-auto">
       <%= yield %>
     </main>
   </body>
