@@ -7,4 +7,25 @@ describe 'Usuário cadastra categorias' do
     expect(response).to redirect_to new_user_session_path
     expect(response.status).to eq 302
   end
+
+  it 'e falha por não ser adminstrador' do
+    user = create(:user, role: 'event_manager')
+    login_as user
+
+    get(new_category_path)
+
+    expect(response).to redirect_to root_path
+    expect(response.status).to eq 302
+    follow_redirect!
+    expect(response.body).to include('Você não tem autorização para acessar essa página.')
+  end
+
+  it 'com sucesso' do
+    user = create(:user, role: 'admin')
+    login_as user
+
+    get(new_category_path)
+
+    expect(response.status).to eq 200
+  end
 end

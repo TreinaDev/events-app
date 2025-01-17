@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_user_role
+
   def index
     @categories = Category.all
   end
