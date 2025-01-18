@@ -8,7 +8,10 @@ FactoryBot.define do
     registration_number { CPF.generate }
 
     trait :admin do
-      confirmed_at { Time.now }
+      email { 'alice@meuevento.com.br' }
+      after(:build) do |user|
+        user.confirm
+      end
     end
   end
 end

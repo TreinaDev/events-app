@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def check_user_role
     if current_user && current_user.role == "event_manager"
       flash[:alert] = "Você não tem autorização para acessar essa página."
-      redirect_to root_path
+      redirect_to dashboard_path
     end
   end
 end

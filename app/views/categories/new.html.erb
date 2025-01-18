@@ -8,8 +8,9 @@
 <% end %>
 
 <%= form_with model: @category do |f| %>
-    <%= f.label :name, 'Nome' %>
-    <%= f.text_field :name %>
+    <div class="form">
+    <%= f.label :name, class: 'input_label' %>
+    <%= f.text_field :name, class: 'input' %>
 
-    <%= f.submit 'Criar Categoria' %>
+    <%= f.submit 'Criar Categoria', class: 'form_button' %>
 <% end %>

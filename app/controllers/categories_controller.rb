@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  layout "dashboard"
   before_action :authenticate_user!
   before_action :check_user_role
 

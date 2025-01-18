@@ -23,23 +23,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-  <header>
-    <nav>
-      <% if current_user && current_user.role == 'event_manager' %>
-        <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-      <% elsif current_user && current_user.role == 'admin' %>
-        <%= link_to 'Categorias', categories_path %>
-        <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Entrar', new_user_session_path %>
-        <%= link_to 'Criar Conta', new_user_registration_path %>
+  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans">
+    <header class="site-header">
+      <%= link_to root_path do %>
+        <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
       <% end %>
-    </nav>
-  </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <main class="container mx-auto mt-28 px-5 flex">
+    </header>
+
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <main class="site-main">
       <%= yield %>
     </main>
   </body>

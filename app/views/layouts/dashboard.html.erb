@@ -18,22 +18,37 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="site-background">
+  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans">
     <header class="site-header">
-      <nav class="text-backgroundWhite">
+      <%= link_to dashboard_path do %>
+        <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
+      <% end %>
+
+      <nav class="text-backgroundWhite flex items-center">
         <% if current_user.role == "admin" %>
-          <p>Links de Admin</p>
+          <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
+          <span class="link_separator"></span>
         <% elsif current_user.role == "event_manager" %>
           <p>Links de Organizador</p>
         <% end %>
-        <div class="flex w-full justify-end">
-          <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'nav_button' %>
+
+        <div class="min-w-fit ml-12">
+          <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
+          <div class="flex w-full justify-end">
+            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button' %>
+          </div>
         </div>
       </nav>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <main class="site-main overflow-hidden">
+
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <main class="site-main">
       <%= yield %>
     </main>
   </body>
