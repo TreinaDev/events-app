@@ -17,20 +17,13 @@ describe 'Usuário tenta fazer login' do
   end
 
   it 'e conclui com sucesso' do
-    User.create(
-      name: 'Luan',
-      family_name: 'Carvalho',
-      email: 'luan@email.com',
-      password: 'fortissima12',
-      password_confirmation: 'fortissima12',
-      registration_number: CPF.generate
-    )
+    create(:user, email: 'luan@email.com', password: 'password123')
 
     visit root_path
     click_on 'Entrar'
 
     fill_in 'E-mail', with: 'luan@email.com'
-    fill_in 'Senha', with: 'fortissima12'
+    fill_in 'Senha', with: 'password123'
     within 'form' do
       click_on 'Entrar'
     end

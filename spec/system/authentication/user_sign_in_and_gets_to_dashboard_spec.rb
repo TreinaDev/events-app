@@ -1,14 +1,7 @@
 require 'rails_helper'
 describe 'Usuário tenta fazer login e acessar a página interna' do
   it 'e consegue com sucesso' do
-    user = User.create!(
-      name: 'Luan',
-      family_name: 'Carvalho',
-      email: 'luan@email.com',
-      password: 'fortissima12',
-      password_confirmation: 'fortissima12',
-      registration_number: CPF.generate
-    )
+    user = create(:user, email: 'luan@email.com', password: 'password123')
 
     visit new_user_session_path
     fill_in 'E-mail', with: user.email
