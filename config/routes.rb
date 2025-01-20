@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  resources :events, only: [ :index, :new, :create, :show ] do
+    patch :publish, on: :member
+  end
+
   resources :categories, only: [ :index, :new, :create ]
   get "dashboard" => "dashboard#index"
 end

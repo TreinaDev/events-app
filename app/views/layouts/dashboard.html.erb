@@ -24,21 +24,7 @@
         <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
       <% end %>
 
-      <nav class="text-backgroundWhite flex items-center">
-        <% if current_user.role == "admin" %>
-          <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
-          <span class="link_separator"></span>
-        <% elsif current_user.role == "event_manager" %>
-          <p>Links de Organizador</p>
-        <% end %>
-
-        <div class="min-w-fit ml-12">
-          <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
-          <div class="flex w-full justify-end">
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button' %>
-          </div>
-        </div>
-      </nav>
+      <%= render 'shared/navbar' %>
     </header>
 
     <% if flash[:notice] %>

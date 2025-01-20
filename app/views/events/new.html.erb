@@ -1,0 +1,93 @@
+<div class="form" data-controller="event">
+  <h2>Cadastro de Evento</h2>
+  <div class="input-container">
+    <%= form_with model: @event do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name,class: "input"%>
+      <% if @event.errors[:name].any? %>
+        <% @event.errors.full_messages_for(:name).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :event_type %>
+      <%= f.select :event_type, options_for_select([['Presencial', "inperson"], ['Online', "online"], ['Hibrido', "hybrid"]]), {class: "input"}, {data: {action:"change->event#handleLocation"}}%>
+      <% if @event.errors[:event_type].any? %>
+        <% @event.errors.full_messages_for(:event_type).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input-container" data-event-target="address">
+      <%= f.label :address%>
+      <%= f.text_field :address, class: "input"%>
+      <% if @event.errors[:address].any? %>
+        <% @event.errors.full_messages_for(:address).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :participants_limit %>
+      <%= f.number_field :participants_limit,class: "input"%>
+      <% if @event.errors[:participants_limit].any? %>
+        <% @event.errors.full_messages_for(:participants_limit).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input-container">
+      <%= f.label :url %>
+      <%= f.text_field :url, class: "input" %>
+      <% if @event.errors[:url].any? %>
+        <% @event.errors.full_messages_for(:url).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input-container">
+      <%= f.label :description %>
+      <%= f.rich_textarea :description,class: "input"%>
+    </div>
+
+    <div class="input-container">
+      <%= f.label :logo %>
+      <%= f.file_field :logo %>
+      <% if @event.errors[:logo].any? %>
+        <% @event.errors.full_messages_for(:logo).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input-container">
+      <%= f.label :banner %>
+      <%= f.file_field :banner %>
+      <% if @event.errors[:banner].any? %>
+        <% @event.errors.full_messages_for(:banner).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input-container">
+      <%= f.label :categories %>
+      <div>
+        <%= f.collection_checkboxes :category_ids, Category.all, :id, :name %>
+      </div>
+      <% if @event.errors[:categories].any? %>
+        <% @event.errors.full_messages_for(:categories).each do |e| %>
+          <span><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= f.submit 'Criar', class: 'form_button' %>
+  <% end %>
+</div>
