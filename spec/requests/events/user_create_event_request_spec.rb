@@ -8,7 +8,7 @@ describe 'Usuario cria um evento' do
     expect(response).to have_http_status :found
   end
 
-  it 'e falha por não ter enviado dados entriado' do
+  it 'e falha por não ter enviado dados necessários' do
     user = FactoryBot.create(:user)
 
     login_as user
