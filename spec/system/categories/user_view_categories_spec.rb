@@ -15,7 +15,7 @@ describe 'Usuário vê as categorias' do
     visit root_path
 
     expect(page).not_to have_content('Categorias')
-    expect(current_path).to eq root_path
+    expect(current_path).to eq dashboard_path
   end
 
   it 'com sucesso' do

@@ -14,7 +14,7 @@ describe 'Usuário cadastra categorias' do
 
     get(new_category_path)
 
-    expect(response).to redirect_to root_path
+    expect(response).to redirect_to dashboard_path
     expect(response.status).to eq 302
     follow_redirect!
     expect(response.body).to include('Você não tem autorização para acessar essa página.')

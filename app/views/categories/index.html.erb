@@ -1,13 +1,19 @@
-<h1>Lista de Categorias</h1>
+<div class="flex items-center justify-between mb-10">
+  <h1>Lista de Categorias</h1>
+
+  <% if user_signed_in? %>
+    <h3><%= link_to 'Nova Categoria', new_category_path, class: 'outline_button' %></h3>
+  <% end %>
+</div>
 
 <% if @categories.any? %>
-  <% @categories.each do |category| %>
-    <h2><%= category.name %></h2>
+  <% @categories.each_with_index do |category, index| %>
+    <% if index.odd?  %>
+      <h2 class="border-l-4 border-primaryLight pl-4 py-2 text-textPrimary"><%= category.name %></h2>
+    <% else  %>
+      <h2 class="border-l-4 border-primary pl-4 py-2 text-textPrimary"><%= category.name %></h2>
+    <% end  %>
   <% end %>
 <% else %>
   <h2>Nenhuma categoria cadastrada</h2>
-<% end %>
-
-<% if user_signed_in? %>
-  <h3><%= link_to 'Nova Categoria', new_category_path %></h3>
 <% end %>

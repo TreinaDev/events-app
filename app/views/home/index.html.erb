@@ -1,6 +1,15 @@
-<h1>Olá mundo</h1>
+<section class="grid grid-cols-2 gap-10 border-4 rounded-xl border-primary overflow-hidden">
+  <div class="py-12 pl-12 flex flex-col justify-around">
+    <h1 class="text-4xl">Transforme suas ideias em eventos incríveis de tecnologia com a <span class="underline underline-offset-4 decoration-primaryLight">E-ventos!</span></h1>
+    <h2 class="text-3xl">Cadastre-se e comece a criar eventos agora</h2>
 
-<div data-controller="home">
-  <button data-action="click->home#helloWorld">Ver mensagem</button>
-  <div data-home-target="result"></div>
-</div>
+    <div class="grid grid-cols-2 gap-4 mt-12">
+      <%= link_to "Entrar", new_user_session_path, class: 'form_button' %>
+      <%= link_to "Criar Conta", new_user_registration_path, class: 'outline_button' %>
+    </div>
+  </div>
+
+  <div>
+    <%= image_tag 'hero_image.jpg', class: 'h-full w-full object-cover' %>
+  </div>
+</section>
