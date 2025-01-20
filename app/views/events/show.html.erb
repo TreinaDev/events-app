@@ -7,10 +7,11 @@
   <p><%= Event.human_enum_name(:status, @event.status) %></p>
 </div>
 
-<% if @event.draft? %>
-  <%= button_to 'Publicar', publish_event_path(@event), method: :patch %>
-<% end %>
 
 <%= render layout: 'layouts/action_text/contents/content' do %>
   <%= @event.description %>
+<% end %>
+
+<% if @event.draft? %>
+  <%= button_to 'Publicar', publish_event_path(@event), method: :patch %>
 <% end %>

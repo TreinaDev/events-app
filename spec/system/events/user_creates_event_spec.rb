@@ -33,7 +33,7 @@ describe 'Usuário visita a tela de criacao de evento' do
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
     attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
     attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
-    find('trix-editor').set('<strong>test</strong>')
+    find('trix-editor').click.set('<strong>test</strong>')
     check 'Festa'
     check 'Palestra'
     click_on 'Criar'

@@ -3,7 +3,7 @@
     <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
   <% elsif current_user.role == "event_manager" %>
-    <%= link_to 'Meus eventos', events_path %>
+    <%= link_to 'Eventos', events_path %>
   <% end %>
 
   <div class="min-w-fit ml-12">
