@@ -16,7 +16,10 @@ class User < ApplicationRecord
   after_create :skip_email_verification_for_non_admin_users
 
   def after_confirmation
-    self.role = :admin if self.email.include? "@meuevento.com.br"
+    if self.email.include? "@meuevento.com.br"
+      self.role = :admin
+      self.verification_status = :verified
+    end
   end
 
   def registration_number_validation

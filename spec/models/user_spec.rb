@@ -53,11 +53,19 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'recebe um status padrão de não verificado' do
-    it 'quando criado' do
+  describe 'recebe um status' do
+    it 'padrão de não verificado quando criado' do
       user = build(:user)
 
       expect(user.verification_status).to eq("unverified")
+    end
+
+    it 'de verificado quando confirma sua conta de admin' do
+      user = build(:user, email: 'luan@meuevento.com.br')
+
+      user.confirm
+
+      expect(user.verification_status).to eq("verified")
     end
   end
 
