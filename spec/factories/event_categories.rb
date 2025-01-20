@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :event_category do
-    event { nil }
-    category { nil }
+    association :event
+    association :category
   end
 end
