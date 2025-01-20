@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  layout "dashboard"
   before_action :authenticate_user!
   before_action :authorize_event_access, only: [ :show, :publish ]
   before_action :set_event, only: [ :show, :publish ]
