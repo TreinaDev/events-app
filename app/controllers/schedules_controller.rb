@@ -1,7 +1,7 @@
 class SchedulesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :authorize_schedule_access, only: [ :edit ]
+  before_action :authorize_schedule_access, only: [ :edit, :update ]
   before_action :find_event, only: [ :new, :create, :edit, :update ]
 
   def new
