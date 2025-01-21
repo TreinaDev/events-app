@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      schedule:
+        one: Agenda
+        other: Agendas
+    attributes:
+      schedule:
+        start_date: Data de início
+        end_date: Data de fim
