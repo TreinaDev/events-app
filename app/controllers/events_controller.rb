@@ -33,6 +33,18 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    @event = current_user.events.find_by(id: params[:id])
+    if @event
+      @event.discard!
+      redirect_to events_path, notice: "Evento deletado com sucesso"
+    else
+      @events = current_user.events
+      flash.now[:alert] = "Evento não encontrado"
+      render :index, status: :not_found
+    end
+  end
+
   private
 
   def event_params

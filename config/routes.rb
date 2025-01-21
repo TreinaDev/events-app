@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :events, only: [ :index, :new, :create, :show ] do
+  resources :events, only: [ :index, :new, :create, :show, :destroy ] do
     patch :publish, on: :member
   end
 
