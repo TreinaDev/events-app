@@ -14,7 +14,7 @@ describe 'Usuário define horários de um evento' do
     login_as user
 
     visit root_path
-    click_on 'Meus eventos'
+    click_on 'Eventos'
     click_on "#{event.name}"
     click_on 'Definir data'
     within('#schedule-form') do
@@ -38,5 +38,21 @@ describe 'Usuário define horários de um evento' do
 
     expect(page).to have_content 'Data de início não pode ficar em branco'
     expect(page).to have_content 'Data de fim não pode ficar em branco'
+  end
+
+  it 'e falha quando a data de inicio vem depois da data de fim' do
+    user = FactoryBot.create(:user)
+    event = FactoryBot.create(:event, user: user)
+
+    login_as user
+
+    visit new_event_schedule_path(event)
+    within('#schedule-form') do
+      fill_in 'Data de início', with: (Time.now + 2.day).change(hour: 8, min: 0, sec: 0)
+      fill_in 'Data de fim', with: (Time.now + 1.day).change(hour: 8, min: 0, sec: 0)
+    end
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Data de início deve vir antes da data de fim'
   end
 end

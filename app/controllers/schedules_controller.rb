@@ -1,6 +1,7 @@
 class SchedulesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
+  before_action :authorize_schedule_access, only: [ :edit ]
   before_action :find_event, only: [ :new, :create, :edit, :update ]
 
   def new
@@ -31,6 +32,13 @@ class SchedulesController < ApplicationController
   end
 
   private
+
+  def authorize_schedule_access
+    @schedule = Schedule.find(params[:id])
+    unless @schedule.event.user == current_user
+      redirect_to root_path, alert: "Acesso não autorizado."
+    end
+  end
 
   def schedule_params
     params.require(:schedule).permit(:start_date, :end_date)
