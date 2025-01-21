@@ -1,0 +1,25 @@
+<%= form_with(model: [@event, @schedule], class: "form", html: { id: "schedule-form" }) do |f| %>
+  <div class="input_container">
+    <%= f.label :start_date %>
+    <%= f.datetime_local_field :start_date, class: "input" %>
+  </div>
+
+  <% if @schedule.errors[:start_date].any? %>
+    <% @schedule.errors.full_messages_for(:start_date).each do |e| %>
+      <span><%= e %></span>
+    <% end %>
+  <% end %>
+
+  <div class="input_container">
+    <%= f.label :end_date %>
+    <%= f.datetime_local_field :end_date, class: "input" %>
+  </div>
+
+  <% if @schedule.errors[:end_date].any? %>
+    <% @schedule.errors.full_messages_for(:end_date).each do |e| %>
+      <span><%= e %></span>
+    <% end %>
+  <% end %>
+
+  <%= f.submit "Salvar", class: "form_button" %>
+<% end %>
