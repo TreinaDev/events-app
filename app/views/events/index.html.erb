@@ -1,9 +1,16 @@
-<%= link_to 'Criar Evento', new_event_path %>
+<div>
+<%= link_to 'Criar Evento', new_event_path, class: 'button-primary'%>
+</div>
 
-<div class="mt-4 grid grid-cols-4">
+
+<div class="mt-4">
   <% if @events.any? %>
     <% @events.each do |e| %>
-      <p><%= link_to e.name, event_path(e) %></p>
+      <div class="flex justify-between items-center">
+        <h1><%= link_to e.name, event_path(e) %></h1>
+        <p><%= Event.human_enum_name(:status, e.status) %></p>
+      </div>
+      
     <% end %>
   <% else %>
     <p>Você não possui eventos cadastrados.</p>
