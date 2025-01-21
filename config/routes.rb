@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     patch :publish, on: :member
   end
 
+  resources :keywords, only: [ :new, :create ]
+
   resources :categories, only: [ :index, :new, :create ]
   get "dashboard" => "dashboard#index"
 end

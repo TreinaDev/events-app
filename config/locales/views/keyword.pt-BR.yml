@@ -1,0 +1,7 @@
+pt-BR:
+  keywords:
+    new:
+      title: 'Cadastrar Palavra-Chave'
+    create:
+      success: 'Palavra-Chave %{keyword} cadastrada com sucesso!'
+      failure: 'Erro ao cadastrar a Palavra-Chave.'
