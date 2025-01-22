@@ -1,7 +1,7 @@
 class SchedulesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :authorize_schedule_access, only: [ :edit, :update ]
+  before_action :authorize_schedule_access, only: [ :edit, :update, :show ]
   before_action :find_event, only: [ :new, :create, :edit, :update ]
 
   def new
@@ -35,6 +35,11 @@ class SchedulesController < ApplicationController
       flash.now[:alert] = "Não foi possível editar as datas."
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @schedule = Schedule.find_by(id: params[:id])
+    redirect_to root_path, alert: "Acesso não autorizado." if @schedule.nil?
   end
 
   private
