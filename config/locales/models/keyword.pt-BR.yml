@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      keyword:
+        one: Palavra-Chave
+        other: Palavra-Chaves
+    attributes:
+      keyword:
+        value: Palavra-Chave
