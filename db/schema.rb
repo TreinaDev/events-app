@@ -74,6 +74,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_194015) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 

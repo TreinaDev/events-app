@@ -5,10 +5,13 @@
 
 <div class="mt-4">
   <% if @events.any? %>
-    <% @events.each do |e| %>
-      <div class="flex justify-between items-center">
-        <h1><%= link_to e.name, event_path(e) %></h1>
-        <p><%= Event.human_enum_name(:status, e.status) %></p>
+    <% @events.kept.each do |e| %>
+      <div class="flex justify-between items-center card-body">
+        <div class="flex items-center gap-6">
+          <p><%= Event.human_enum_name(:status, e.status) %></p>
+          <h1><%= link_to e.name, event_path(e) %></h1>
+        </div>
+          <%= button_to 'Deletar', event_path(e), method: :delete, class: 'button-alert', data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar este evento"}%>
       </div>
       
     <% end %>
