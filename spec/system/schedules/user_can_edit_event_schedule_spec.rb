@@ -28,7 +28,8 @@ describe 'Usuário edita horários do evento' do
     visit root_path
     click_on 'Eventos'
     click_on "#{event.name}"
-    click_on 'Editar horário'
+    click_on 'Agenda'
+    click_on 'Editar data'
     fill_in 'Data de início', with: (Time.now + 3.day).change(hour: 8, min: 0, sec: 0)
     fill_in 'Data de fim', with: (Time.now + 4.day).change(hour: 8, min: 0, sec: 0)
     click_on 'Salvar'
