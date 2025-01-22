@@ -17,4 +17,11 @@ puts 'Criando dois eventos e amarrando as categorias...'
 FactoryBot.create(:event, name: 'Conferencia Ruby', event_type: :online, address: 'Sem endereço', participants_limit: 20, url: 'confruby.com.br', status: :draft, user: user, categories: [ ruby_category, programacao_category ])
 FactoryBot.create(:event, name: 'Conferencia JS', event_type: :inperson, address: 'Rua dos Computadores, 125', participants_limit: 30, url: 'confjs.com.br', status: :published, user: user, categories: [ javascript_category ])
 
+puts 'Criando palavras-chave...'
+backend_keyword = FactoryBot.create(:keyword, value: 'Backend')
+frontend_keyword = FactoryBot.create(:keyword, value: 'Frontend')
+FactoryBot.create(:keyword, value: 'Segurança')
+CategoryKeyword.create(category: ruby_category, keyword: backend_keyword)
+CategoryKeyword.create(category: javascript_category, keyword: frontend_keyword)
+
 puts 'Seeds aplicados com sucesso!'

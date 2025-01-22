@@ -3,7 +3,7 @@ pt-BR:
     models:
       keyword:
         one: Palavra-Chave
-        other: Palavra-Chaves
+        other: Palavras-Chave
     attributes:
       keyword:
         value: Palavra-Chave
