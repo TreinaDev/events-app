@@ -55,4 +55,17 @@ describe 'Usuário define horários de um evento' do
 
     expect(page).to have_content 'Data de início deve vir antes da data de fim'
   end
+
+  it 'e falha quando já possui uma agenda cadastrada' do
+    user = FactoryBot.create(:user)
+    event = FactoryBot.create(:event, user: user)
+    FactoryBot.create(:schedule, event: event)
+
+    login_as user
+
+    visit new_event_schedule_path(event)
+
+    expect(current_path).to eq event_path(event)
+    expect(page).to have_content 'Este evento já possui uma agenda cadastrada.'
+  end
 end

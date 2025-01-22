@@ -23,6 +23,10 @@
     @apply flex flex-col self-start w-2/3 gap-4 mt-10;
   }
 
+  .form_error {
+    @apply text-alert;
+  }
+
   .input {
     @apply border-2 border-primary transition-all duration-300 focus:outline-none focus:ring focus:ring-success focus:ring-offset-2 focus:ring-offset-backgroundWhite focus:border-success rounded p-2;
   }
