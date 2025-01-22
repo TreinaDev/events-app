@@ -1,9 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# readme md -> rails db:drop -> rails db:migrate -> rails db:seed
+puts 'Apagando todos os dados...'
+Category.destroy_all
+Event.destroy_all
+User.destroy_all
+
+puts 'Criando dois usuários...'
+FactoryBot.create(:user, :admin)
+user = FactoryBot.create(:user, name: 'Joao', family_name: 'Campus', registration_number: CPF.generate, email: 'joao@email.com', password: 'password123')
+
+puts 'Criando três categorias...'
+ruby_category = FactoryBot.create(:category, name: 'Ruby')
+programacao_category = FactoryBot.create(:category, name: 'Programação')
+javascript_category = FactoryBot.create(:category, name: 'JavaScript')
+
+puts 'Criando dois eventos e amarrando as categorias...'
+FactoryBot.create(:event, name: 'Conferencia Ruby', event_type: :online, address: 'Sem endereço', participants_limit: 20, url: 'confruby.com.br', status: :draft, user: user, categories: [ ruby_category, programacao_category ])
+FactoryBot.create(:event, name: 'Conferencia JS', event_type: :inperson, address: 'Rua dos Computadores, 125', participants_limit: 30, url: 'confjs.com.br', status: :published, user: user, categories: [ javascript_category ])
+
+puts 'Seeds aplicados com sucesso!'

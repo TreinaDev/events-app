@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :schedules, only: [ :new, :create, :edit, :update ]
   end
 
+  resources :keywords, only: [ :new, :create ]
+
   resources :categories, only: [ :index, :new, :create ]
   get "dashboard" => "dashboard#index"
 end

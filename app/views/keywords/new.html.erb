@@ -1,0 +1,12 @@
+<h1>Cadastrar Palavra-Chave</h1>
+
+<%= form_with model: @keyword do |f| %>
+  <div class="form">
+    <div class="input_container">
+      <%= f.label :value, class: 'input_label' %>
+      <%= f.text_field :value, class: 'input' %>
+    </div>
+
+    <%= f.submit "Cadastrar" %>
+  </div>
+<% end %>
