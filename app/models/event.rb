@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   has_rich_text :description
   has_many :event_categories
   has_many :categories, through: :event_categories
+  has_one :schedule
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
