@@ -19,7 +19,10 @@ describe 'Usuário tentar deletar evento' do
     login_as marcelo
     delete event_path(first_user_event)
 
-    expect(response).to have_http_status :not_found
-    expect(response.body).to include 'Evento não encontrado'
+
+    expect(response).to have_http_status :redirect
+    follow_redirect!
+    follow_redirect!
+    expect(response.body).to include 'Acesso não autorizado.'
   end
 end

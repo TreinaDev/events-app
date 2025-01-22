@@ -10,7 +10,9 @@ describe 'Usuário deleta um evento' do
     login_as user
     visit events_path
     within 'div.card-body', text: 'Introdução ao RoR' do
-      click_on 'Deletar'
+      accept_confirm do
+        click_on 'Deletar'
+      end
     end
 
     expect(page).to have_content 'Evento deletado com sucesso'

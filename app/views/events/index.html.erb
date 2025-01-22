@@ -11,7 +11,7 @@
           <p><%= Event.human_enum_name(:status, e.status) %></p>
           <h1><%= link_to e.name, event_path(e) %></h1>
         </div>
-          <%= button_to 'Deletar', event_path(e), method: :delete, class: 'button-alert'%>
+          <%= button_to 'Deletar', event_path(e), method: :delete, class: 'button-alert', data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar este evento"}%>
       </div>
       
     <% end %>
