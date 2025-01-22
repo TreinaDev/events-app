@@ -3,6 +3,7 @@
 
   <% if user_signed_in? %>
     <h3><%= link_to 'Nova Categoria', new_category_path, class: 'outline_button' %></h3>
+    <%= link_to '+ Palavra-Chave', new_keyword_path, class: 'outline_button' %>
   <% end %>
 </div>
 
