@@ -1,18 +1,36 @@
 <div class="flex items-center justify-between mb-10">
   <h1>Lista de Categorias</h1>
 
-  <% if user_signed_in? %>
-    <h3><%= link_to 'Nova Categoria', new_category_path, class: 'outline_button' %></h3>
+  <div class="flex gap-4">
+    <%= link_to '+ Categoria', new_category_path, class: 'outline_button' %>
     <%= link_to '+ Palavra-Chave', new_keyword_path, class: 'outline_button' %>
-  <% end %>
+  </div>
 </div>
 
 <% if @categories.any? %>
   <% @categories.each_with_index do |category, index| %>
     <% if index.odd?  %>
-      <h2 class="border-l-4 border-primaryLight pl-4 py-2 text-textPrimary"><%= category.name %></h2>
+      <%= link_to category_path(category), id: category.name, class: 'border-l-4 border-primaryLight pl-4 py-2 flex flex-col mb-3' do %>
+        <p class="text-xl font-bold text-primary"><%= category.name %></p>
+
+        <p class="font-light text-textSecondary">
+          <span class="font-semibold text-textPrimary">Palavras-Chave:</span>
+          <% category.keywords.each_with_index do |keyword, index| %>
+            <%= keyword.value %><%= ',' unless index == category.keywords.length - 1 %>
+          <% end %>
+        </p>
+      <% end %>
     <% else  %>
-      <h2 class="border-l-4 border-primary pl-4 py-2 text-textPrimary"><%= category.name %></h2>
+      <%= link_to category_path(category), id: category.name, class: 'border-l-4 border-primary pl-4 py-2 flex flex-col mb-3' do %>
+        <p class="text-xl font-bold text-primary"><%= category.name %></p>
+
+        <p class="font-light text-textSecondary">
+          <span class="font-semibold text-textPrimary">Palavras-Chave:</span>
+          <% category.keywords.each_with_index do |keyword, index| %>
+            <%= keyword.value %><%= ',' unless index == category.keywords.length - 1 %>
+          <% end %>
+        </p>
+      <% end %>
     <% end  %>
   <% end %>
 <% else %>

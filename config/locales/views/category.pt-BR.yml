@@ -7,5 +7,6 @@ pt-BR:
     create:
       success: 'Categoria adicionada com sucesso.'
       failure: 'Categoria não foi adicionada.'
-
- 
+    update:
+      success: 'Categoria atualizada com sucesso.'
+      failure: 'Categoria não foi atualizada.'

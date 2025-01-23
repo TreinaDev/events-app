@@ -7,7 +7,7 @@ describe 'Usuário cadastra as categorias' do
 
         visit root_path
         click_on 'Categorias'
-        click_on 'Nova Categoria'
+        click_on '+ Categoria'
         fill_in "Nome",	with: "Ruby"
         click_on 'Criar Categoria'
 
@@ -23,7 +23,7 @@ describe 'Usuário cadastra as categorias' do
 
         visit root_path
         click_on 'Categorias'
-        click_on 'Nova Categoria'
+        click_on '+ Categoria'
         fill_in "Nome",	with: ""
         click_on 'Criar Categoria'
 
@@ -39,7 +39,7 @@ describe 'Usuário cadastra as categorias' do
 
         visit root_path
         click_on 'Categorias'
-        click_on 'Nova Categoria'
+        click_on '+ Categoria'
         fill_in "Nome",	with: "Culinária"
         click_on 'Criar Categoria'
 

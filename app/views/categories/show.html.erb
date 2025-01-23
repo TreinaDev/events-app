@@ -1,0 +1,21 @@
+<h1><%= @category.name %></h1>
+
+<% if Keyword.all.length == 0 || @linked_keyword_ids.length == Keyword.all.length %>
+  <h3 class="mt-10 font-bold text-lg text-textPrimary">Não há palavras-chave disponíveis para associar.</h3>
+<% else %>
+  <h3 class="mt-10 font-bold text-lg text-textPrimary">Palavras-chave disponíveis</h3>
+
+  <%= form_with model: @category do |f| %>
+    <div class="form">
+      <div class="input_container">
+        <%= f.collection_checkboxes :keyword_ids, Keyword.where.not(id: @linked_keyword_ids), :id, :value do |box| %>
+          <%= box.label class: 'flex gap-2' do %>
+            <% box.check_box + box.text %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= f.submit 'Atualizar', class: 'form_button' %>
+    </div>
+  <% end %>
+<% end %>
