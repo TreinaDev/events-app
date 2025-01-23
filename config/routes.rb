@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   resources :events do
     patch :publish, on: :member
 
-    resources :schedules, only: [ :new, :create, :edit, :update ]
+    resources :schedules, only: [ :new, :create, :edit, :update, :show ]
   end
 
   resources :keywords, only: [ :new, :create ]
 
-  resources :categories, only: [ :index, :new, :create ]
+  resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
 
   namespace :api do

@@ -2,9 +2,11 @@
   <%= image_tag url_for(@event.logo) %>
 <% end %>
 
-<%= link_to 'Definir data', new_event_schedule_path(@event) %>
-
-<%= link_to 'Editar horário', edit_event_schedule_path(@event) %>
+<% if @event.schedule.nil? %>
+  <%= link_to 'Agenda', new_event_schedule_path(@event) %>
+<% else %>
+  <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule) %>
+<% end %>
 <div class="edit-event-button">
   <%= link_to 'Editar', edit_event_path(@event)%>
 </div>
