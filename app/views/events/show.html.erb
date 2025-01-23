@@ -5,6 +5,9 @@
 <%= link_to 'Definir data', new_event_schedule_path(@event) %>
 
 <%= link_to 'Editar horário', edit_event_schedule_path(@event) %>
+<div class="edit-event-button">
+  <%= link_to 'Editar', edit_event_path(@event)%>
+</div>
 
 <div class="flex gap-4">
   <p class="font-bold"><%= @event.name %></p>

@@ -79,6 +79,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_194015) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "keywords", force: :cascade do |t|
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["value"], name: "index_keywords_on_value", unique: true
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
@@ -86,13 +93,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_194015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_schedules_on_event_id"
-  end
-
-  create_table "keywords", force: :cascade do |t|
-    t.string "value", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["value"], name: "index_keywords_on_value", unique: true
   end
 
   create_table "users", force: :cascade do |t|
