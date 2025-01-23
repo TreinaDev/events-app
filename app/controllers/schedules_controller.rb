@@ -1,10 +1,14 @@
 class SchedulesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :authorize_schedule_access, only: [ :edit, :update ]
+  before_action :authorize_schedule_access, only: [ :edit, :update, :show ]
   before_action :find_event, only: [ :new, :create, :edit, :update ]
 
   def new
+    if @event.schedule.present?
+      return redirect_to event_path(@event), alert: "Este evento já possui uma agenda cadastrada."
+    end
+
     @schedule = @event.build_schedule
   end
 
@@ -14,6 +18,7 @@ class SchedulesController < ApplicationController
     if @schedule.save
       redirect_to @event, notice: "Datas cadastradas com sucesso."
     else
+      flash.now[:alert] = "Não foi possível criar a agenda."
       render :new, status: :unprocessable_entity
     end
   end
@@ -27,8 +32,14 @@ class SchedulesController < ApplicationController
     if @schedule.update(schedule_params)
       redirect_to @event, notice: "Datas editadas com sucesso."
     else
+      flash.now[:alert] = "Não foi possível editar as datas."
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @schedule = Schedule.find_by(id: params[:id])
+    redirect_to root_path, alert: "Acesso não autorizado." if @schedule.nil?
   end
 
   private

@@ -1,0 +1,8 @@
+<%= @schedule.event.name %>
+
+<%= link_to 'Editar data', edit_event_schedule_path(@schedule.event, @schedule) %>
+
+<div>
+  Data de início: <%= l(@schedule.start_date, format: '%d/%m/%Y %H:%M')%>
+  Data de fim: <%= l(@schedule.end_date, format: '%d/%m/%Y %H:%M')%>
+</div>
