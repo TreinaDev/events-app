@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   has_one_attached :banner
   has_rich_text :description
   has_many :event_categories
+  has_many :ticket_batches
   has_many :categories, through: :event_categories
   has_one :schedule
 

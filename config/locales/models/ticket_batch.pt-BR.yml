@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      ticket_batch:
+        one: Lote de Ingresso
+        other: Lotes de Ingresso
+    attributes:
+      ticket_batch:
+        name: Nome
+        tickets_limit: Limite de Ingressos
+        start_date: Data de Inicio
+        end_date: Data Final
+        ticket_price: Valor do Ingresso
+        discount_option: Opção de Desconto
+        discount_options:
+          no_discount: 'Sem Desconto'
+          student: 'Meia Estudante'
+          elderly: 'Meia Idoso'
+          disability: 'Meia PCD'

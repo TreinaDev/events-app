@@ -8,6 +8,8 @@
   <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule) %>
 <% end %>
 
+<%= link_to 'Lotes', event_ticket_batches_path(@event) %>
+
 <div class="flex gap-4">
   <p class="font-bold"><%= @event.name %></p>
   <p><%= Event.human_enum_name(:status, @event.status) %></p>
