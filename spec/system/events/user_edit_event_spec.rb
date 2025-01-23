@@ -62,4 +62,17 @@ describe 'Usuário tenta editar evento' do
       expect(page).not_to have_content 'Rails Brasil'
     end
   end
+
+  it 'e não está autenticado' do
+    user = create(:user)
+    category = create(:category, name: 'Tecnologia')
+    event = create(:event, user: user, name: 'Introdução ao RoR', categories: [ category ])
+
+    visit edit_event_path(event)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).not_to have_content 'Edição de evento'
+    expect(page).not_to have_content 'Introdução ao RoR'
+    expect(page).not_to have_content 'Tecnologia'
+  end
 end
