@@ -10,8 +10,8 @@ pt-BR:
         tickets_limit: Limite de Ingressos
         start_date: Data de Inicio
         end_date: Data Final
-        ticket_price: Valor do Ingresso
-        discount_option: Opção de Desconto
+        ticket_price: Valor do Ingresso (Preço Cheio)
+        discount_option: Opção de Desconto (Aplica o desconto automaticamente)
         discount_options:
           no_discount: 'Sem Desconto'
           student: 'Meia Estudante'
