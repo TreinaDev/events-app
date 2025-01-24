@@ -7,6 +7,9 @@
 <% else %>
   <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule) %>
 <% end %>
+<div class="edit-event-button">
+  <%= link_to 'Editar', edit_event_path(@event)%>
+</div>
 
 <div class="flex gap-4">
   <p class="font-bold"><%= @event.name %></p>

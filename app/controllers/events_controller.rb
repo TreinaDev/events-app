@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :set_event, only: [ :show, :publish, :destroy ]
-  before_action :authorize_event_access, only: [ :show, :publish, :destroy ]
+  before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
+  before_action :check_event_status, only: [ :update ]
 
   def index
     @events = current_user.events
@@ -26,6 +26,17 @@ class EventsController < ApplicationController
 
   def show; end
 
+  def edit; end
+
+  def update
+    if @event.update event_params
+      redirect_to @event, notice: "Evento atualizado com sucesso"
+    else
+      flash.now[:alert] = "Falha ao atualizar o Evento"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def publish
     @event.status = :published
     if @event.save
@@ -44,13 +55,16 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :address, :event_type, :participants_limit, :url, :logo, :banner, :description, category_ids: [])
   end
 
-  def set_event
-    @event = Event.find(params[:id])
-  end
-
   def authorize_event_access
+    @event = Event.find(params[:id])
     unless @event.user == current_user
       redirect_to root_path, alert: "Acesso não autorizado."
+    end
+  end
+
+  def check_event_status
+    if @event.published?
+      redirect_to @event, alert: "Não é possível atualizar evento publicado"
     end
   end
 end
