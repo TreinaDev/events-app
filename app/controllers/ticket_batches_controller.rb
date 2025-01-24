@@ -2,6 +2,7 @@ class TicketBatchesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
   before_action :set_event
+  before_action :check_manager_role
 
   def index
     @ticket_batches = @event.ticket_batches
