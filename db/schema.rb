@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -95,6 +95,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
     t.index ["value"], name: "index_keywords_on_value", unique: true
   end
 
+  create_table "schedule_items", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "responsible_name"
+    t.string "responsible_email"
+    t.integer "schedule_type"
+    t.integer "schedule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_schedule_items_on_schedule_id"
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
@@ -132,5 +146,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
   add_foreign_key "events", "users"
+  add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
 end

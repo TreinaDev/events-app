@@ -1,6 +1,8 @@
 class Schedule < ApplicationRecord
   belongs_to :event
 
+  has_many :schedule_items
+
   validates :start_date, :end_date, presence: true
   validate :validate_dates
 
