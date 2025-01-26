@@ -53,5 +53,15 @@ RSpec.describe TicketBatch, type: :model do
         expect(ticket_batch.ticket_price).to eq 500
       end
     end
+
+    context 'limitação automática' do
+      it 'quando supera limite de participantes do evento' do
+        create(:ticket_batch, tickets_limit: 20)
+        event = Event.last
+        ticket_batch = build(:ticket_batch, tickets_limit: 11, event: event)
+
+        expect(ticket_batch).not_to be_valid
+      end
+    end
   end
 end

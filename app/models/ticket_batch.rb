@@ -5,6 +5,7 @@ class TicketBatch < ApplicationRecord
 
   before_save :apply_discount
   before_save :set_end_date_if_blank
+  validate :check_capacity
 
   validates :name, :tickets_limit, :start_date, :ticket_price, :discount_option, presence: true
 
@@ -17,6 +18,16 @@ class TicketBatch < ApplicationRecord
   def apply_discount
     if self.discount_option != :no_discount
       self.ticket_price /= 2
+    end
+  end
+
+  def check_capacity
+    return if tickets_limit.nil? || event.participants_limit.nil?
+
+    total_tickets = event.ticket_batches.sum(&:tickets_limit)
+
+    if total_tickets + tickets_limit > event.participants_limit
+      errors.add(:tickets_limit, "não deve ultrapassar o limite do evento")
     end
   end
 end
