@@ -8,6 +8,7 @@ class TicketBatch < ApplicationRecord
   validate :check_capacity
 
   validates :name, :tickets_limit, :start_date, :ticket_price, :discount_option, presence: true
+  validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
 
   private
 

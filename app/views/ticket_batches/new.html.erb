@@ -1,9 +1,5 @@
 <h1>Criar Lote - <%= @event.name %></h1>
 
-<% @ticket_batch.errors.full_messages.each do |msg| %>
-  <p>- <%= msg %></p>
-<% end %>
-
 <%= form_with(model: [@event, @ticket_batch]) do |f| %>
   <div class="form">
     <div class="input_container">
