@@ -9,6 +9,7 @@
   <% else %>
     <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule), class: 'button-secondary'%>
   <% end %>
+  <%= link_to 'Lotes', event_ticket_batches_path(@event) %>
   <%= link_to 'Editar', edit_event_path(@event), class: 'button-secondary'%>
   </div>
 </div>

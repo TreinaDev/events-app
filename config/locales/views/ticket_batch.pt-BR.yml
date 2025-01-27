@@ -1,0 +1,12 @@
+pt-BR:
+  ticket_batches:
+    index:
+      title: 'Lotes de Ingresso'
+    new:
+      title: 'Criar Lote de Ingresso'
+    create:
+      success: 'Lote de Ingresso adicionado com sucesso.'
+      failure: 'Lote de Ingresso não foi adicionado.'
+    update:
+      success: 'Lote de Ingresso atualizado com sucesso.'
+      failure: 'Lote de Ingresso não foi atualizado.'

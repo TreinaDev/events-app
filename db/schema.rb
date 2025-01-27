@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_200057) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -104,6 +104,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
     t.index ["event_id"], name: "index_schedules_on_event_id"
   end
 
+  create_table "ticket_batches", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "tickets_limit", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.decimal "ticket_price", precision: 10, scale: 2, null: false
+    t.integer "discount_option"
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_ticket_batches_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -133,4 +146,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_194304) do
   add_foreign_key "event_categories", "events"
   add_foreign_key "events", "users"
   add_foreign_key "schedules", "events"
+  add_foreign_key "ticket_batches", "events"
 end

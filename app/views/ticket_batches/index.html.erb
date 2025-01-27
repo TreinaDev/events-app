@@ -1,0 +1,15 @@
+<div class="flex items-center justify-between mb-10">
+  <h1>Lotes de Ingresso - Evento: <%= @event.name %></h1>
+
+  <div class="flex gap-4">
+    <%= link_to '+ Lote', new_event_ticket_batch_path(@event), class: 'outline_button' %>
+  </div>
+</div>
+
+<% if @ticket_batches.any? %>
+  <% @ticket_batches.each do |batch| %>
+    <p><%= batch.name %></p>
+  <% end %>
+<% else %>
+  <h2>Nenhum Lote de Ingresso cadastrado</h2>
+<% end %>
