@@ -34,4 +34,16 @@ describe 'Usuário visualiza detalhes do evento' do
         expect(page).to have_content 'Evento publicado com sucesso.'
         expect(page).to have_content 'Publicado'
     end
+
+    it 'e consegue retornar para a pagina de eventos através do botão' do
+        user = FactoryBot.create(:user)
+        event = FactoryBot.create(:event, user: user)
+
+        login_as user
+
+        visit event_path(event)
+        click_on 'Voltar'
+
+        expect(current_path).to eq events_path
+    end
 end

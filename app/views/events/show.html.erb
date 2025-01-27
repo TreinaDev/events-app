@@ -1,25 +1,41 @@
-<% if @event.logo.attached? %>
-  <%= image_tag url_for(@event.logo) %>
-<% end %>
-
-<% if @event.schedule.nil? %>
-  <%= link_to 'Agenda', new_event_schedule_path(@event) %>
-<% else %>
-  <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule) %>
-<% end %>
-
-<%= link_to 'Lotes', event_ticket_batches_path(@event) %>
-
-<div class="flex gap-4">
-  <p class="font-bold"><%= @event.name %></p>
-  <p><%= Event.human_enum_name(:status, @event.status) %></p>
+<div class="edit-event-button flex justify-between">
+  <%= link_to 'Voltar', events_path, class: 'button-secondary'%>
+  <div class=" flex gap-4">
+    <% if @event.draft? %>
+    <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'button-secondary'%>
+  <% end %>
+  <% if @event.schedule.nil? %>
+    <%= link_to 'Agenda', new_event_schedule_path(@event), class: 'button-secondary'%>
+  <% else %>
+    <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule), class: 'button-secondary'%>
+  <% end %>
+  <%= link_to 'Lotes', event_ticket_batches_path(@event) %>
+  <%= link_to 'Editar', edit_event_path(@event), class: 'button-secondary'%>
+  </div>
 </div>
+
+
+<% if @event.banner.attached? %>
+  <img src="<%= url_for(@event.banner)%>" class="w-full h-64 object-fill">
+<% else %>
+  <div class='min-h-[5rem]'>
+
+  </div>
+<% end %>
+<div class=" w-[90%] mx-auto flex">
+  <% if @event.logo.attached? %>
+    <img src="<%= url_for(@event.logo)%>" class="h-36 object-contain relative bottom-[4rem] left-2">
+  <% end %>
+  <div class="flex items-center h-10 gap-4 mx-10 my-4">
+    <h2 class="font-bold"><%= @event.name %></h2>
+    <p><%= Event.human_enum_name(:status, @event.status) %></p>
+  </div>
+</div>
+
+
+  
 
 
 <%= render layout: 'layouts/action_text/contents/content' do %>
   <%= @event.description %>
-<% end %>
-
-<% if @event.draft? %>
-  <%= button_to 'Publicar', publish_event_path(@event), method: :patch %>
 <% end %>
