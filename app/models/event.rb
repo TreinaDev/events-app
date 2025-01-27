@@ -14,6 +14,7 @@ class Event < ApplicationRecord
   enum :event_type, [ :inperson, :online, :hybrid ]
 
   validates :name, :participants_limit, :url, :status, presence: true
+  validates :uuid, uniqueness: true
   validates :address, presence: true, if: -> { inperson? || hybrid? }
   validates :logo, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
   validates :banner, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
@@ -21,6 +22,7 @@ class Event < ApplicationRecord
   validate :should_have_at_least_one_category
 
   after_initialize :set_status, if: :new_record?
+  before_validation :generate_uuid
 
   private
 
@@ -37,6 +39,13 @@ class Event < ApplicationRecord
   end
 
   def should_have_at_least_one_category
-      errors.add(:categories, "deve ter ao menos uma categoria") if categories.empty?
+    errors.add(:categories, "deve ter ao menos uma categoria") if categories.empty?
+  end
+
+  def generate_uuid
+    loop do
+      self.uuid = SecureRandom.uuid
+      break unless self.class.exists?(uuid: uuid)
+    end
   end
 end

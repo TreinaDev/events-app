@@ -11,7 +11,8 @@ class Api::V1::EventsController < Api::V1::ApiController
         logo_url: event.logo.attached? ? url_for(event.logo) : nil,
         banner_url: event.banner.attached? ? url_for(event.banner) : nil,
         participants_limit: event.participants_limit,
-        event_owner: event.user.name
+        event_owner: event.user.name,
+        schedule: event.schedule.as_json(except: [ :created_at, :updated_at, :event_id, :id ])
       }
     end
     }
