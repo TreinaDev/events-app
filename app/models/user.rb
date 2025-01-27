@@ -21,6 +21,7 @@ class User < ApplicationRecord
     if self.email.include? "@meuevento.com.br"
       self.role = :admin
       self.verification_status = :verified
+      self.save!
     end
   end
 
