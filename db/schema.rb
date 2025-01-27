@@ -118,6 +118,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
     t.index ["event_id"], name: "index_schedules_on_event_id"
   end
 
+  create_table "ticket_batches", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "tickets_limit", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.decimal "ticket_price", precision: 10, scale: 2, null: false
+    t.integer "discount_option"
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_ticket_batches_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -148,4 +161,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
   add_foreign_key "events", "users"
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
+  add_foreign_key "ticket_batches", "events"
 end
