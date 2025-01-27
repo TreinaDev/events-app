@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      schedule_item:
+        one: Item de Agenda
+        other: Itens de Agenda
+    attributes:
+      schedule_item:
+        name: Nome
+        description: Descrição
+        start_time: Horário de Início
+        end_time: Horário de Término
+        schedule_type: Tipo da Atividade
+        responsible_name: Nome do Responsável
+        responsible_email: E-mail do Responsável
+        schedule: Agenda

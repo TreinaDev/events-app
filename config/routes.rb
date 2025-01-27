@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
     resources :ticket_batches, only: [ :index, :new, :create ]
 
-    resources :schedules, only: [ :new, :create, :edit, :update, :show ]
+    resources :schedules, only: [ :new, :create, :edit, :update, :show ] do
+      resources :schedule_items, as: :items, only: [ :new, :create ]
+    end
   end
 
   resources :keywords, only: [ :new, :create ]
