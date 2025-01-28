@@ -45,7 +45,7 @@ class Event < ApplicationRecord
   def generate_uuid
     loop do
       self.uuid = SecureRandom.uuid
-      break unless self.class.exists?(uuid: uuid)
+      break unless Event.where(uuid: uuid).exists?
     end
   end
 end

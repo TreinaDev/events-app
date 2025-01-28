@@ -92,11 +92,13 @@ RSpec.describe Event, type: :model do
     expect(event.uuid).not_to be_nil
   end
 
-  it 'deve ser um código único por evento' do
-    event1 = create(:event)
-    category = create(:category, name: 'Tecnologia')
-    event2 = build(:event, uuid: event1.uuid, categories: [ category ])
-    result = event2.valid?
-    expect(result).to be false
+  it 'Não deve criar um uuid igual ao existente' do
+    existing_uuid = SecureRandom.uuid
+    create(:event, uuid: existing_uuid)
+    category = create(:category, name: 'Pirâmide')
+    event = build(:event, categories: [ category ], uuid: existing_uuid)
+    event.valid?
+
+    expect(event.uuid).not_to eq(existing_uuid)
   end
 end
