@@ -8,7 +8,7 @@ describe 'Usuário visita a tela de criacao de evento' do
   end
 
   it 'e está autenticado' do
-    user = FactoryBot.create(:user)
+    user = create(:user)
 
     login_as user
 
@@ -17,8 +17,10 @@ describe 'Usuário visita a tela de criacao de evento' do
     expect(page).to have_content 'Cadastro de Evento'
   end
 
+
   it 'e cria um evento com sucesso', js: true do
     user = FactoryBot.create(:user)
+
     Category.create!(name: 'Festa')
     Category.create!(name: 'Palestra')
 
@@ -45,7 +47,7 @@ describe 'Usuário visita a tela de criacao de evento' do
   end
 
   it 'e não consegue criar um evento' do
-    user = FactoryBot.create(:user)
+    user = create(:user)
 
     login_as user
 

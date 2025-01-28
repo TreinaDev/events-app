@@ -9,9 +9,9 @@ describe 'Usuário edita uma agenda' do
   end
 
   it 'e falha pois não enviou dados necessários' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
-    schedule = FactoryBot.create(:schedule, event: event)
+    user = create(:user)
+    event = create(:event, user: user)
+    schedule = create(:schedule, event: event)
 
     login_as user
 
@@ -21,10 +21,10 @@ describe 'Usuário edita uma agenda' do
   end
 
   it 'e falha pois o evento é de outro usuário' do
-    user = FactoryBot.create(:user)
-    second_user = FactoryBot.create(:user, email: 'joao@email.com')
-    event = FactoryBot.create(:event, user: second_user)
-    schedule = FactoryBot.create(:schedule, event: event)
+    user = create(:user)
+    second_user = create(:user, email: 'joao@email.com')
+    event = create(:event, user: second_user)
+    schedule = create(:schedule, event: event)
 
     login_as user
 
@@ -38,9 +38,9 @@ describe 'Usuário edita uma agenda' do
   end
 
   it 'com sucesso' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
-    schedule = FactoryBot.create(:schedule, event: event)
+    user = create(:user)
+    event = create(:event, user: user)
+    schedule = create(:schedule, event: event)
 
     login_as user
 
