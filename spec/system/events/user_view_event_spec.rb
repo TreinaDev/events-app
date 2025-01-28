@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Usuário visualiza detalhes do evento' do
     it 'e não está autenticado' do
-        user = FactoryBot.create(:user)
-        event = FactoryBot.create(:event, user: user)
+        user = create(:user)
+        event = create(:event, user: user)
 
         visit event_path(event)
 
@@ -11,9 +11,9 @@ describe 'Usuário visualiza detalhes do evento' do
     end
 
     it 'e não consegue pois não é dono do evento' do
-        user = FactoryBot.create(:user)
-        second_user = FactoryBot.create(:user, email: 'joao@email.com')
-        event = FactoryBot.create(:event, user: user)
+        user = create(:user)
+        second_user = create(:user, email: 'joao@email.com')
+        event = create(:event, user: user)
 
         login_as second_user
 
@@ -23,8 +23,8 @@ describe 'Usuário visualiza detalhes do evento' do
     end
 
     it 'e publica o evento' do
-        user = FactoryBot.create(:user)
-        event = FactoryBot.create(:event, user: user)
+        user = create(:user)
+        event = create(:event, user: user)
 
         login_as user
 
@@ -36,8 +36,8 @@ describe 'Usuário visualiza detalhes do evento' do
     end
 
     it 'e consegue retornar para a pagina de eventos através do botão' do
-        user = FactoryBot.create(:user)
-        event = FactoryBot.create(:event, user: user)
+        user = create(:user)
+        event = create(:event, user: user)
 
         login_as user
 

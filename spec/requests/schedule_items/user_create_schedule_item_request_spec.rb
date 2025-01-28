@@ -21,8 +21,8 @@ describe 'Usuário cria um item de agenda' do
   end
 
   it 'e falha pois não é dono da agenda' do
-    user = FactoryBot.create(:user)
-    second_user = FactoryBot.create(:user, email: 'jose@email.com', registration_number: '30094462097')
+    user = create(:user)
+    second_user = create(:user, email: 'jose@email.com', registration_number: '30094462097')
     event = create(:event, user: user)
     schedule = create(:schedule, event: event)
 
