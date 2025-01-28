@@ -1,6 +1,6 @@
 class ScheduleItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_schedule, only: [ :new, :create ]
+  before_action :authorize_schedule_owner, only: [ :new, :create ]
 
   def new
     @schedule_item = @schedule.schedule_items.build
@@ -24,7 +24,11 @@ class ScheduleItemsController < ApplicationController
     params.require(:schedule_item).permit(:name, :description, :start_time, :end_time, :responsible_name, :responsible_email, :schedule_type)
   end
 
-  def find_schedule
+  def authorize_schedule_owner
     @schedule = Schedule.find(params[:schedule_id])
+
+    unless @schedule.event.user == current_user
+      redirect_to root_path, alert: "Acesso não autorizado."
+    end
   end
 end

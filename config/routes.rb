@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :events do
     patch :publish, on: :member
 
+    resources :ticket_batches, only: [ :index, :new, :create ]
+
     resources :schedules, only: [ :new, :create, :edit, :update, :show ] do
       resources :schedule_items, as: :items, only: [ :new, :create ]
     end
