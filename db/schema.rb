@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -116,6 +116,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_schedules_on_event_id"
+  end
+
+  create_table "speakers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_speakers_on_token", unique: true
   end
 
   create_table "ticket_batches", force: :cascade do |t|
