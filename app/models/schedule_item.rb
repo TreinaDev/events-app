@@ -12,7 +12,7 @@ class ScheduleItem < ApplicationRecord
   validate :end_time_must_be_before_schedule_end_date
   validate :no_time_conflict_with_other_items
 
-  after_create :create_speaker
+  after_create :create_speaker, if: -> { activity? }
 
   private
 
