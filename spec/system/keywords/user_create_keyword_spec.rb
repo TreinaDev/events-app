@@ -41,6 +41,6 @@ describe 'Usuário tenta criar uma palavra-chave' do
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Erro ao cadastrar a Palavra-Chave.'
-    expect(current_path).to eq new_keyword_path
+    expect(Keyword.count).to eq 0
   end
 end
