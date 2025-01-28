@@ -24,7 +24,7 @@ describe 'Usuario cria um evento' do
 
     login_as user
 
-    post events_path, params: { event: { name: 'Lollapalooza', event_type: :online, participants_limit: 30, url: 'http://Lollapalooza.com', category_ids: [ category.id ] } }
+    post events_path, params: { event: { name: 'Lollapalooza', event_type: :online, participants_limit: 30, url: 'http://Lollapalooza.com', category_ids: [ category.id ], start_date: 1.month.from_now.strftime('%Y-%m-%d'), end_date: 2.months.from_now.strftime('%Y-%m-%d') } }
 
     expect(response).to redirect_to event_path(Event.last)
     expect(response).to have_http_status :found

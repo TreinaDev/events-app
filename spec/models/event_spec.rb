@@ -59,6 +59,34 @@ RSpec.describe Event, type: :model do
       expect(event.errors).to include(:categories)
       expect(event).not_to be_valid
     end
+
+    it 'falso quando a data de início não está presente' do
+      event = FactoryBot.build(:event, start_date: '')
+      event.valid?
+
+      expect(event).not_to be_valid
+    end
+
+    it 'falso quando a data de fim não está presente' do
+      event = FactoryBot.build(:event, end_date: '')
+      event.valid?
+
+      expect(event).not_to be_valid
+    end
+
+    it 'falso quando a data de início do evento é anterior à data atual' do
+      event = FactoryBot.build(:event, start_date: 2.days.ago)
+      event.valid?
+
+      expect(event).not_to be_valid
+    end
+
+    it 'falso quando a data de fim do evento é anterior à data atual' do
+      event = FactoryBot.build(:event, end_date: 1.days.ago)
+      event.valid?
+
+      expect(event).not_to be_valid
+    end
   end
 
   it 'status deve ser "draft" por padrão' do
