@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_27_212754) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -84,8 +84,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_24_205708) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.string "uuid", null: false
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
+    t.index ["uuid"], name: "index_events_on_uuid"
   end
 
   create_table "keywords", force: :cascade do |t|
