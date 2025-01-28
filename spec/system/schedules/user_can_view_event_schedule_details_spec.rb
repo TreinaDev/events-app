@@ -50,4 +50,21 @@ describe 'Usuário vê detalhes da agenda do evento' do
 
     expect(current_path).to eq dashboard_path
   end
+
+  it 'usuário vê os itens da agenda' do
+    user = create(:user)
+    event = create(:event, user: user)
+    schedule = create(:schedule, event: event)
+    schedule_item = create(:schedule_item, schedule: schedule)
+
+    login_as user
+
+    visit event_schedule_path(event, schedule)
+
+    click_on I18n.l(schedule.start_date.to_date, format: :long)
+
+    expect(page).to have_content schedule_item.name
+    expect(page).to have_content schedule_item.start_time.strftime('%H:%M')
+    expect(page).to have_content schedule_item.end_time.strftime('%H:%M')
+  end
 end
