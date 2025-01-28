@@ -33,6 +33,8 @@ describe 'Usuário visita a tela de criacao de evento' do
     select 'Presencial', from: 'Tipo de evento'
     fill_in 'Limite de participantes', with: 30
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
+    fill_in 'Data de início', with: 1.month.from_now.strftime('%Y-%m-%d')
+    fill_in 'Data de fim', with: 3.months.from_now.strftime('%Y-%m-%d')
     attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
     attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
     find('trix-editor').click.set('<strong>test</strong>')
