@@ -5,16 +5,30 @@
 
 <div class="mt-4">
   <% if @events.any? %>
-    <% @events.kept.each do |e| %>
-      <div class="flex justify-between items-center card-body">
-        <div class="flex items-center gap-6">
-          <p><%= Event.human_enum_name(:status, e.status) %></p>
-          <h1><%= link_to e.name, event_path(e) %></h1>
-        </div>
-          <%= button_to 'Deletar', event_path(e), method: :delete, class: 'button-alert', data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar este evento"}%>
-      </div>
-      
-    <% end %>
+    <Table class="w-full text-left table-auto">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 border-b border-blue-gray-500">Status</th>
+          <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
+          <th class="px-4 py-2 border-b border-blue-gray-500">limite de participantes</th>
+          <th class="px-4 py-2 border-b border-blue-gray-500"></th>
+        </tr>
+        <tbody>
+           <% @events.kept.each do |e| %>
+            <tr>
+              <td class="px-4 py-2 border-b border-blue-gray-100"><%= Event.human_enum_name(:status, e.status) %></td>
+              <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.name %></td>
+              <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.participants_limit%></td>
+              <td class=" flex gap-4 px-4 py-2 border-b border-blue-gray-100 items-center">
+                <%= link_to 'Gerenciar', event_path(e), class: 'button-secondary m-0'%>
+                <%= button_to 'Deletar', event_path(e), method: :delete, class: 'button-alert m-0', data: {turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar este evento"}%>
+              </td>
+            </tr>
+           <% end %>
+        </tbody>
+      </thead>
+    </Table>
+  
   <% else %>
     <p>Você não possui eventos cadastrados.</p>
   <% end %>
