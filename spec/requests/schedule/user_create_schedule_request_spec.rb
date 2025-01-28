@@ -9,8 +9,8 @@ describe 'Usuário cria uma agenda' do
   end
 
   it 'e falha pois não enviou dados necessários' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
+    user = create(:user)
+    event = create(:event, user: user)
 
     login_as user
 
@@ -20,8 +20,8 @@ describe 'Usuário cria uma agenda' do
   end
 
   it 'e cria uma agenda com sucesso' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
+    user = create(:user)
+    event = create(:event, user: user)
 
     login_as user
 

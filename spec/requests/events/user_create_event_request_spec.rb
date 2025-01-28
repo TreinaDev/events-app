@@ -9,7 +9,7 @@ describe 'Usuario cria um evento' do
   end
 
   it 'e falha por não ter enviado dados necessários' do
-    user = FactoryBot.create(:user)
+    user = create(:user)
 
     login_as user
 
@@ -19,8 +19,8 @@ describe 'Usuario cria um evento' do
   end
 
   it 'e cria um evento com sucesso' do
-    user = FactoryBot.create(:user)
-    category = FactoryBot.create(:category)
+    user = create(:user)
+    category = create(:category)
 
     login_as user
 
