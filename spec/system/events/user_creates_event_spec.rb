@@ -17,8 +17,10 @@ describe 'Usuário visita a tela de criacao de evento' do
     expect(page).to have_content 'Cadastro de Evento'
   end
 
-  it 'e cria um evento com sucesso' do
-    user = create(:user)
+
+  it 'e cria um evento com sucesso', js: true do
+    user = FactoryBot.create(:user)
+
     Category.create!(name: 'Festa')
     Category.create!(name: 'Palestra')
 

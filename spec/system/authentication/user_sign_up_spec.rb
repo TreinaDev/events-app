@@ -55,7 +55,7 @@ describe 'Usuário tenta fazer cadastro' do
       click_on 'Criar Conta'
     end
 
-    expect(current_path).to eq new_user_registration_path
+    expect(User.count).to eq 0
     expect(page).to have_content 'Criar Minha Conta'
     expect(page).to have_content 'CPF Não é um CPF válido'
   end
