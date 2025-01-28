@@ -20,6 +20,8 @@ class Event < ApplicationRecord
   validates :start_date, :end_date, comparison: { greater_than: Time.now, message: "não pode ser depois da data atual" }
   validate :participants_limit_for_unverified_user
   validate :should_have_at_least_one_category
+  validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
+
 
   after_initialize :set_status, if: :new_record?
 

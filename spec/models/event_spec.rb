@@ -65,6 +65,7 @@ RSpec.describe Event, type: :model do
       event.valid?
 
       expect(event).not_to be_valid
+      expect(event.errors).to include(:start_date)
     end
 
     it 'falso quando a data de fim não está presente' do
@@ -72,6 +73,7 @@ RSpec.describe Event, type: :model do
       event.valid?
 
       expect(event).not_to be_valid
+      expect(event.errors).to include(:end_date)
     end
 
     it 'falso quando a data de início do evento é anterior à data atual' do
@@ -79,6 +81,7 @@ RSpec.describe Event, type: :model do
       event.valid?
 
       expect(event).not_to be_valid
+      expect(event.errors).to include(:start_date)
     end
 
     it 'falso quando a data de fim do evento é anterior à data atual' do
@@ -86,6 +89,15 @@ RSpec.describe Event, type: :model do
       event.valid?
 
       expect(event).not_to be_valid
+      expect(event.errors).to include(:end_date)
+    end
+
+    it 'falso quando a data de fim do evento é anterior à data de inicio' do
+      event = FactoryBot.build(:event, start_date: 2.days.from_now, end_date: 1.days.from_now)
+      event.valid?
+
+      expect(event).not_to be_valid
+      expect(event.errors).to include(:start_date)
     end
   end
 
