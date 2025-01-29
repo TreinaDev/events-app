@@ -51,12 +51,12 @@ RSpec.describe TicketBatch, type: :model do
     context 'atribuição automática' do
       it 'quando não é definida a data final' do
         event = create(:event,
-          start_date: (Time.now + 1.day).strftime('%Y-%m-%d'),
+          start_date: (Time.now + 1.day),
           end_date: (Time.now + 3.day).strftime('%Y-%m-%d')
         )
         ticket_batch = create(:ticket_batch, end_date: nil, event: event)
 
-        expect(ticket_batch.end_date).to eq event.start_date
+        expect(ticket_batch.end_date).to eq event.start_date.to_date
       end
 
       it 'quando não é definido um tipo de desconto' do

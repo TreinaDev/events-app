@@ -7,29 +7,7 @@
 </div>
 
 <div class="mt-4" data-controller="schedule">
-    <div class="flex flex-col gap-6">
-      <% (@schedule.start_date.to_date..@schedule.end_date.to_date).each do |date| %>
-        <button class="w-full text-left font-semibold text-lg py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded"
-        data-action="click->schedule#toggle"
-        data-day="<%= date %>">
-        <%= l(date, format: :long) %>
-
-        <div class="hidden mt-2 p-3 bg-gray-100 rounded" data-schedule-target="dayItems" data-day="<%= date %>">
-        <% items = @schedule_items.where(start_time: date.beginning_of_day..date.end_of_day).order(:start_time) %>
-        <% if items.any? %>
-          <ul>
-            <% items.each do |item| %>
-              <li class="border p-2 mb-2 rounded bg-white shadow-sm">
-                <strong><%= item.schedule_type == "activity" ? "Atividade" : "Intervalo" %>:</strong>
-                <%= item.name %> | 
-                <%= item.start_time.strftime("%H:%M") %> - <%= item.end_time.strftime("%H:%M") %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p class="text-gray-600">Nenhuma atividade programada para este dia.</p>
-        <% end %>
-      </div>
-      <% end %>
-    </div>
+  <%= @schedule_items.each do |item| %>
+    <p> <%= item.name %>
+  <% end %>
 </div>

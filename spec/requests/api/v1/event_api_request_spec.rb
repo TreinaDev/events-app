@@ -9,9 +9,10 @@ describe 'Event API' do
 
       event = build(
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30)
+        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
-      create(:schedule, event: event)
+
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
 
@@ -33,8 +34,8 @@ describe 'Event API' do
       expect(response.parsed_body['events'][0]['banner_url']).to eq url_for(event.banner)
       expect(response.parsed_body['events'][0]['participants_limit']).to eq event.participants_limit
       expect(response.parsed_body['events'][0]['event_owner']).to eq event.user.name
-      expect(response.parsed_body['events'][0]['schedule']['start_date']).to eq event.schedule.start_date.iso8601(3)
-      expect(response.parsed_body['events'][0]['schedule']['end_date']).to eq event.schedule.end_date.iso8601(3)
+      expect(response.parsed_body['events'][0]['start_date']).to eq event.start_date.iso8601(3)
+      expect(response.parsed_body['events'][0]['end_date']).to eq event.end_date.iso8601(3)
       expect(response.parsed_body['events']).not_to include(draft_event.name)
       expect(response.parsed_body['events']).not_to include(draft_event.address)
       expect(response.parsed_body['events']).not_to include(draft_event.description)
@@ -46,10 +47,10 @@ describe 'Event API' do
     it 'success' do
       user = create(:user)
       event = build(
-        :event, name: 'Formação de Desenvolvedores', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30)
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
+        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
-      create(:schedule, event: event)
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
 
@@ -67,8 +68,8 @@ describe 'Event API' do
       expect(response.parsed_body['banner_url']).to eq url_for(event.banner)
       expect(response.parsed_body['participants_limit']).to eq event.participants_limit
       expect(response.parsed_body['event_owner']).to eq event.user.name
-      expect(response.parsed_body['schedule']['start_date']).to eq event.schedule.start_date.iso8601(3)
-      expect(response.parsed_body['schedule']['end_date']).to eq event.schedule.end_date.iso8601(3)
+      expect(response.parsed_body['start_date']).to eq event.start_date.iso8601(3)
+      expect(response.parsed_body['end_date']).to eq event.end_date.iso8601(3)
     end
 
     it "and event doesn't exist" do
