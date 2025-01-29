@@ -1,14 +1,6 @@
-<%= @schedule.event.name %>
-
-<div>
-  Data de início: <%= l(@schedule.start_date, format: '%d/%m/%Y %H:%M')%>
-  Data de fim: <%= l(@schedule.end_date, format: '%d/%m/%Y %H:%M')%>
-</div>
+<h1><%= @schedule.event.name %> - Agenda do dia <%= l(@schedule.date.to_date, format: :short)%></h1>
 
 <div class="flex gap-4">
-  <%= link_to 'Editar data', edit_event_schedule_path(@schedule.event, @schedule),
-    class: 'button-primary'
-  %>
   <%= link_to 'Adicionar atividade', new_event_schedule_item_path(@schedule.event, @schedule),
     class: 'button-primary'
   %>

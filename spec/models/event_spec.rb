@@ -124,4 +124,10 @@ RSpec.describe Event, type: :model do
     expect(event.errors[:participants_limit]).to include 'do evento não pode ser maior que 30 para usuários não verificados'
     expect(event).not_to be_valid
   end
+
+  it 'deve criar automaticamente uma agenda para cada dia do evento' do
+    create(:event, start_date: 1.days.from_now, end_date: 3.days.from_now)
+
+    expect(Schedule.count).to eq 3
+  end
 end
