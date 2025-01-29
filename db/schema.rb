@@ -84,10 +84,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.string "uuid", null: false
     t.datetime "start_date"
     t.datetime "end_date"
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
+    t.index ["uuid"], name: "index_events_on_uuid"
   end
 
   create_table "keywords", force: :cascade do |t|
@@ -117,6 +119,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_schedules_on_event_id"
+  end
+
+  create_table "speakers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_speakers_on_token", unique: true
   end
 
   create_table "ticket_batches", force: :cascade do |t|

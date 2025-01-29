@@ -9,6 +9,8 @@ class ScheduleItem < ApplicationRecord
   validate :end_time_must_be_greater_than_start_time
   validate :no_time_conflict_with_other_items
 
+  after_create :create_speaker, if: -> { activity? }
+
   private
 
 
@@ -29,5 +31,9 @@ class ScheduleItem < ApplicationRecord
     if overlapping_items.exists?
       errors.add(:start_time, "não pode conflitar com horários de outros itens")
     end
+  end
+
+  def create_speaker
+    Speaker.create!(name: self.responsible_name, email: self.responsible_email)
   end
 end
