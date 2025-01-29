@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Event API' do
-  context 'Get /api/v1/events' do
+  context 'User sees events list' do
     it 'success' do
       user = create(:user)
 
@@ -42,10 +42,9 @@ describe 'Event API' do
     end
   end
 
-  context 'Get /api/v1/events/:id' do
+  context 'User sees Event details' do
     it 'success' do
       user = create(:user)
-      category = Category.create!(name: 'Palestra')
       event = build(
         :event, name: 'Formação de Desenvolvedores', user: user, status: 'published',
         address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30)
@@ -72,7 +71,7 @@ describe 'Event API' do
       expect(response.parsed_body['schedule']['end_date']).to eq event.schedule.end_date.iso8601(3)
     end
 
-    it 'success' do
+    it "and event doesn't exist" do
       get "/api/v1/events/WRONG_UUID"
 
       expect(response).to have_http_status :not_found
