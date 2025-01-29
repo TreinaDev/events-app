@@ -53,7 +53,7 @@ RSpec.describe TicketBatch, type: :model do
         schedule = create(:schedule, start_date: (Time.now + 1.day).change(hour: 8, min: 0, sec: 0).strftime('%Y-%m-%d'))
         ticket_batch = create(:ticket_batch, end_date: nil, event: schedule.event)
 
-        expect(ticket_batch.end_date).to eq schedule.start_date
+        expect(ticket_batch.end_date).to eq schedule.start_date.to_date
       end
 
       it 'quando não é definido um tipo de desconto' do

@@ -38,8 +38,12 @@ class SchedulesController < ApplicationController
   end
 
   def show
+    if @schedule.nil?
+      return redirect_to root_path, alert: "Acesso não autorizado."
+    end
+
     @schedule = Schedule.find_by(id: params[:id])
-    redirect_to root_path, alert: "Acesso não autorizado." if @schedule.nil?
+    @schedule_items = @schedule.schedule_items
   end
 
   private
