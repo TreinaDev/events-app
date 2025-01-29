@@ -14,6 +14,7 @@
             <th class="px-4 py-2 border-b border-blue-gray-500">quando</th>
             <th class="px-4 py-2 border-b border-blue-gray-500"></th>
           </tr>
+          </thead>
           <tbody>
             <% @events.kept.each do |e| %>
               <tr class="even:bg-gray-100">
@@ -25,14 +26,13 @@
                   <div class="flex gap-4 items-center">
                     <%= link_to 'Gerenciar', event_path(e), class: 'button-secondary m-0 bg-white' %>
                     <%= button_to event_path(e), method: :delete, class: 'bg-red-500 p-2 m-0 hover:bg-red-700 rounded', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{e.name}", test_id: "delete-#{e.id}" } do %>
-                      <%= bin_icon(class: 'h-6 w-6 fill-neutral-50') %>
+                      <img src="<%= asset_path('bin.svg')%>" class="h-6 w-6"/>
                     <% end %>
                   </div>
                 </td>
               </tr>
             <% end %>
           </tbody>
-        </thead>
       </table>
     
     <% else %>
