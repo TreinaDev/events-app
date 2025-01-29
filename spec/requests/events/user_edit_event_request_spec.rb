@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário edita evento' do
   it 'e falha pois não está autenticado' do
-    event = FactoryBot.create(:event)
+    event = create(:event)
 
     patch event_path(event)
 

@@ -45,7 +45,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.before(:each, type: :system) do
+  config.before(:each, type: :system, js: true) do
     driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
       headless: %w[0],
