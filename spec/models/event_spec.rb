@@ -124,4 +124,21 @@ RSpec.describe Event, type: :model do
     expect(event.errors[:participants_limit]).to include 'do evento não pode ser maior que 30 para usuários não verificados'
     expect(event).not_to be_valid
   end
+
+  it 'deve criar um uuid antes de salvar o evento' do
+    event = build(:event)
+    event.valid?
+
+    expect(event.uuid).not_to be_nil
+  end
+
+  it 'Não deve criar um uuid igual ao existente' do
+    existing_uuid = SecureRandom.uuid
+    create(:event, uuid: existing_uuid)
+    category = create(:category, name: 'Pirâmide')
+    event = build(:event, categories: [ category ], uuid: existing_uuid)
+    event.valid?
+
+    expect(event.uuid).not_to eq(existing_uuid)
+  end
 end
