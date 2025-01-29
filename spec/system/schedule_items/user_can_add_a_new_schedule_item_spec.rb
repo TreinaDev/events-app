@@ -19,8 +19,8 @@ describe 'Usuário adiciona um novo item de agenda' do
 
     fill_in 'Nome', with: 'Atividade 1'
     fill_in 'Descrição', with: 'Atividade 1'
-    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 10, min: 0).strftime('%m/%d/%Y %H:%M')
-    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 12, min: 0).strftime('%m/%d/%Y %H:%M')
+    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 10, min: 0).strftime('%Y-%m-%dT%H:%M')
+    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 12, min: 0).strftime('%Y-%m-%dT%H:%M')
     fill_in 'Nome do Responsável', with: 'Fulano'
     fill_in 'E-mail do Responsável', with: 'responsável@example.com'
     click_on 'Salvar'
@@ -47,8 +47,8 @@ describe 'Usuário adiciona um novo item de agenda' do
     choose 'Intervalo'
 
     fill_in 'Nome', with: 'Intervalo 1'
-    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 12, min: 0).strftime('%m/%d/%Y %H:%M')
-    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 13, min: 0).strftime('%m/%d/%Y %H:%M')
+    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 12, min: 0).strftime('%Y-%m-%dT%H:%M')
+    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 13, min: 0).strftime('%Y-%m-%dT%H:%M')
     click_on 'Salvar'
 
     expect(page).to have_content('Item criado com sucesso.')
@@ -88,14 +88,14 @@ describe 'Usuário adiciona um novo item de agenda' do
 
     visit new_event_schedule_item_path(event, schedule)
 
-    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 10, min: 0).strftime('%m/%d/%Y %H:%M')
-    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 8, min: 0).strftime('%m/%d/%Y %H:%M')
+    fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 10, min: 0).strftime('%Y-%m-%dT%H:%M')
+    fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 8, min: 0).strftime('%Y-%m-%dT%H:%M')
     click_on 'Salvar'
 
     expect(page).to have_content('Horário de Término deve ser depois do início')
   end
 
-  it 'e não vê os campos descrição, nome do responsável e e-mail do responsável ao adicionar um intervalo' do
+  it 'e não vê os campos descrição, nome do responsável e e-mail do responsável ao adicionar um intervalo', js: true do
     user = create(:user)
     event = create(:event, user: user)
     schedule = create(:schedule, event: event)

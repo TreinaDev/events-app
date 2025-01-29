@@ -8,8 +8,8 @@ describe 'Usuário define horários de um evento' do
   end
 
   it 'e cria uma agenda com sucesso' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
+    user = create(:user)
+    event = create(:event, user: user)
 
     login_as user
 
@@ -28,8 +28,8 @@ describe 'Usuário define horários de um evento' do
   end
 
   it 'e falha quando não informa a data de inicio ou data de fim' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
+    user = create(:user)
+    event = create(:event, user: user)
 
     login_as user
 
@@ -41,8 +41,8 @@ describe 'Usuário define horários de um evento' do
   end
 
   it 'e falha quando a data de inicio vem depois da data de fim' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
+    user = create(:user)
+    event = create(:event, user: user)
 
     login_as user
 
@@ -57,9 +57,9 @@ describe 'Usuário define horários de um evento' do
   end
 
   it 'e falha quando já possui uma agenda cadastrada' do
-    user = FactoryBot.create(:user)
-    event = FactoryBot.create(:event, user: user)
-    FactoryBot.create(:schedule, event: event)
+    user = create(:user)
+    event = create(:event, user: user)
+    create(:schedule, event: event)
 
     login_as user
 

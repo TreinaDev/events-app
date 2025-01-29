@@ -29,7 +29,7 @@ describe 'Usuário cadastra as categorias' do
 
         expect(page).to have_content('Nova Categoria')
         expect(page).to have_content('Nome não pode ficar em branco')
-        expect(current_path).to eq new_category_path
+        expect(Category.count).to eq 0
     end
 
     it 'e falha porque o nome já está cadastrado' do
@@ -45,6 +45,6 @@ describe 'Usuário cadastra as categorias' do
 
         expect(page).to have_content('O nome dessa categoria já está em uso')
         expect(page).to have_content('Categoria não foi adicionada.')
-        expect(current_path).to eq new_category_path
+        expect(Category.count).to eq 1
     end
 end

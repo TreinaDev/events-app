@@ -51,6 +51,26 @@
       </div>
 
       <div class="input_container">
+        <%= f.label :start_date, class: "input_label"%>
+        <%= f.datetime_local_field :start_date, class: "input" %>
+        <% if event.errors[:start_date].any? %>
+          <% event.errors.full_messages_for(:start_date).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="input_container">
+        <%= f.label :end_date, class: "input_label"%>
+        <%= f.datetime_local_field :end_date, class: "input" %>
+        <% if event.errors[:end_date].any? %>
+          <% event.errors.full_messages_for(:end_date).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="input_container">
         <%= f.label :description %>
         <%= f.rich_textarea :description,class: "input"%>
       </div>

@@ -6,14 +6,16 @@ pt-BR:
         other: Eventos
     attributes:
       event:
-        name: 'Nome'
-        address: 'Endereço'
-        participants_limit: 'Limite de participantes'
-        url: 'URL do evento'
-        event_type: 'Tipo de evento'
-        status: 'Status'
+        name: "Nome"
+        address: "Endereço"
+        participants_limit: "Limite de participantes"
+        url: "URL do evento"
+        event_type: "Tipo de evento"
+        status: "Status"
         statuses:
-          draft: 'Rascunho'
-          published: 'Publicado'
-        categories: 'Categorias'
-        description: 'Descrição'
+          draft: "Rascunho"
+          published: "Publicado"
+        categories: "Categorias"
+        description: "Descrição"
+        start_date: "Data de início"
+        end_date: "Data de fim"
