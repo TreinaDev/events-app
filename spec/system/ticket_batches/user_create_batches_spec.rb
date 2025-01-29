@@ -43,6 +43,6 @@ describe 'Usuário cria lotes' do
     expect(page).to have_content 'Lote de Ingresso não foi adicionado.'
     expect(page).to have_content 'Limite de Ingressos não deve ultrapassar o limite do evento'
     expect(page).to have_content 'Nome não pode ficar em branco'
-    expect(current_path).to eq new_event_ticket_batch_path(event)
+    expect(TicketBatch.count).to eq 0
   end
 end

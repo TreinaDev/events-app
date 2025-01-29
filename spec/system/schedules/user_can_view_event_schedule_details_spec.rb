@@ -16,7 +16,7 @@ describe 'Usuário vê detalhes da agenda do evento' do
 
     visit root_path
     click_on 'Eventos'
-    click_on event.name
+    click_on 'Gerenciar'
     click_on 'Agenda'
 
     expect(page).to have_content "Data de início: #{schedule.start_date.strftime('%d/%m/%Y %H:%M')}"
@@ -32,7 +32,7 @@ describe 'Usuário vê detalhes da agenda do evento' do
 
     visit root_path
     click_on 'Eventos'
-    click_on event.name
+    click_on 'Gerenciar'
     click_on 'Agenda'
 
     expect(current_path).to eq new_event_schedule_path(event)
