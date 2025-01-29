@@ -84,10 +84,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_182507) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.string "uuid", null: false
     t.datetime "start_date"
     t.datetime "end_date"
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
+    t.index ["uuid"], name: "index_events_on_uuid"
   end
 
   create_table "keywords", force: :cascade do |t|
