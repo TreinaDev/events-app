@@ -29,7 +29,7 @@ describe 'Event API' do
       expect(response.parsed_body['events'][0]['name']).to include(event.name)
       expect(response.parsed_body['events'][0]['address']).to include(event.address)
       expect(response.parsed_body['events'][0]['description']).to include(event.description.body.to_html)
-      expect(response.parsed_body['events'][0]['uuid']).to eq event.uuid
+      expect(response.parsed_body['events'][0]['code']).to eq event.code
       expect(response.parsed_body['events'][0]['logo_url']).to eq url_for(event.logo)
       expect(response.parsed_body['events'][0]['banner_url']).to eq url_for(event.banner)
       expect(response.parsed_body['events'][0]['participants_limit']).to eq event.participants_limit
@@ -56,14 +56,14 @@ describe 'Event API' do
 
       event.save
 
-      get "/api/v1/events/#{event.uuid}"
+      get "/api/v1/events/#{event.code}"
 
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['name']).to include(event.name)
       expect(response.parsed_body['address']).to include(event.address)
       expect(response.parsed_body['description']).to include(event.description.body.to_html)
-      expect(response.parsed_body['uuid']).to eq event.uuid
+      expect(response.parsed_body['code']).to eq event.code
       expect(response.parsed_body['logo_url']).to eq url_for(event.logo)
       expect(response.parsed_body['banner_url']).to eq url_for(event.banner)
       expect(response.parsed_body['participants_limit']).to eq event.participants_limit
@@ -73,7 +73,7 @@ describe 'Event API' do
     end
 
     it "and event doesn't exist" do
-      get "/api/v1/events/WRONG_UUID"
+      get "/api/v1/events/WRONG_CODE"
 
       expect(response).to have_http_status :not_found
       expect(response.content_type).to include('application/json')

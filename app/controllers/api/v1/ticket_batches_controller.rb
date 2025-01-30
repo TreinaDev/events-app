@@ -1,6 +1,6 @@
 class Api::V1::TicketBatchesController < Api::V1::ApiController
   def index
-    @event = Event.find_by(uuid: params[:event_uuid])
+    @event = Event.find_by(code: params[:event_code])
     render status: :ok, json: { ticket_batches: @event.ticket_batches.map do |ticket_batch|
       {
         name: ticket_batch.name,
@@ -15,7 +15,7 @@ class Api::V1::TicketBatchesController < Api::V1::ApiController
   end
 
   def show
-    @event = Event.find_by(uuid: params[:event_uuid])
+    @event = Event.find_by(code: params[:event_code])
     @ticket_batch = @event.ticket_batches.find_by(id: params[:id])
 
     return render status: :not_found, json: { error: "Ticket batch not found" } if @ticket_batch.nil?

@@ -8,7 +8,7 @@ describe 'Ticket Batch API' do
       create(:ticket_batch, name: 'Primeiro Lote', tickets_limit: 15, event: event)
       create(:ticket_batch, name: 'Segundo Lote', tickets_limit: 20, event: event)
 
-      get "/api/v1/events/#{event.uuid}/ticket_batches"
+      get "/api/v1/events/#{event.code}/ticket_batches"
 
       expect(response).to have_http_status :ok
       expect(response.content_type).to include('application/json')
@@ -32,7 +32,7 @@ describe 'Ticket Batch API' do
         discount_option: :student, event: event
       )
 
-      get "/api/v1/events/#{event.uuid}/ticket_batches/#{ticket_batch.id}"
+      get "/api/v1/events/#{event.code}/ticket_batches/#{ticket_batch.id}"
 
       expect(response).to have_http_status :ok
       expect(response.content_type).to include('application/json')
@@ -52,7 +52,7 @@ describe 'Ticket Batch API' do
       event = create(:event, user: user)
       create(:ticket_batch, name: 'Primeiro Lote', tickets_limit: 15, event: event)
 
-      get "/api/v1/events/#{event.uuid}/ticket_batches/WRONG_ID"
+      get "/api/v1/events/#{event.code}/ticket_batches/WRONG_ID"
 
       expect(response).to have_http_status :not_found
       expect(response.content_type).to include('application/json')
