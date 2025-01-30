@@ -15,7 +15,7 @@ describe 'Usuário define horários de um evento' do
 
     visit root_path
     click_on 'Eventos'
-    click_on "#{event.name}"
+    click_on "Gerenciar"
     click_on 'Agenda'
     within('#schedule-form') do
       fill_in 'Data de início', with: (Time.now + 1.day).change(hour: 8, min: 0, sec: 0)

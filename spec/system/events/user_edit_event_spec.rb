@@ -10,7 +10,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Eventos'
-      click_on 'Introdução ao RoR'
+      click_on 'Gerenciar'
       within '.edit-event-button' do
         click_on 'Editar'
       end
@@ -30,7 +30,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Eventos'
-      click_on 'Introdução ao RoR'
+      click_on 'Gerenciar'
       within '.edit-event-button' do
         click_on 'Editar'
       end
@@ -51,7 +51,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Eventos'
-      click_on 'Introdução ao RoR'
+      click_on 'Gerenciar'
       within '.edit-event-button' do
         click_on 'Editar'
       end
