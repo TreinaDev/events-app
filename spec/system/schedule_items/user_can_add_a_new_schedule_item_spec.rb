@@ -10,9 +10,6 @@ describe 'Usuário adiciona um novo item de agenda' do
     login_as user
 
     visit root_path
-    within 'nav' do
-      click_on 'Eventos'
-    end
     click_on 'Gerenciar'
     click_on 'Agenda'
     click_on 'Adicionar atividade'
@@ -37,9 +34,6 @@ describe 'Usuário adiciona um novo item de agenda' do
     login_as user
 
     visit root_path
-    within 'nav' do
-      click_on 'Eventos'
-    end
     click_on 'Gerenciar'
     click_on 'Agenda'
     click_on 'Adicionar atividade'

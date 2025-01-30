@@ -1,5 +1,5 @@
 <div class="edit-event-button flex justify-between">
-  <%= link_to 'Voltar', events_path, class: 'button-secondary'%>
+  <%= link_to 'Voltar', dashboard_path, class: 'button-secondary'%>
   <div class=" flex gap-4">
     <% if @event.draft? %>
     <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'button-secondary'%>

@@ -26,7 +26,6 @@ describe 'Usuário edita horários do evento' do
 
     login_as user
     visit root_path
-    click_on 'Eventos'
     click_on 'Gerenciar'
     click_on 'Agenda'
     click_on 'Editar data'

@@ -14,7 +14,6 @@ describe 'Usuário define horários de um evento' do
     login_as user
 
     visit root_path
-    click_on 'Eventos'
     click_on "Gerenciar"
     click_on 'Agenda'
     within('#schedule-form') do

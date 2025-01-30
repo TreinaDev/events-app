@@ -15,7 +15,6 @@ describe 'Usuário vê detalhes da agenda do evento' do
     login_as user
 
     visit root_path
-    click_on 'Eventos'
     click_on 'Gerenciar'
     click_on 'Agenda'
 
@@ -31,7 +30,6 @@ describe 'Usuário vê detalhes da agenda do evento' do
     login_as user
 
     visit root_path
-    click_on 'Eventos'
     click_on 'Gerenciar'
     click_on 'Agenda'
 
