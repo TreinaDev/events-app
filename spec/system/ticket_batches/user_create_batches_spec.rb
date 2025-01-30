@@ -7,7 +7,7 @@ describe 'Usuário cria lotes' do
     login_as user
 
     visit events_path
-    click_on 'Lollapalooza'
+    click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'
     fill_in 'Nome', with: 'Primeiro Lote'
@@ -29,7 +29,7 @@ describe 'Usuário cria lotes' do
     login_as user
 
     visit events_path
-    click_on 'Lollapalooza'
+    click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'
     fill_in 'Nome', with: ''

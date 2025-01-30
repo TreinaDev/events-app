@@ -3,16 +3,5 @@ class Schedule < ApplicationRecord
 
   has_many :schedule_items
 
-  validates :start_date, :end_date, presence: true
-  validate :validate_dates
-
-  private
-
-  def validate_dates
-    return unless start_date.present? && end_date.present?
-
-    if start_date >= end_date
-      errors.add(:start_date, "deve vir antes da data de fim")
-    end
-  end
+  validates :date, presence: true
 end

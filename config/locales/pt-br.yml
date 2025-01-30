@@ -3,63 +3,63 @@ pt-BR:
   activerecord:
     errors:
       messages:
-        record_invalid: 'A validação falhou: %{errors}'
+        record_invalid: "A validação falhou: %{errors}"
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente
           has_many: Não é possível excluir o registro pois existem %{record} dependentes
   date:
     abbr_day_names:
-    - dom
-    - seg
-    - ter
-    - qua
-    - qui
-    - sex
-    - sáb
+      - dom
+      - seg
+      - ter
+      - qua
+      - qui
+      - sex
+      - sáb
     abbr_month_names:
-    -
-    - jan
-    - fev
-    - mar
-    - abr
-    - mai
-    - jun
-    - jul
-    - ago
-    - set
-    - out
-    - nov
-    - dez
+      -
+      - jan
+      - fev
+      - mar
+      - abr
+      - mai
+      - jun
+      - jul
+      - ago
+      - set
+      - out
+      - nov
+      - dez
     day_names:
-    - domingo
-    - segunda-feira
-    - terça-feira
-    - quarta-feira
-    - quinta-feira
-    - sexta-feira
-    - sábado
+      - domingo
+      - segunda-feira
+      - terça-feira
+      - quarta-feira
+      - quinta-feira
+      - sexta-feira
+      - sábado
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
-      short: "%d de %B"
+      short: "%d/%m"
     month_names:
-    -
-    - janeiro
-    - fevereiro
-    - março
-    - abril
-    - maio
-    - junho
-    - julho
-    - agosto
-    - setembro
-    - outubro
-    - novembro
-    - dezembro
+      -
+      - janeiro
+      - fevereiro
+      - março
+      - abril
+      - maio
+      - junho
+      - julho
+      - agosto
+      - setembro
+      - outubro
+      - novembro
+      - dezembro
     order:
-    - :day
-    - :month
-    - :year
+      - :day
+      - :month
+      - :year
   datetime:
     distance_in_words:
       about_x_hours:
@@ -123,7 +123,7 @@ pt-BR:
       invalid: não é válido
       less_than: deve ser menor que %{count}
       less_than_or_equal_to: deve ser menor ou igual a %{count}
-      model_invalid: 'A validação falhou: %{errors}'
+      model_invalid: "A validação falhou: %{errors}"
       not_a_number: não é um número
       not_an_integer: não é um número inteiro
       odd: deve ser ímpar
@@ -132,19 +132,19 @@ pt-BR:
       required: é obrigatório(a)
       taken: já está em uso
       too_long:
-        one: 'é muito longo (máximo: %{count} caracter)'
-        other: 'é muito longo (máximo: %{count} caracteres)'
+        one: "é muito longo (máximo: %{count} caracter)"
+        other: "é muito longo (máximo: %{count} caracteres)"
       too_short:
-        one: 'é muito curto (mínimo: %{count} caracter)'
-        other: 'é muito curto (mínimo: %{count} caracteres)'
+        one: "é muito curto (mínimo: %{count} caracter)"
+        other: "é muito curto (mínimo: %{count} caracteres)"
       wrong_length:
         one: não possui o tamanho esperado (%{count} caracter)
         other: não possui o tamanho esperado (%{count} caracteres)
     template:
-      body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+      body: "Por favor, verifique o(s) seguinte(s) campo(s):"
       header:
-        one: 'Não foi possível gravar %{model}: %{count} erro'
-        other: 'Não foi possível gravar %{model}: %{count} erros'
+        one: "Não foi possível gravar %{model}: %{count} erro"
+        other: "Não foi possível gravar %{model}: %{count} erros"
   helpers:
     select:
       prompt: Por favor selecione
@@ -186,9 +186,9 @@ pt-BR:
           trillion:
             one: trilhão
             other: trilhões
-          unit: ''
+          unit: ""
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 3
         significant: true
         strip_insignificant_zeros: true
