@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :events, param: :uuid, only: [ :index, :show ]
-      resources :speakers, only: [ :create ]
+      resources :speakers, only: [ :create ], param: :token do
+        get "events", on: :member
+      end
     end
   end
 end

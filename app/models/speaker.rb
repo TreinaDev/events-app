@@ -1,7 +1,10 @@
 class Speaker < ApplicationRecord
-  validates :name, presence: true
-  validates :email, presence: true
-  validates :token, presence: true, uniqueness: true
+  has_many :schedule_items, foreign_key: "responsible_email", primary_key: "email"
+  has_many :schedules, through: :schedule_items
+  has_many :events, through: :schedules
+
+  validates :name, :token, :email, presence: true
+  validates :email, :token, uniqueness: true
 
   after_initialize :generate_unique_code, if: :new_record?
 
