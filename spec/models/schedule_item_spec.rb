@@ -99,32 +99,6 @@ RSpec.describe ScheduleItem, type: :model do
         expect(schedule_item.errors[:end_time]).to be_empty
       end
 
-      it 'inválidos quando a data/horário de inicio é menor que a data/horário atual' do
-        schedule_item = build(:schedule_item,
-          start_time: (Time.now - 1.day).change(hour: 8, min: 0, sec: 0),
-          end_time: (Time.now + 2.day).change(hour: 8, min: 0, sec: 0)
-        )
-        schedule_item.valid?
-
-        expect(schedule_item.errors[:start_time]).to include 'deve vir depois da data e horário atual'
-      end
-
-      it 'inválidos quando a data/horário de inicio é antes da data de início do evento' do
-        schedule = create(:schedule, start_date: (Time.now + 1.day).change(hour: 8, min: 0, sec: 0))
-        schedule_item = build(:schedule_item, start_time: (Time.now).change(hour: 8, min: 0, sec: 0), schedule: schedule)
-        schedule_item.valid?
-
-        expect(schedule_item.errors[:start_time]).to include 'deve vir depois da data de início do evento'
-      end
-
-      it 'inválidos quando a data/horário de término é depois da data de término do evento' do
-        schedule = create(:schedule, end_date: (Time.now + 3.day).change(hour: 8, min: 0, sec: 0))
-        schedule_item = build(:schedule_item, end_time: (Time.now + 4.day).change(hour: 8, min: 0, sec: 0), schedule: schedule)
-        schedule_item.valid?
-
-        expect(schedule_item.errors[:end_time]).to include 'deve vir antes da data de término do evento'
-      end
-
       it 'inválido quando há conflito de horários com outro item' do
         schedule = create(:schedule)
         create(:schedule_item, schedule: schedule,

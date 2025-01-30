@@ -13,7 +13,7 @@ class TicketBatch < ApplicationRecord
   private
 
   def set_end_date_if_blank
-    self.end_date ||= self.event.schedule.start_date
+    self.end_date ||= self.event.start_date
   end
 
   def apply_discount

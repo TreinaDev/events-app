@@ -12,7 +12,8 @@ class Api::V1::EventsController < Api::V1::ApiController
         banner_url: event.banner.attached? ? url_for(event.banner) : nil,
         participants_limit: event.participants_limit,
         event_owner: event.user.name,
-        schedule: event.schedule.as_json(except: [ :created_at, :updated_at, :event_id, :id ])
+        start_date: event.start_date,
+        end_date: event.end_date
       }
     end
     }
@@ -34,7 +35,8 @@ class Api::V1::EventsController < Api::V1::ApiController
       banner_url: event.banner.attached? ? url_for(event.banner) : nil,
       participants_limit: event.participants_limit,
       event_owner: event.user.name,
-      schedule: event.schedule.as_json(except: [ :created_at, :updated_at, :event_id, :id ])
+      start_date: event.start_date,
+      end_date: event.end_date
     }
   end
 end

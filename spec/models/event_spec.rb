@@ -125,6 +125,13 @@ RSpec.describe Event, type: :model do
     expect(event).not_to be_valid
   end
 
+
+  it 'deve criar automaticamente uma agenda para cada dia do evento' do
+    create(:event, start_date: 1.days.from_now, end_date: 3.days.from_now)
+
+    expect(Schedule.count).to eq 3
+  end
+
   it 'deve criar um uuid antes de salvar o evento' do
     event = build(:event)
     event.valid?

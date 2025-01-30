@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe 'Usuário adiciona um novo item de agenda' do
-  it 'adiciona uma atividade com sucesso' do
+  it 'adiciona uma atividade com sucesso', js: true do
     user = create(:user)
-    event = create(:event, user: user)
-    create(:schedule, event: event, start_date: (Time.now + 1.day).change(hour: 8, min: 0),
-    end_date: (Time.now + 3.day).change(hour: 18, min: 0))
+    event = create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
 
     login_as user
 
@@ -14,7 +12,7 @@ describe 'Usuário adiciona um novo item de agenda' do
       click_on 'Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Agenda'
+    click_on 2.days.from_now.strftime('%d/%m')
     click_on 'Adicionar atividade'
 
     fill_in 'Nome', with: 'Atividade 1'
@@ -30,9 +28,7 @@ describe 'Usuário adiciona um novo item de agenda' do
 
   it 'adiciona um intervalo com sucesso' do
     user = create(:user)
-    event = create(:event, user: user)
-    create(:schedule, event: event, start_date: (Time.now + 1.day).change(hour: 8, min: 0),
-    end_date: (Time.now + 3.day).change(hour: 18, min: 0))
+    event = create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
 
     login_as user
 
@@ -41,7 +37,7 @@ describe 'Usuário adiciona um novo item de agenda' do
       click_on 'Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Agenda'
+    click_on 2.days.from_now.strftime('%d/%m')
     click_on 'Adicionar atividade'
 
     choose 'Intervalo'
@@ -57,11 +53,10 @@ describe 'Usuário adiciona um novo item de agenda' do
   it 'e vê as mensagens de erro com campos em branco' do
     user = create(:user)
     event = create(:event, user: user)
-    schedule = create(:schedule, event: event)
 
     login_as user
 
-    visit new_event_schedule_item_path(event, schedule)
+    visit new_event_schedule_item_path(event, event.schedules.first)
 
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''
@@ -82,11 +77,10 @@ describe 'Usuário adiciona um novo item de agenda' do
   it 'e vê as mensagens de erro com horário de término menor que o horário de início' do
     user = create(:user)
     event = create(:event, user: user)
-    schedule = create(:schedule, event: event)
 
     login_as user
 
-    visit new_event_schedule_item_path(event, schedule)
+    visit new_event_schedule_item_path(event, event.schedules.first)
 
     fill_in 'Horário de Início', with: (Time.now + 2.day).change(hour: 10, min: 0).strftime('%Y-%m-%dT%H:%M')
     fill_in 'Horário de Término', with: (Time.now + 2.day).change(hour: 8, min: 0).strftime('%Y-%m-%dT%H:%M')
@@ -98,11 +92,10 @@ describe 'Usuário adiciona um novo item de agenda' do
   it 'e não vê os campos descrição, nome do responsável e e-mail do responsável ao adicionar um intervalo', js: true do
     user = create(:user)
     event = create(:event, user: user)
-    schedule = create(:schedule, event: event)
 
     login_as user
 
-    visit new_event_schedule_item_path(event, schedule)
+    visit new_event_schedule_item_path(event, event.schedules.first)
 
     choose 'Intervalo'
 

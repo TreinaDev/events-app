@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -114,8 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "date"
     t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

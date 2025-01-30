@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   has_many :event_categories
   has_many :ticket_batches
   has_many :categories, through: :event_categories
-  has_one :schedule
+  has_many :schedules
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
@@ -23,6 +23,7 @@ class Event < ApplicationRecord
   validate :participants_limit_for_unverified_user
   validate :should_have_at_least_one_category
 
+  after_create :set_schedules
 
   after_initialize :set_status, if: :new_record?
   before_validation :generate_uuid
@@ -49,6 +50,15 @@ class Event < ApplicationRecord
     loop do
       self.uuid = SecureRandom.uuid
       break unless Event.where(uuid: uuid).exists?
+    end
+  end
+
+  def set_schedules
+    formatted_start_date = self.start_date.to_date
+    formatted_end_date = self.end_date.to_date
+
+    (formatted_start_date..formatted_end_date).each do |date|
+      self.schedules.create(date: date)
     end
   end
 end
