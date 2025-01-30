@@ -79,7 +79,6 @@ RSpec.describe ScheduleItem, type: :model do
     end
 
     context 'datas e horários' do
-      # AQUI AMANHA
       it 'inválidos quando a data/horário de início é maior que a data/horário de término' do
         schedule_item = build(:schedule_item,
           start_time: (Time.now + 2.day).change(hour: 8, min: 0, sec: 0),
