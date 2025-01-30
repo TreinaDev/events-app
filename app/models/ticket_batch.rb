@@ -9,8 +9,16 @@ class TicketBatch < ApplicationRecord
 
   validates :name, :tickets_limit, :start_date, :ticket_price, :discount_option, presence: true
   validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
+  # validates :end_date, comparison: { less_than_or_equal_to: ->(ticket_batch) { ticket_batch.event.start_date }, message: "não pode ser depois da data de início do evento", if: -> { event.present? }  }
+  validate :end_date_before_event_start
 
   private
+
+  def end_date_before_event_start
+    if end_date.present? && event.present? && end_date > event.start_date
+      errors.add(:end_date, "deve ser anterior à data de início do evento")
+    end
+  end
 
   def set_end_date_if_blank
     self.end_date ||= self.event.start_date
