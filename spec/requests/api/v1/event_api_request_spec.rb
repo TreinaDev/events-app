@@ -56,6 +56,8 @@ describe 'Event API' do
 
       event.save
 
+      ticket_batch = create(:ticket_batch, event: event)
+
       get "/api/v1/events/#{event.code}"
 
       expect(response).to have_http_status :success
@@ -70,6 +72,9 @@ describe 'Event API' do
       expect(response.parsed_body['event_owner']).to eq event.user.name
       expect(response.parsed_body['start_date']).to eq event.start_date.iso8601(3)
       expect(response.parsed_body['end_date']).to eq event.end_date.iso8601(3)
+      expect(response.parsed_body['ticket_batches'][0]['name']).to eq ticket_batch.name
+      expect(response.parsed_body['ticket_batches'][0]['ticket_price'].to_f).to eq (ticket_batch.ticket_price)
+      expect(response.parsed_body['ticket_batches'][0]['code']).to eq ticket_batch.code
     end
 
     it "and event doesn't exist" do
