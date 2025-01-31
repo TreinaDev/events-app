@@ -69,8 +69,8 @@ describe 'Usuário cadastra lote de ingresso' do
         { ticket_batch:
           { name: 'Primeiro Lote',
             tickets_limit: 30,
-            start_date: 3.days.from_now.strftime('%Y-%m-%d'),
-            end_date: 3.months.from_now.strftime('%Y-%m-%d'),
+            start_date: 1.week.from_now.strftime('%Y-%m-%d'),
+            end_date: 3.weeks.from_now.strftime('%Y-%m-%d'),
             ticket_price: 1000,
             discount_option: :student
             }

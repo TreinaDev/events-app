@@ -20,13 +20,20 @@ programacao_category = FactoryBot.create(:category, name: 'Programação')
 javascript_category = FactoryBot.create(:category, name: 'JavaScript')
 
 puts 'Criando tres eventos e amarrando as categorias...'
-ruby_event = FactoryBot.create(:event, name: 'Conferencia Ruby', event_type: :online, address: 'Sem endereço', participants_limit: 20, url: 'confruby.com.br', status: :draft, user: user, categories: [ ruby_category, programacao_category ], start_date: 3.days.from_now, end_date: 5.days.from_now)
-javascript_event = FactoryBot.create(:event, name: 'Conferencia JS', event_type: :inperson, address: 'Rua dos Computadores, 125', participants_limit: 30, url: 'confjs.com.br', status: :published, user: user, categories: [ javascript_category ], start_date: 3.days.from_now, end_date: 5.days.from_now)
-event = FactoryBot.create(:event, name: 'Tropical on Rails 2025', event_type: :hybrid, address: 'Auditório Hotel Pullman - Vila Olímpia, São Paulo - SP', participants_limit: 30, url: 'www.evento.com', status: :published, user: user, categories: [ ruby_category ], description: "O Tropical on Rails 2025 é a Conferência Latam de Rails e tem como objetivo fortalecer a comunidade de Rails da América Latina para que ela continue sendo uma parte integral do presente e do futuro do Ruby on Rails. O que antes era bom como Tropical.rb agora ficou melhor ainda sendo Tropical On Rails, nossa estrutura também cresceu e nessa edição vamos ter 700 com palestrantes incríveis estarão no nosso palco: Xavier Noria, Chris Oliver, Rosa Gutiérrez, Irina Nazarova, Rafael França, Vinicius Stock e muitos outros.", start_date: 3.days.from_now, end_date: 5.days.from_now)
+ruby_event = FactoryBot.create(:event, name: 'Conferencia Ruby', event_type: :online, address: 'Sem endereço', participants_limit: 20, url: 'confruby.com.br', status: :draft, user: user, categories: [ ruby_category, programacao_category ], start_date: 2.weeks.from_now, end_date: 3.weeks.from_now, description: 'Um evento maneiro de Ruby')
+ruby_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/ruby.png')), filename: 'ruby.png')
 sleep(5)
-event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo.jpg')), filename: 'logo.jpg')
+ruby_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_ruby.png')), filename: 'banner_ruby.png')
+
+javascript_event = FactoryBot.create(:event, name: 'Conferencia JS', event_type: :inperson, address: 'Rua dos Computadores, 125', participants_limit: 30, url: 'confjs.com.br', status: :published, user: user, categories: [ javascript_category ], start_date: 2.weeks.from_now, end_date: 3.weeks.from_now, description: 'Um evento maneiro de Java escrito')
+javascript_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/javascript.png')), filename: 'javascript.png')
 sleep(5)
-event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner.png')), filename: 'banner.png')
+javascript_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_javascript.png')), filename: 'banner_javascript.png')
+
+tropical_event = FactoryBot.create(:event, name: 'Tropical on Rails 2025', event_type: :hybrid, address: 'Auditório Hotel Pullman - Vila Olímpia, São Paulo - SP', participants_limit: 30, url: 'www.evento.com', status: :published, user: user, categories: [ ruby_category ], start_date: 2.weeks.from_now, end_date: 3.weeks.from_now, description: "O Tropical on Rails 2025 é a Conferência Latam de Rails e tem como objetivo fortalecer a comunidade de Rails da América Latina para que ela continue sendo uma parte integral do presente e do futuro do Ruby on Rails. O que antes era bom como Tropical.rb agora ficou melhor ainda sendo Tropical On Rails, nossa estrutura também cresceu e nessa edição vamos ter 700 com palestrantes incríveis estarão no nosso palco: Xavier Noria, Chris Oliver, Rosa Gutiérrez, Irina Nazarova, Rafael França, Vinicius Stock e muitos outros.")
+tropical_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo.jpg')), filename: 'logo.jpg')
+sleep(5)
+tropical_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner.png')), filename: 'banner.png')
 
 puts 'Criando palavras-chave...'
 backend_keyword = FactoryBot.create(:keyword, value: 'Backend')
@@ -39,11 +46,8 @@ puts 'Criando lotes de ingresso...'
 FactoryBot.create(:ticket_batch, event: ruby_event)
 FactoryBot.create(:ticket_batch, event: javascript_event)
 
-puts 'Criando agenda...'
-schedule = FactoryBot.create(:schedule)
-
 puts 'Criando itens de agenda...'
-FactoryBot.create(:schedule_item, schedule: schedule)
-FactoryBot.create(:schedule_item, schedule: schedule, name: 'Palestra 2', start_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 11, min: 0, sec: 0), responsible_name: 'João', responsible_email: 'joao@email.com')
+FactoryBot.create(:schedule_item, schedule: tropical_event.schedules.first)
+FactoryBot.create(:schedule_item, schedule: tropical_event.schedules.first, name: 'Segunda Paletra', description: 'Palestra sobre Rails', start_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 11, min: 0, sec: 0), responsible_name: 'Marcos', responsible_email: 'marcos@email.com')
 
 puts 'Seeds aplicados com sucesso!'

@@ -38,6 +38,11 @@ class EventsController < ApplicationController
   end
 
   def publish
+    unless @event.banner.attached? && @event.logo.attached?
+      flash.now[:alert] = "Banner e Logo são obrigatórios ao publicar um Evento."
+      return render :show, status: :unprocessable_entity
+    end
+
     @event.status = :published
     if @event.save
       redirect_to @event, notice: "Evento publicado com sucesso."
