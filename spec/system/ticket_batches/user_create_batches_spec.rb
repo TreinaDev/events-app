@@ -6,7 +6,7 @@ describe 'Usuário cria lotes' do
     event = create(:event, user: user)
     login_as user
 
-    visit events_path
+    visit root_path
     click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'
@@ -25,10 +25,10 @@ describe 'Usuário cria lotes' do
 
   it 'e falha por informar dados inválidos' do
     user = create(:user)
-    event = create(:event, user: user, participants_limit: 20)
+    create(:event, user: user, participants_limit: 20)
     login_as user
 
-    visit events_path
+    visit root_path
     click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'

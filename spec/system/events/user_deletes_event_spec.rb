@@ -8,7 +8,7 @@ describe 'Usuário deleta um evento' do
     create(:event, name: 'CCXP', user: user, categories: [ category ])
 
     login_as user
-    visit events_path
+    visit root_path
     find("button[data-test-id='delete-#{event1.id}']").click
 
     expect(page).to have_content 'Evento deletado com sucesso'

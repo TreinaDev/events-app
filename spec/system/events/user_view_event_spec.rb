@@ -44,6 +44,6 @@ describe 'Usuário visualiza detalhes do evento' do
         visit event_path(event)
         click_on 'Voltar'
 
-        expect(current_path).to eq events_path
+        expect(current_path).to eq dashboard_path
     end
 end
