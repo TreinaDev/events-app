@@ -10,6 +10,8 @@ class TicketBatch < ApplicationRecord
   validates :name, :tickets_limit, :start_date, :ticket_price, :discount_option, presence: true
   validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
 
+  before_validation :generate_code
+
   private
 
   def set_end_date_if_blank
@@ -29,6 +31,13 @@ class TicketBatch < ApplicationRecord
 
     if total_tickets + tickets_limit > event.participants_limit
       errors.add(:tickets_limit, "não deve ultrapassar o limite do evento")
+    end
+  end
+
+  def generate_code
+    loop do
+      self.code = SecureRandom.alphanumeric(8).upcase
+      break unless TicketBatch.where(code: code).exists?
     end
   end
 end

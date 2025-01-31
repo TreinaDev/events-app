@@ -4,7 +4,7 @@ class Api::V1::EventsController < Api::V1::ApiController
 
     render status: :ok, json: { events: @events.map do |event|
       {
-        uuid: event.uuid,
+        code: event.code,
         name: event.name,
         description: event.description.body ? event.description.body.to_html : "",
         address: event.address,
@@ -20,14 +20,14 @@ class Api::V1::EventsController < Api::V1::ApiController
   end
 
   def show
-    event = Event.published.find_by(uuid: params[:uuid])
+    event = Event.published.find_by(code: params[:code])
 
     unless event
       return render status: :not_found, json: { error: "Event not found" }
     end
 
     render status: :ok, json: {
-      uuid: event.uuid,
+      code: event.code,
       name: event.name,
       description: event.description.body ? event.description.body.to_html : "",
       address: event.address,
@@ -36,7 +36,8 @@ class Api::V1::EventsController < Api::V1::ApiController
       participants_limit: event.participants_limit,
       event_owner: event.user.name,
       start_date: event.start_date,
-      end_date: event.end_date
+      end_date: event.end_date,
+      ticket_batches: event.ticket_batches
     }
   end
 end
