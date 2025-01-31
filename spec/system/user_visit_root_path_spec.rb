@@ -8,4 +8,15 @@ describe 'Visitante abre a app', type: :system do
     expect(page).to have_link 'Entrar'
     expect(page).to have_link 'Criar Conta'
   end
+
+  context 'como administrador' do
+    it 'E não tem opção de criar evento' do
+      admin = create(:user, role: :admin)
+
+      login_as admin
+      visit root_path
+
+      expect(page).not_to have_link 'Criar evento'
+    end
+  end
 end

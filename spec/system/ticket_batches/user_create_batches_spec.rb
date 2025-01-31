@@ -25,7 +25,7 @@ describe 'Usuário cria lotes' do
 
   it 'e falha por informar dados inválidos' do
     user = create(:user)
-    event = create(:event, user: user, participants_limit: 20)
+    create(:event, user: user, participants_limit: 20)
     login_as user
 
     visit root_path

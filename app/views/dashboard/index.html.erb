@@ -1,5 +1,4 @@
-<h1>Home Page de Usuário</h1>
-
+<% if current_user.role == "event_manager"%>
 <div class="bg-white p-10 shadow-md rounded">
   <div>
     <%= link_to 'Criar Evento', new_event_path, class: 'button-primary'%>
@@ -42,3 +41,4 @@
     <% end %>
   </div>
 </div>
+<% end %>
