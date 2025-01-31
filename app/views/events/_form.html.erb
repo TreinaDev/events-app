@@ -1,117 +1,116 @@
 <%= form_with model: event do |f|%>
-    <div class="form" data-controller="event">
-      <div class="input_container">
-        <%= f.label :name %>
-        <%= f.text_field :name,class: "input"%>
-        <% if event.errors[:name].any? %>
-          <% event.errors.full_messages_for(:name).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
+  <div class="form" data-controller="event">
+    <div class="input_container">
+      <%= f.label :name, class: 'input_label' %>
+      <%= f.text_field :name, class: "input"%>
+      <% if event.errors[:name].any? %>
+        <% event.errors.full_messages_for(:name).each do |e| %>
+          <span class="form_error"><%= e %></span>
         <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :event_type, class: 'input-label'%>
-        <%= f.select :event_type, options_for_select([['Presencial', "inperson"], ['Online', "online"], ['Hibrido', "hybrid"]]), {class: "input"}, {data: {action:"change->event#handleLocation"}}%>
-        <% if event.errors[:event_type].any? %>
-          <% event.errors.full_messages_for(:event_type).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container" data-event-target="address">
-        <%= f.label :address%>
-        <%= f.text_field :address, class: "input"%>
-        <% if event.errors[:address].any? %>
-          <% event.errors.full_messages_for(:address).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :participants_limit %>
-        <%= f.number_field :participants_limit,class: "input"%>
-        <% if event.errors[:participants_limit].any? %>
-          <% event.errors.full_messages_for(:participants_limit).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :url %>
-        <%= f.text_field :url, class: "input" %>
-        <% if event.errors[:url].any? %>
-          <% event.errors.full_messages_for(:url).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :start_date, class: "input_label"%>
-        <%= f.datetime_local_field :start_date, class: "input" %>
-        <% if event.errors[:start_date].any? %>
-          <% event.errors.full_messages_for(:start_date).each do |e| %>
-            <span class="form_error"><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :end_date, class: "input_label"%>
-        <%= f.datetime_local_field :end_date, class: "input" %>
-        <% if event.errors[:end_date].any? %>
-          <% event.errors.full_messages_for(:end_date).each do |e| %>
-            <span class="form_error"><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :description %>
-        <%= f.rich_textarea :description,class: "input"%>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :logo %>
-        <%= f.file_field :logo %>
-        <% if event.errors[:logo].any? %>
-          <% event.errors.full_messages_for(:logo).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :banner %>
-        <%= f.file_field :banner %>
-        <% if event.errors[:banner].any? %>
-          <% event.errors.full_messages_for(:banner).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="input_container">
-        <%= f.label :categories %>
-        <div>
-          <%= f.collection_checkboxes(:category_ids, Category.all, :id, :name) do |b|%>
-            <%= b.label class: 'flex gap-2' do%>
-              <% b.check_box + b.text%>
-            <% end %>
-          <% end %>
-        </div>
-        <% if event.errors[:categories].any? %>
-          <% event.errors.full_messages_for(:categories).each do |e| %>
-            <span><%= e %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <%= f.submit button_message, class: 'form_button' %>
-      
+      <% end %>
     </div>
+
+    <div class="input_container">
+      <%= f.label :event_type, class: 'input_label'%>
+      <%= f.select :event_type, options_for_select([['Presencial', "inperson"], ['Online', "online"], ['Hibrido', "hybrid"]]), {}, { class: 'input', data: { action:"change->event#handleLocation" } } %>
+      <% if event.errors[:event_type].any? %>
+        <% event.errors.full_messages_for(:event_type).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container" data-event-target="address">
+      <%= f.label :address, class: 'input_label' %>
+      <%= f.text_field :address, class: "input"%>
+      <% if event.errors[:address].any? %>
+        <% event.errors.full_messages_for(:address).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :participants_limit, class: 'input_label' %>
+      <%= f.number_field :participants_limit,class: "input"%>
+      <% if event.errors[:participants_limit].any? %>
+        <% event.errors.full_messages_for(:participants_limit).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :url, class: 'input_label' %>
+      <%= f.text_field :url, class: "input" %>
+      <% if event.errors[:url].any? %>
+        <% event.errors.full_messages_for(:url).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :start_date, class: 'input_label' %>
+      <%= f.text_field :start_date, class: "input" %>
+      <% if event.errors[:start_date].any? %>
+        <% event.errors.full_messages_for(:start_date).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :end_date, class: 'input_label' %>
+      <%= f.text_field :end_date, class: "input" %>
+      <% if event.errors[:end_date].any? %>
+        <% event.errors.full_messages_for(:end_date).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :description, class: 'input_label' %>
+      <%= f.rich_textarea :description,class: "input"%>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :logo, class: 'input_label' %>
+      <%= f.file_field :logo %>
+      <% if event.errors[:logo].any? %>
+        <% event.errors.full_messages_for(:logo).each do |e| %>
+          <span class='form_error'><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :banner, class: 'input_label' %>
+      <%= f.file_field :banner %>
+      <% if event.errors[:banner].any? %>
+        <% event.errors.full_messages_for(:banner).each do |e| %>
+          <span class='form_error'><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :categories, class: 'input_label' %>
+      <%= f.collection_checkboxes(:category_ids, Category.all, :id, :name) do |b| %>
+        <div class="flex items-center gap-2">
+          <%= b.check_box class: "h-5 w-5 text-primary" %>
+          <%= b.label %>
+        </div>
+      <% end %>
+  
+      <% if event.errors[:categories].any? %>
+        <% event.errors.full_messages_for(:categories).each do |e| %>
+          <span class='form_error'><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= f.submit button_message, class: 'form_button' %>
+  </div>
 <% end %>

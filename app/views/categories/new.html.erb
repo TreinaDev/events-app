@@ -1,16 +1,18 @@
 <h1>Nova Categoria</h1>
 
-<% if(@category.errors.any?) %>
-    <h4>Verifique os problemas:</h4>
-    <% @category.errors.full_messages.each do |msg| %>
-        <%= msg %>
-    <% end %>
-<% end %>
-
 <%= form_with model: @category do |f| %>
-    <div class="form">
-    <%= f.label :name, class: 'input_label' %>
-    <%= f.text_field :name, class: 'input' %>
+  <div class="form">
+    <div class="input_container">
+      <%= f.label :name, class: 'input_label' %>
+      <%= f.text_field :name, class: 'input' %>
+
+      <% if @category.errors[:name].any? %>
+          <% @category.errors.full_messages_for(:name).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
 
     <%= f.submit 'Criar Categoria', class: 'form_button' %>
+  </div>
 <% end %>

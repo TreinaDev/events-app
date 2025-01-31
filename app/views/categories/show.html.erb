@@ -1,17 +1,18 @@
 <h1><%= @category.name %></h1>
 
 <% if Keyword.all.length == 0 %>
-  <h3 class="mt-10 font-bold text-lg text-textPrimary">Não há palavras-chave disponíveis para associar.</h3>
+  <h2 class="mt-10 font-bold text-lg text-textPrimary">Não há palavras-chave disponíveis para associar.</h2>
 <% else %>
-  <h3 class="mt-10 font-bold text-lg text-textPrimary">Palavras-chave disponíveis</h3>
+  <h2 class="mt-10 font-bold text-lg text-textPrimary">Palavras-chave disponíveis</h2>
 
   <%= form_with model: @category do |f| %>
     <div class="form">
       <div class="input_container">
         <%= f.collection_checkboxes :keyword_ids, Keyword.all, :id, :value do |box| %>
-          <%= box.label class: 'flex gap-2' do %>
-            <% box.check_box + box.text %>
-          <% end %>
+          <div class="flex items-center gap-2">
+            <%= box.check_box class: "h-5 w-5 text-primary" %>
+            <%= box.label %>
+          </div>
         <% end %>
       </div>
 
