@@ -16,9 +16,7 @@ describe 'Usuário vê lista de eventos' do
 
     login_as user
 
-    visit root_path
-    click_on 'Eventos'
-    click_on 'Gerenciar'
+    visit event_path(event)
     click_on 1.day.from_now.strftime('%d/%m')
 
     expect(page).to have_content('Palestra')
