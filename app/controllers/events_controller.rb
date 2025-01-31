@@ -4,10 +4,6 @@ class EventsController < ApplicationController
   before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
   before_action :check_event_status, only: [ :update ]
 
-  def index
-    @events = current_user.events
-  end
-
   def new
     @event = Event.new
   end
@@ -51,7 +47,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.discard!
-    redirect_to events_path, notice: "Evento deletado com sucesso"
+    redirect_to dashboard_path, notice: "Evento deletado com sucesso"
   end
 
   private

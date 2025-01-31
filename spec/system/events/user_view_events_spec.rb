@@ -9,11 +9,9 @@ describe 'Usuário visualiza eventos' do
 
     login_as user
     visit root_path
-    click_on 'Eventos'
 
     expect(page).to have_content 'ccxp'
     expect(page).to have_content 'Introdução ao RoR'
-    expect(current_path).to eq events_path
   end
 
   it 'e não está autenticado' do
@@ -24,7 +22,7 @@ describe 'Usuário visualiza eventos' do
 
     visit root_path
 
-    expect(page).not_to have_content 'Eventos'
+    expect(page).not_to have_content 'Introdução ao RoR'
   end
 
   it 'e não consegue visualizar os eventos do outro' do
@@ -36,10 +34,8 @@ describe 'Usuário visualiza eventos' do
 
     login_as marcelo
     visit root_path
-    click_on 'Eventos'
 
     expect(page).not_to have_content 'ccxp'
     expect(page).to have_content 'Introdução ao RoR'
-    expect(current_path).to eq events_path
   end
 end

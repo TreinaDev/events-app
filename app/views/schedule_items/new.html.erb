@@ -1,24 +1,25 @@
-<h2>Cadastro de Atividade</h2>
+<h1>Cadastro de Atividade - <%= @schedule.event.name %> - Dia <%= l(@schedule.date.to_date, format: :short)%></h1>
 
 <%= form_with model: [@schedule.event, @schedule_item] do |f| %>
-  <div class="form" data-controller="schedule-item">
-
+  <div class="form h-" data-controller="schedule-item">
     <div class="input_container">
-      <div class="flex gap-4 justify-center">
-        <div>
-          <%= f.radio_button :schedule_type, 'interval', data: { action: "change->schedule-item#toggleFields" } %>
+      <p class='input_label'>Tipo da Atividade</p>
+
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-2">
+          <%= f.radio_button :schedule_type, 'interval', data: { action: "change->schedule-item#toggleFields" }, class: 'text-primary h-[18px] w-[18px]' %>
           <%= f.label :schedule_type_interval, 'Intervalo' %>
         </div>
 
-        <div>
-          <%= f.radio_button :schedule_type, 'activity', data: { action: "change->schedule-item#toggleFields" }, checked: true %>
+        <div class="flex items-center gap-2">
+          <%= f.radio_button :schedule_type, 'activity', data: { action: "change->schedule-item#toggleFields" }, checked: true, class: 'text-primary h-[18px] w-[18px]' %>
           <%= f.label :schedule_type_activity, 'Atividade' %>
         </div>
       </div>
     </div>
 
     <div class="input_container">
-      <%= f.label :name %>
+      <%= f.label :name, class: 'input_label' %>
       <%= f.text_field :name, class: "input w-full" %>
       <% if @schedule_item.errors[:name].any? %>
         <% @schedule_item.errors.full_messages_for(:name).each do |e| %>
@@ -28,7 +29,7 @@
     </div>
 
     <div class="input_container" data-schedule-item-target="description">
-      <%= f.label :description %>
+      <%= f.label :description, class: 'input_label' %>
       <%= f.text_field :description, class: "input w-full" %>
       <% if @schedule_item.errors[:description].any? %>
         <% @schedule_item.errors.full_messages_for(:description).each do |e| %>
@@ -38,7 +39,7 @@
     </div>
 
     <div class="input_container">
-      <%= f.label :start_time %>
+      <%= f.label :start_time, class: 'input_label' %>
       <%= f.time_field :start_time, class: "input w-full" %>
       <% if @schedule_item.errors[:start_time].any? %>
         <% @schedule_item.errors.full_messages_for(:start_time).each do |e| %>
@@ -48,7 +49,7 @@
     </div>
 
     <div class="input_container">
-      <%= f.label :end_time %>
+      <%= f.label :end_time, class: 'input_label' %>
       <%= f.time_field :end_time, class: "input w-full" %>
       <% if @schedule_item.errors[:end_time].any? %>
         <% @schedule_item.errors.full_messages_for(:end_time).each do |e| %>
@@ -58,7 +59,7 @@
     </div>
 
     <div class="input_container" data-schedule-item-target="responsibleName">
-      <%= f.label :responsible_name %>
+      <%= f.label :responsible_name, class: 'input_label' %>
       <%= f.text_field :responsible_name, class: "input w-full" %>
       <% if @schedule_item.errors[:responsible_name].any? %>
         <% @schedule_item.errors.full_messages_for(:responsible_name).each do |e| %>
@@ -68,7 +69,7 @@
     </div>
 
     <div class="input_container" data-schedule-item-target="responsibleEmail">
-      <%= f.label :responsible_email %>
+      <%= f.label :responsible_email, class: 'input_label' %>
       <%= f.text_field :responsible_email, class: "input w-full" %>
       <% if @schedule_item.errors[:responsible_email].any? %>
         <% @schedule_item.errors.full_messages_for(:responsible_email).each do |e| %>

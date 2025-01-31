@@ -13,8 +13,8 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="flex gap-2">
-        <%= f.check_box :remember_me %>
+      <div class="flex gap-2 items-center">
+        <%= f.check_box :remember_me, class: 'text-primary h-5 w-5' %>
         <%= f.label :remember_me, class: 'input_label' %>
       </div>
     <% end %>

@@ -28,7 +28,7 @@ describe 'Usuário vê as categorias' do
     visit root_path
     click_on 'Categorias'
 
-    expect(page).to have_content('Lista de Categorias')
+    expect(page).to have_content('Categorias Cadastradas')
     expect(page).to have_content 'Ruby'
     expect(page).to have_content 'Rails'
     expect(page).to have_content 'Culinária'
@@ -42,7 +42,7 @@ describe 'Usuário vê as categorias' do
     visit root_path
     click_on 'Categorias'
 
-    expect(page).to have_content('Lista de Categorias')
+    expect(page).to have_content('Categorias Cadastradas')
     expect(page).to have_content('Nenhuma categoria cadastrada')
     expect(current_path).to eq categories_path
   end
