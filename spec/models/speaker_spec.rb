@@ -23,6 +23,17 @@ RSpec.describe Speaker, type: :model do
       end
     end
 
+    context 'criação do palestrante' do
+      it 'não cria palestrante duplicado' do
+        Speaker.create!(name: 'Marcos', email: 'marcos@email.com')
+        build(:schedule_item, responsible_name: 'Marcos', responsible_email: 'marcos@email.com')
+
+        count = Speaker.where(email: 'marcos@email.com')
+
+        expect(count.size).to eq 1
+      end
+    end
+
     context 'atributo único' do
       it 'gera token único e aleatório' do
         first_speaker = Speaker.create!(name: 'Marcos', email: 'marcos@email.com')

@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
+
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_193151) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -84,12 +85,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
-    t.string "uuid", null: false
+    t.string "code", null: false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.index ["code"], name: "index_events_on_code"
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
-    t.index ["uuid"], name: "index_events_on_uuid"
   end
 
   create_table "keywords", force: :cascade do |t|
@@ -114,8 +115,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "date"
     t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,6 +128,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
     t.string "token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_speakers_on_email", unique: true
     t.index ["token"], name: "index_speakers_on_token", unique: true
   end
 
@@ -141,6 +142,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_184745) do
     t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.index ["code"], name: "index_ticket_batches_on_code"
     t.index ["event_id"], name: "index_ticket_batches_on_event_id"
   end
 

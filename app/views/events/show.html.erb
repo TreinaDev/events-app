@@ -4,11 +4,6 @@
     <% if @event.draft? %>
     <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'button-secondary'%>
   <% end %>
-  <% if @event.schedule.nil? %>
-    <%= link_to 'Agenda', new_event_schedule_path(@event), class: 'button-secondary'%>
-  <% else %>
-    <%= link_to 'Agenda', event_schedule_path(@event, @event.schedule), class: 'button-secondary'%>
-  <% end %>
   <%= link_to 'Lotes', event_ticket_batches_path(@event) %>
   <%= link_to 'Editar', edit_event_path(@event), class: 'button-secondary'%>
   </div>
@@ -33,9 +28,13 @@
 </div>
 
 
-  
-
-
 <%= render layout: 'layouts/action_text/contents/content' do %>
   <%= @event.description %>
 <% end %>
+
+<section>
+  <h3>Agendas do Evento</h3>
+  <% @event.schedules.each do |schedule| %>
+    <p><%= link_to l(schedule.date.to_date, format: :short), event_schedule_path(@event, schedule) %></p>
+  <% end %>
+</section>
