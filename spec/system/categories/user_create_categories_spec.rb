@@ -11,7 +11,7 @@ describe 'Usuário cadastra as categorias' do
         fill_in "Nome",	with: "Ruby"
         click_on 'Criar Categoria'
 
-        expect(page).to have_content('Lista de Categorias')
+        expect(page).to have_content('Categorias Cadastradas')
         expect(page).to have_content('Ruby')
         expect(page).to have_content('Categoria adicionada com sucesso.')
         expect(current_path).to eq categories_path

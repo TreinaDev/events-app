@@ -1,14 +1,14 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" data-turbo-cache="false">
+  <div id="error_explanation" data-turbo-cache="false" class="mt-10">
     <h2>
       <%= I18n.t("errors.messages.not_saved",
                  count: resource.errors.count,
                  resource: resource.class.model_name.human.downcase)
        %>
     </h2>
-    <ul>
+    <ul class="flex flex-col gap-2 mt-2">
       <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="form_error"><%= message %></li>
       <% end %>
     </ul>
   </div>
