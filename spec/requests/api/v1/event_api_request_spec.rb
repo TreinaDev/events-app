@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Event API' do
-  context 'User sees events list' do
-    it 'success' do
+  context 'Usuário vê lista de eventos' do
+    it 'com sucesso' do
       user = create(:user)
 
       category = Category.create!(name: 'Palestra')
@@ -43,20 +43,22 @@ describe 'Event API' do
     end
   end
 
-  context 'User sees Event details' do
-    it 'success' do
+  context 'Usuário ve detalhes' do
+    it 'com sucesso' do
       user = create(:user)
       event = build(
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
         address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
-        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
+        start_date:  (Time.now + 3.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 4.day).change(hour: 18, min: 0, sec: 0))
 
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
 
       event.save
 
-      ticket_batch = create(:ticket_batch, event: event)
+      ticket_batch = create(:ticket_batch, event: event,
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0),
+        end_date: (Time.now + 2.day).change(hour: 18, min: 0, sec: 0))
 
       get "/api/v1/events/#{event.code}"
 
@@ -77,7 +79,7 @@ describe 'Event API' do
       expect(response.parsed_body['ticket_batches'][0]['code']).to eq ticket_batch.code
     end
 
-    it "and event doesn't exist" do
+    it "e evento não existe" do
       get "/api/v1/events/WRONG_CODE"
 
       expect(response).to have_http_status :not_found
