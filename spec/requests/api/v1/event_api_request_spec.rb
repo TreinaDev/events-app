@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Event API' do
   context 'User sees events list' do
-    it 'success' do
+    it 'sucesso' do
       user = create(:user)
 
       category = Category.create!(name: 'Palestra')
@@ -43,7 +43,7 @@ describe 'Event API' do
     end
   end
 
-  context 'User sees Event details' do
+  context 'Usuário ve detalhes' do
     it 'success' do
       user = create(:user)
       event = build(
@@ -77,7 +77,7 @@ describe 'Event API' do
       expect(response.parsed_body['ticket_batches'][0]['code']).to eq ticket_batch.code
     end
 
-    it "and event doesn't exist" do
+    it "e evento não existe" do
       get "/api/v1/events/WRONG_CODE"
 
       expect(response).to have_http_status :not_found
