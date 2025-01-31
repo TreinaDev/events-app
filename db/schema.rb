@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_193151) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -84,9 +84,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
-    t.string "uuid", null: false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.string "uuid", null: false
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
     t.index ["user_id"], name: "index_events_on_user_id"
     t.index ["uuid"], name: "index_events_on_uuid"
@@ -127,6 +127,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_203306) do
     t.string "token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_speakers_on_email", unique: true
     t.index ["token"], name: "index_speakers_on_token", unique: true
   end
 

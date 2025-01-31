@@ -23,7 +23,9 @@ Rails.application.routes.draw do
       resources :events, param: :uuid, only: [ :index, :show ] do
         resources :ticket_batches, only: [ :index, :show ]
       end
-      resources :speakers, only: [ :create ]
+      resources :speakers, only: [ :create ], param: :token do
+        get "events", on: :member
+      end
     end
   end
 end
