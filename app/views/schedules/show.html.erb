@@ -1,13 +1,22 @@
-<h1><%= @schedule.event.name %> - Agenda do dia <%= l(@schedule.date.to_date, format: :short)%></h1>
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-6">
+    <%= @schedule.event.name %> - Agenda do dia <%= l(@schedule.date.to_date, format: :short)%>
+  </h1>
 
-<div class="flex gap-4">
-  <%= link_to 'Adicionar atividade', new_event_schedule_item_path(@schedule.event, @schedule),
-    class: 'button-primary'
-  %>
-</div>
+  <div class="mb-8">
+    <%= link_to 'Adicionar atividade', new_event_schedule_item_path(@schedule.event, @schedule),
+      class: 'button-primary'
+    %>
+  </div>
 
-<div class="mt-4" data-controller="schedule">
-  <% @schedule_items.each do |item| %>
-    <p> <%= item.name %>
-  <% end %>
+  <div class="mt-4 space-y-3" data-controller="schedule">
+    <% @schedule_items.each do |item| %>
+      <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+        <span class="font-medium"><%= item.name %></span>
+        <span class="ml-auto text-gray-600">
+          <%= item.start_time.strftime("%H:%M") %> - <%= item.end_time.strftime("%H:%M") %>
+        </span>
+      </div>
+    <% end %>
+  </div>
 </div>
