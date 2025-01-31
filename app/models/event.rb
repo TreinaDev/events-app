@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
 
-  validates :uuid, uniqueness: true
+  validates :code, uniqueness: true
   validates :name, :participants_limit, :url, :status, :start_date, :end_date, presence: true
   validates :address, presence: true, if: -> { inperson? || hybrid? }
   validates :logo, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
@@ -26,7 +26,7 @@ class Event < ApplicationRecord
   after_create :set_schedules
 
   after_initialize :set_status, if: :new_record?
-  before_validation :generate_uuid
+  before_validation :generate_code
 
   private
 
@@ -46,10 +46,10 @@ class Event < ApplicationRecord
     errors.add(:categories, "deve ter ao menos uma categoria") if categories.empty?
   end
 
-  def generate_uuid
+  def generate_code
     loop do
-      self.uuid = SecureRandom.uuid
-      break unless Event.where(uuid: uuid).exists?
+      self.code = SecureRandom.alphanumeric(8).upcase
+      break unless Event.where(code: code).exists?
     end
   end
 

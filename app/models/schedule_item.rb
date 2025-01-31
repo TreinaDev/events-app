@@ -34,6 +34,8 @@ class ScheduleItem < ApplicationRecord
   end
 
   def create_speaker
-    Speaker.create!(name: self.responsible_name, email: self.responsible_email)
+    speaker = Speaker.find_by(email: self.responsible_email)
+
+    Speaker.create!(name: self.responsible_name, email: self.responsible_email) unless speaker.present?
   end
 end

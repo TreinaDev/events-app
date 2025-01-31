@@ -132,20 +132,20 @@ RSpec.describe Event, type: :model do
     expect(Schedule.count).to eq 3
   end
 
-  it 'deve criar um uuid antes de salvar o evento' do
+  it 'deve criar um code antes de salvar o evento' do
     event = build(:event)
     event.valid?
 
-    expect(event.uuid).not_to be_nil
+    expect(event.code).not_to be_nil
   end
 
-  it 'Não deve criar um uuid igual ao existente' do
-    existing_uuid = SecureRandom.uuid
-    create(:event, uuid: existing_uuid)
+  it 'Não deve criar um code igual ao existente' do
+    existing_code = SecureRandom.alphanumeric(8).upcase
+    create(:event, code: existing_code)
     category = create(:category, name: 'Pirâmide')
-    event = build(:event, categories: [ category ], uuid: existing_uuid)
+    event = build(:event, categories: [ category ], code: existing_code)
     event.valid?
 
-    expect(event.uuid).not_to eq(existing_uuid)
+    expect(event.code).not_to eq(existing_code)
   end
 end
