@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       end
       resources :speakers, only: [ :create ], param: :token do
         get "events", on: :member
+        get "schedules/:event_code", to: "speakers#schedules", as: :schedules
       end
     end
   end
