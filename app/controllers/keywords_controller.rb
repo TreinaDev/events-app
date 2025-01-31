@@ -1,7 +1,7 @@
 class KeywordsController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :check_user_role
+  before_action :check_if_admin
 
   def new
     @keyword = Keyword.new

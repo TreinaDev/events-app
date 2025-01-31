@@ -13,15 +13,15 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :family_name, :registration_number ])
   end
 
-  def check_user_role
-    if current_user && current_user.role == "event_manager"
+  def check_if_event_manager
+    if current_user && current_user.role != "event_manager"
       flash[:alert] = "Você não tem autorização para acessar essa página."
       redirect_to dashboard_path
     end
   end
 
-  def check_manager_role
-    if current_user && current_user.role == "admin"
+  def check_if_admin
+    if current_user && current_user.role != "admin"
       flash[:alert] = "Você não tem autorização para acessar essa página."
       redirect_to dashboard_path
     end
