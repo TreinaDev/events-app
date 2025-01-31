@@ -37,7 +37,19 @@ class Api::V1::EventsController < Api::V1::ApiController
       event_owner: event.user.name,
       start_date: event.start_date,
       end_date: event.end_date,
-      ticket_batches: event.ticket_batches
+      ticket_batches: event.ticket_batches,
+      schedules: event.schedules.map do |schedule|
+        {
+          date: schedule.date.strftime("%Y-%m-%d"),
+          schedule_items: schedule.schedule_items.map do |item|
+            {
+              name: item.name,
+              start_time: item.start_time,
+              end_time: item.end_time
+            }
+          end
+        }
+      end
     }
   end
 end

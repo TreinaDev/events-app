@@ -49,14 +49,19 @@ describe 'Event API' do
       event = build(
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
         address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
-        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 1.day).change(hour: 18, min: 0, sec: 0))
 
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
 
       event.save
 
+      schedule = event.schedules.first
+
       ticket_batch = create(:ticket_batch, event: event)
+
+      coffee_break = create(:schedule_item, schedule: schedule, name: 'Coffee Break', start_time: (Time.now + 1.day).change(hour: 9, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0))
+      music_lesson = create(:schedule_item, schedule: schedule, name: 'Aula de música', start_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 11, min: 0, sec: 0))
 
       get "/api/v1/events/#{event.code}"
 
@@ -75,6 +80,9 @@ describe 'Event API' do
       expect(response.parsed_body['ticket_batches'][0]['name']).to eq ticket_batch.name
       expect(response.parsed_body['ticket_batches'][0]['ticket_price'].to_f).to eq (ticket_batch.ticket_price)
       expect(response.parsed_body['ticket_batches'][0]['code']).to eq ticket_batch.code
+      expect(response.parsed_body['schedules'][0]['date']).to eq schedule.date.strftime('%Y-%m-%d')
+      expect(response.parsed_body['schedules'][0]['schedule_items'][0]['name']).to eq coffee_break.name
+      expect(response.parsed_body['schedules'][0]['schedule_items'][1]['name']).to eq music_lesson.name
     end
 
     it "and event doesn't exist" do
