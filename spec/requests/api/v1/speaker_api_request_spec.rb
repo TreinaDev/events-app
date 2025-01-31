@@ -89,7 +89,7 @@ describe 'Speaker API' do
       get "/api/v1/speakers/INVALID_TOKEN/events"
 
       json_response = JSON.parse(response.body)
-      expect(json_response["error"]). to eq 'Token não pertence a nenhuma palestrante.'
+      expect(json_response["error"]). to eq 'Token não pertence a nenhum palestrante.'
       expect(response.status).to eq 404
       expect(response.content_type).to include('application/json')
     end
