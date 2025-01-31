@@ -1,5 +1,7 @@
 # readme md -> rails db:drop -> rails db:migrate -> rails db:seed
 puts 'Apagando todos os dados...'
+ScheduleItem.destroy_all
+Schedule.destroy_all
 TicketBatch.destroy_all
 CategoryKeyword.destroy_all
 Keyword.destroy_all
@@ -36,5 +38,12 @@ CategoryKeyword.create(category: javascript_category, keyword: frontend_keyword)
 puts 'Criando lotes de ingresso...'
 FactoryBot.create(:ticket_batch, event: ruby_event)
 FactoryBot.create(:ticket_batch, event: javascript_event)
+
+puts 'Criando agenda...'
+schedule = FactoryBot.create(:schedule)
+
+puts 'Criando itens de agenda...'
+FactoryBot.create(:schedule_item, schedule: schedule)
+FactoryBot.create(:schedule_item, schedule: schedule, name: 'Palestra 2', start_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 11, min: 0, sec: 0), responsible_name: 'João', responsible_email: 'joao@email.com')
 
 puts 'Seeds aplicados com sucesso!'
