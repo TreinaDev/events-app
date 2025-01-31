@@ -39,7 +39,7 @@
 
     <div class="input_container">
       <%= f.label :start_time %>
-      <%= f.datetime_local_field :start_time, class: "input w-full" %>
+      <%= f.time_field :start_time, class: "input w-full" %>
       <% if @schedule_item.errors[:start_time].any? %>
         <% @schedule_item.errors.full_messages_for(:start_time).each do |e| %>
           <span class="form_error"><%= e %></span>
@@ -49,7 +49,7 @@
 
     <div class="input_container">
       <%= f.label :end_time %>
-      <%= f.datetime_local_field :end_time, class: "input w-full" %>
+      <%= f.time_field :end_time, class: "input w-full" %>
       <% if @schedule_item.errors[:end_time].any? %>
         <% @schedule_item.errors.full_messages_for(:end_time).each do |e| %>
           <span class="form_error"><%= e %></span>

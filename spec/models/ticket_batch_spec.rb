@@ -40,11 +40,18 @@ RSpec.describe TicketBatch, type: :model do
     end
 
     context 'comparacao das datas' do
-      it 'data de inicio deve ser menor que a data de fim' do
+      it 'data de inicio deve ser anterior que a data de fim' do
         ticket_batch = build(:ticket_batch, start_date: (Time.now + 8.days).strftime('%Y-%m-%d'), end_date: (Time.now + 5.days).strftime('%Y-%m-%d'))
 
         expect(ticket_batch).not_to be_valid
         expect(ticket_batch.errors[:start_date]).to include 'não pode ser depois da data de fim'
+      end
+
+      it 'data de fim deve ser anterior ao início do evento' do
+        event = create(:event, start_date: 4.weeks.from_now, end_date: 5.weeks.from_now)
+        ticket_batch = build(:ticket_batch, start_date: 1.week.from_now, end_date: 5.weeks.from_now, event: event)
+
+        expect(ticket_batch.valid?).to eq false
       end
     end
 
@@ -64,8 +71,8 @@ RSpec.describe TicketBatch, type: :model do
         ticket_batch = TicketBatch.create!(
           name: 'Primeiro lote',
           tickets_limit: 20,
-          start_date: 3.days.from_now.strftime('%Y-%m-%d'),
-          end_date: 3.months.from_now.strftime('%Y-%m-%d'),
+          start_date: 1.week.from_now.strftime('%Y-%m-%d'),
+          end_date: 3.weeks.from_now.strftime('%Y-%m-%d'),
           ticket_price: 100,
           event: event
         )
