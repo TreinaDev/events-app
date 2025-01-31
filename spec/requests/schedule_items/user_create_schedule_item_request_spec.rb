@@ -37,6 +37,7 @@ describe 'Usuário cria um item de agenda' do
 
     expect(response).to redirect_to root_path
     expect(response).to have_http_status :found
+    expect(ScheduleItem.count).to eq 0
   end
 
   it 'e cria um item de agenda com sucesso' do
