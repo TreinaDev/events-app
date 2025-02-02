@@ -13,13 +13,13 @@
     <h1 class="font-bold"><%= @event.name %></h1>
   </div>
 
-  <div class="flex gap-2">
+  <div class="flex gap-2 h-full">
     <% if @event.draft? %>
       <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'outline_button' %>
     <% end %>
     <%= link_to 'Lotes', event_ticket_batches_path(@event), class: 'outline_button' %>
     <%= link_to 'Editar', edit_event_path(@event), class: 'outline_button' %>
-    <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>
+    <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button h-full w-full', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>
     </div>
 </div>
 
