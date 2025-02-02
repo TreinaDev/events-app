@@ -10,7 +10,7 @@ describe 'Usuário adiciona um novo item de agenda' do
     visit root_path
     click_on 'Gerenciar'
     click_on 2.days.from_now.strftime('%d/%m')
-    click_on 'Adicionar atividade'
+    click_on '+ Atividade'
 
     fill_in 'Nome', with: 'Atividade 1'
     fill_in 'Descrição', with: 'Atividade 1'
@@ -32,7 +32,7 @@ describe 'Usuário adiciona um novo item de agenda' do
     visit root_path
     click_on 'Gerenciar'
     click_on 2.days.from_now.strftime('%d/%m')
-    click_on 'Adicionar atividade'
+    click_on '+ Atividade'
 
     choose 'Intervalo'
 
