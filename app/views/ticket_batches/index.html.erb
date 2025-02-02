@@ -2,24 +2,31 @@
   <h1>Lotes de Ingresso - Evento: <%= @event.name %></h1>
 
   <div class="flex gap-4">
-    <%= link_to '+ Lote', new_event_ticket_batch_path(@event), class: 'outline_button' %>
+    <%= link_to '+ Lote', new_event_ticket_batch_path(@event), class: 'form_button' %>
   </div>
 </div>
 
 <section class="flex flex-col gap-4">
   <% if @ticket_batches.any? %>
     <% @ticket_batches.each do |batch| %>
-      <div class="flex gap-8 border-2 border-primary rounded-md overflow-hidden bg-projectPaperWhite w-2/3">
-        <div class="flex flex-col gap-4 bg-primary text-backgroundWhite px-4 py-8 items-center justify-center">
+      <div class="flex border-2 border-primary rounded-md overflow-hidden bg-projectPaperWhite w-2/3">
+        <div class="flex flex-col gap-4 bg-primary text-backgroundWhite px-8 py-8 items-center justify-center">
           <p class="font-bold text-primaryLight">Vendas:</p>
           <p class="font-bold"><%= l batch.start_date, format: :short %> <span class="font-normal">até</span> <%= l batch.end_date, format: :short %></p>
         </div>
 
-        <div class="flex flex-col font-mono px-4 py-8 gap-4">
-         <p class="font-extrabold text-primary text-2xl font-sans"></span><%= batch.name %></p>
-         <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Valor dos Ingressos: </span><%= number_to_currency batch.ticket_price %></p>
-         <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Limite de Ingressos: </span><%= batch.tickets_limit %></p>
-         <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Opção de Desconto: </span><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option)%> </p>
+        <div class="flex justify-between items-center px-8 flex-1">
+          <div class="flex flex-col font-mono px-4 py-8 gap-4">
+           <p class="font-extrabold text-primary text-2xl font-sans"></span><%= batch.name %></p>
+           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Valor dos Ingressos: </span><%= number_to_currency batch.ticket_price %></p>
+           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Limite de Ingressos: </span><%= batch.tickets_limit %></p>
+           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Opção de Desconto: </span><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option)%> </p>
+          </div>
+
+          <div class="py-8 h-full">
+            <%= image_tag "bar_code.svg", class: 'w-full'%>
+            <p class="font-light text-textSecondary text-center"><%= SecureRandom.alphanumeric(7).upcase! %></p>
+          </div>
         </div>
       </div>
     <% end %>
