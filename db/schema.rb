@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_143932) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_203000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -71,6 +71,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_143932) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_event_categories_on_category_id"
     t.index ["event_id"], name: "index_event_categories_on_event_id"
+  end
+
+  create_table "event_places", force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "zip_code"
+    t.string "state"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_event_places_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -173,6 +187,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_143932) do
   add_foreign_key "category_keywords", "keywords"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
+  add_foreign_key "event_places", "users"
   add_foreign_key "events", "users"
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
