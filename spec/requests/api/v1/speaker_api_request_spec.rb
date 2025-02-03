@@ -8,7 +8,7 @@ describe 'Speaker API' do
       schedule = create(:schedule, event: event)
       schedule_item = create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
 
-      post api_v1_speakers_path, params: {
+      post "/api/v1/speakers", params: {
         email: schedule_item.responsible_email
       }
 
@@ -24,7 +24,7 @@ describe 'Speaker API' do
       schedule = create(:schedule, event: event)
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
 
-      post api_v1_speakers_path, params: {
+      post "/api/v1/speakers", params: {
         email: 'joao@email.com'
       }
 
@@ -41,7 +41,7 @@ describe 'Speaker API' do
       schedule_item = create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
       allow(Speaker).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
 
-      post api_v1_speakers_path, params: {
+      post "/api/v1/speakers", params: {
         email: schedule_item.responsible_email
       }
 
@@ -54,7 +54,7 @@ describe 'Speaker API' do
       schedule = create(:schedule, event: event)
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
 
-      post api_v1_speakers_path
+      post "/api/v1/speakers"
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 400
