@@ -1,0 +1,24 @@
+<h1><%= @event_place.name %></h1>
+
+<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div>
+    <% if @event_place.photo.attached? %>
+      <img src="<%= url_for(@event_place.photo) %>" alt="Foto de <%= @event_place.name %>" class="rounded-lg shadow-lg w-full h-auto">
+    <% else %>
+      <p class="text-gray-500">Nenhuma foto disponível</p>
+    <% end %>
+  </div>
+
+  <div class="space-y-4">
+    <p><strong>Endereço:</strong> <%= @event_place.street %>, <%= @event_place.number %></p>
+    <p><strong>Bairro:</strong> <%= @event_place.neighborhood %></p>
+    <p><strong>Cidade:</strong> <%= @event_place.city %> - <%= @event_place.state %></p>
+    <p><strong>CEP:</strong> <%= @event_place.zip_code %></p>
+  </div>
+</div>
+
+<div class="mt-8 flex gap-4">
+  <%= link_to 'Editar', edit_event_place_path(@event_place), class: 'button-primary' %>
+  <%= link_to 'Voltar', event_places_path, class: 'button-secondary' %>
+</div>
+

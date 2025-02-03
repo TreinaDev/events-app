@@ -16,7 +16,7 @@
         <% end %>
 
         <div class="p-4">
-          <h2 class="card_title"><%= event_place.name %></h2>
+          <h2 class="card_title"><%= link_to event_place.name, event_place_path(event_place) %></h2>
           <p class="text-gray-600"><%= event_place.street %>, <%= event_place.number %></p>
           <p class="text-gray-600"><%= event_place.neighborhood %> - <%= event_place.city %>, <%= event_place.state %></p>
           <p class="text-gray-600">CEP: <%= event_place.zip_code %></p>

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :event_places, only: [ :new, :create, :index ]
+  resources :event_places, only: [ :new, :create, :index, :show, :edit, :update ]
 
   resources :keywords, only: [ :new, :create ]
 

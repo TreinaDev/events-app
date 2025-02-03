@@ -6,6 +6,14 @@ class EventPlacesController < ApplicationController
     @event_places = current_user.event_places
   end
 
+  def show
+    @event_place = EventPlace.find_by(id: params[:id])
+
+    if @event_place.nil? || @event_place.user != current_user
+      redirect_to event_places_path
+    end
+  end
+
   def new
     @event_place = EventPlace.new
   end
@@ -18,6 +26,23 @@ class EventPlacesController < ApplicationController
     else
       flash.now[:alert] = "Falha ao criar o Local de Evento"
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @event_place = EventPlace.find_by(id: params[:id])
+    if @event_place.nil? || @event_place.user != current_user
+      redirect_to event_places_path
+    end
+  end
+
+  def update
+    @event_place = EventPlace.find_by(id: params[:id])
+    if @event_place.update(event_place_params)
+      redirect_to @event_place, notice: "Local de Evento atualizado com sucesso."
+    else
+      flash.now[:alert] = "Falha ao atualizar o Local de Evento"
+      render :edit, status: :unprocessable_entity
     end
   end
 
