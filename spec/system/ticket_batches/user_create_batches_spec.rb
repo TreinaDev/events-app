@@ -18,8 +18,12 @@ describe 'Usuário cria lotes' do
     select 'Meia Estudante', from: 'Opção de Desconto'
     click_on 'Criar Lote'
 
-    expect(page).to have_content 'Primeiro Lote'
-    expect(page).to have_content 'Lote de Ingresso adicionado com sucesso.'
+    ticket_batch = TicketBatch.last
+    expect(page).to have_content ticket_batch.name
+    expect(page).to have_content I18n.l ticket_batch.start_date.to_date, format: :short
+    expect(page).to have_content I18n.l ticket_batch.end_date.to_date, format: :short
+    expect(page).to have_content ticket_batch.ticket_price.to_s.sub('.', ',')
+    expect(page).to have_content TicketBatch.human_enum_name(:discount_option, ticket_batch.discount_option)
     expect(current_path).to eq event_ticket_batches_path(event)
   end
 
