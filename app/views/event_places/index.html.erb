@@ -1,0 +1,27 @@
+<div class="flex items-center justify-between">
+  <h1 class="title">Locais de Eventos</h1>
+  <%= link_to 'Novo Local', new_event_place_path, class: 'form_button w-fit' %>
+</div>
+
+<div class="container">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+    <% @event_places.each do |event_place| %>
+      <div class="card">
+        <% if event_place.photo.attached? %>
+          <%= image_tag event_place.photo, class: "w-full h-40 object-cover rounded-t-lg" %>
+        <% else %>
+          <div class="w-full h-40 bg-gray-200 flex items-center justify-center rounded-t-lg">
+            <span class="text-gray-500">Sem foto</span>
+          </div>
+        <% end %>
+
+        <div class="p-4">
+          <h2 class="card_title"><%= event_place.name %></h2>
+          <p class="text-gray-600"><%= event_place.street %>, <%= event_place.number %></p>
+          <p class="text-gray-600"><%= event_place.neighborhood %> - <%= event_place.city %>, <%= event_place.state %></p>
+          <p class="text-gray-600">CEP: <%= event_place.zip_code %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
