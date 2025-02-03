@@ -48,7 +48,7 @@ describe 'Usuário visita a tela de criacao de evento' do
     expect(page).to have_selector "img"
     expect(page).to have_content "Agendas do Evento"
     within 'section' do
-      expect(page).to have_selector "p", count: 8
+      expect(page).to have_selector "a", count: 8
     end
   end
 

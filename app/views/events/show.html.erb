@@ -1,40 +1,83 @@
-<div class="edit-event-button flex justify-between">
-  <%= link_to 'Voltar', dashboard_path, class: 'button-secondary'%>
-  <div class=" flex gap-4">
+<div class="flex items-center justify-between">
+  <div class="flex items-center gap-4">
+  <%= link_to 'Voltar', dashboard_path, class: 'outline_button w-fit' %>
+    <% if @event.logo.attached? %>
+      <div class="w-16 h-16 overflow-hidden">
+        <%= image_tag url_for(@event.logo), class: 'object-contain h-full w-full' %>
+      </div>
+    <% else %>
+      <div class="w-16 h-16 overflow-hidden rounded-lg border-2 border-primary">
+        <%= image_tag "no_logo.png", class: 'object-contain h-full w-full' %>
+      </div>
+    <% end %>
+    <h1 class="font-bold"><%= @event.name %></h1>
+  </div>
+
+  <div class="flex gap-2 h-full">
     <% if @event.draft? %>
-    <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'button-secondary'%>
-  <% end %>
-  <%= link_to 'Lotes', event_ticket_batches_path(@event) %>
-  <%= link_to 'Editar', edit_event_path(@event), class: 'button-secondary'%>
-  </div>
+      <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'outline_button' %>
+    <% end %>
+    <%= link_to 'Lotes', event_ticket_batches_path(@event), class: 'outline_button' %>
+    <%= link_to 'Editar', edit_event_path(@event), class: 'outline_button' %>
+    <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button h-full w-full', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>
+    </div>
 </div>
 
+<section class="flex mt-8">
+  <article class="flex flex-col gap-4 border-r border-primary pr-10">
+    <% if @event.banner.attached? %>
+      <div class="aspect-[4/1] overflow-hidden mb-8">
+        <%= image_tag url_for(@event.banner), class: 'object-contain h-full w-full' %>
+      </div>
+    <% else %>
+      <div class="aspect-[4/1] overflow-hidden border-primary border-2 rounded-3xl mb-8">
+        <%= image_tag "no_banner.png", class: 'object-contain h-full w-full' %>
+      </div>
+    <% end %>
 
-<% if @event.banner.attached? %>
-  <img src="<%= url_for(@event.banner)%>" class="w-full h-64 object-fill">
-<% else %>
-  <div class='min-h-[5rem]'>
+    <p class="font-light text-textSecondary">
+      <span class="font-bold text-textPrimary">Status:</span>
+        <% if @event.draft? %>
+          <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
+        <% else %>
+          <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
+        <% end %>
+    </p>
 
-  </div>
-<% end %>
-<div class=" w-[90%] mx-auto flex">
-  <% if @event.logo.attached? %>
-    <img src="<%= url_for(@event.logo)%>" class="h-36 object-contain relative bottom-[4rem] left-2">
-  <% end %>
-  <div class="flex items-center h-10 gap-4 mx-10 my-4">
-    <h2 class="font-bold"><%= @event.name %></h2>
-    <p><%= Event.human_enum_name(:status, @event.status) %></p>
-  </div>
-</div>
+    <p class="font-light text-textSecondary">
+      <span class="font-bold text-textPrimary">Limite de Participantes:</span>
+      <%= @event.participants_limit %>
+    </p>
 
 
-<%= render layout: 'layouts/action_text/contents/content' do %>
-  <%= @event.description %>
-<% end %>
+    <div class="font-light text-textSecondary">
+      <span class="font-bold text-textPrimary mr-2">Descrição:</span>
+      <%= render layout: 'layouts/action_text/contents/content' do %>
+      <%= @event.description %>
+      <% end %>
+    </div>
 
-<section>
-  <h3>Agendas do Evento</h3>
-  <% @event.schedules.each do |schedule| %>
-    <p><%= link_to l(schedule.date.to_date, format: :short), event_schedule_path(@event, schedule) %></p>
-  <% end %>
+    <p class="font-bold text-textPrimary">Evento <%= Event.human_enum_name(:event_type, @event.event_type)%></p>
+
+    <p class="font-light text-textSecondary">
+      <span class="font-bold text-textPrimary">Site do Evento:</span>
+      <%= @event.url %>
+    </p>
+
+    <% if @event.address %>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Endereço:</span>
+        <%= @event.address %>
+      </p>
+    <% end %>
+  </article>
+
+  <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit">
+    <h2 class="text-right">Agendas do Evento</h2>
+      <% @event.schedules.each do |schedule| %>
+        <%= link_to event_schedule_path(@event, schedule), class: "text-right justify-end underline underline-offset-4 decoration-primary hover:bg-textPrimary/15 p-3 rounded-md transition duration-150 font-bold hover:brightness-90" do %>
+          Dia <%= l schedule.date.to_date, format: :short %>
+        <% end %>
+      <% end %>
+  </aside>
 </section>

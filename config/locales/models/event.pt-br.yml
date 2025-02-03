@@ -11,6 +11,10 @@ pt-BR:
         participants_limit: "Limite de participantes"
         url: "URL do evento"
         event_type: "Tipo de evento"
+        event_types:
+          inperson: "Presencial"
+          online: "Online"
+          hybrid: "Híbrido"
         status: "Status"
         statuses:
           draft: "Rascunho"

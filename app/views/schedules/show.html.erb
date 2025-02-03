@@ -1,13 +1,39 @@
-<h1><%= @schedule.event.name %> - Agenda do dia <%= l(@schedule.date.to_date, format: :short)%></h1>
+<div class="flex items-center justify-between">
+  <h1><%= @schedule.event.name %> - Agenda do dia <%= l(@schedule.date.to_date, format: :short)%></h1>
 
-<div class="flex gap-4">
-  <%= link_to 'Adicionar atividade', new_event_schedule_item_path(@schedule.event, @schedule),
-    class: 'button-primary'
+  <%= link_to '+ Atividade', new_event_schedule_item_path(@schedule.event, @schedule),
+    class: 'form_button'
   %>
 </div>
 
-<div class="mt-4" data-controller="schedule">
-  <% @schedule_items.each do |item| %>
-    <p> <%= item.name %>
+
+<section class="mt-10 flex flex-col gap-4" data-controller="schedule">
+  <% if @schedule_items.empty? %>
+    <h2 class="font-bold text-lg text-textPrimary">Ainda não atividades na Agenda deste dia de Evento.</h2>
+  <% else %>
+    <% @schedule_items.each do |item| %>
+      <article class="flex items-center p-6 bg-white rounded-xl w-2/3">
+        <% if item.schedule_type == "activity" %>
+          <div class="flex pr-8 flex-col border-r-4 border-primary gap-1">
+            <p class="font-extrabold text-primary"><%= l(item.start_time, format: :time_only) %></p>
+            <p class="font-light text-textSecondary"><%= l(item.end_time, format: :time_only) %></p>
+          </div>
+
+          <div class="flex justify-between w-full">
+            <p class="ml-8 font-bold text-primary"><%= item.name %></p>
+            <p class="font-light"><span class="font-bold mr-2">Responsável:</span><%= item.responsible_name %></p>
+          </div>
+        <% else %>
+          <div class="flex pr-8 flex-col border-r-4 border-primaryLight gap-1">
+            <p class="font-extrabold text-primaryLight"><%= l(item.start_time, format: :time_only) %></p>
+            <p class="font-light text-textSecondary"><%= l(item.end_time, format: :time_only) %></p>
+          </div>
+
+          <div class="flex justify-between w-full">
+            <p class="ml-8 font-bold text-primaryLight"><%= item.name %></p>
+          </div>
+        <% end %>
+      </article>
+    <% end %>
   <% end %>
-</div>
+</section>

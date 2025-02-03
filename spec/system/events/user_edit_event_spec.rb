@@ -10,9 +10,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Gerenciar'
-      within '.edit-event-button' do
-        click_on 'Editar'
-      end
+      click_on 'Editar'
       fill_in 'Nome', with: 'Rails Brasil'
       click_on 'Atualizar'
 
@@ -29,9 +27,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Gerenciar'
-      within '.edit-event-button' do
-        click_on 'Editar'
-      end
+      click_on 'Editar'
       fill_in 'Nome', with: ''
       click_on 'Atualizar'
 
@@ -49,9 +45,7 @@ describe 'Usuário tenta editar evento' do
       login_as user
       visit root_path
       click_on 'Gerenciar'
-      within '.edit-event-button' do
-        click_on 'Editar'
-      end
+      click_on 'Editar'
       fill_in 'Nome', with: 'Rails Brasil'
       click_on 'Atualizar'
 
