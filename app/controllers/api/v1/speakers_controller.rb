@@ -44,4 +44,18 @@ class Api::V1::SpeakersController < Api::V1::ApiController
 
     render json: json_response, status: :ok
   end
+
+  def schedule_item
+    speaker = Speaker.find_by(code: params[:speaker_code])
+    return render json: { error: "Código não pertence a nenhum palestrante." }, status: :not_found unless speaker
+
+    schedule_item = ScheduleItem.find_by(code: params[:schedule_item_code])
+    return render json: { error: "Código não pertence a nenhum item de agenda." }, status: :not_found unless schedule_item
+
+    if speaker.code == schedule_item.speaker.code
+      render json: schedule_item.as_json(except: [ :id, :updated_at ]), status: :ok
+    else
+      render json: { error: "O item de agenda não pertence ao palestrante." }, status: :unauthorized
+    end
+  end
 end
