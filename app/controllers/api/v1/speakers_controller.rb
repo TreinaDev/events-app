@@ -7,26 +7,26 @@ class Api::V1::SpeakersController < Api::V1::ApiController
     speaker = Speaker.find_by(email: params[:email])
 
     if speaker
-      render json: { token: speaker.token }, status: :ok
+      render json: { code: speaker.code }, status: :ok
     else
       render json: { error: "Palestrante não encontrado." }, status: :not_found
     end
   end
 
   def events
-    speaker = Speaker.find_by(token: params[:token])
+    speaker = Speaker.find_by(code: params[:code])
 
     if speaker
       events = speaker.events.distinct.as_json(except: [ :id, :user_id, :discarded_at, :updated_at ])
       render json: events, status: :ok
     else
-      render json: { error: "Token não pertence a nenhum palestrante." }, status: :not_found
+      render json: { error: "Código não pertence a nenhum palestrante." }, status: :not_found
     end
   end
 
   def schedules
-    speaker = Speaker.find_by(token: params[:speaker_token])
-    return render json: { error: "Token não pertence a nenhum palestrante." }, status: :not_found unless speaker
+    speaker = Speaker.find_by(code: params[:speaker_code])
+    return render json: { error: "Código não pertence a nenhum palestrante." }, status: :not_found unless speaker
 
     event = Event.find_by(code: params[:event_code])
     return render json: { error: "Código não pertence a nenhum evento." }, status: :not_found unless event

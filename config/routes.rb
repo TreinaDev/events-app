@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       resources :events, param: :code, only: [ :index, :show ] do
         resources :ticket_batches, param: :code, only: [ :index, :show ]
       end
-      resources :speakers, only: [ :create ], param: :token do
+      resources :speakers, only: [ :create ], param: :code do
         get "events", on: :member
         get "schedules/:event_code", to: "speakers#schedules", as: :schedules
       end
