@@ -1,24 +1,57 @@
-<h1><%= @event_place.name %></h1>
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <h1 class="h1"><%= @event_place.name %></h1>
 
-<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-  <div>
-    <% if @event_place.photo.attached? %>
-      <img src="<%= url_for(@event_place.photo) %>" alt="Foto de <%= @event_place.name %>" class="rounded-lg shadow-lg w-full h-auto">
-    <% else %>
-      <p class="text-gray-500">Nenhuma foto disponível</p>
-    <% end %>
+    <div class="flex gap-3">
+      <%= link_to 'Editar', edit_event_place_path(@event_place),
+          class: 'px-4 py-2 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-medium transition-colors',
+          test_id: "edit-#{@event_place.id}" %>
+
+      <%= button_to event_place_path(@event_place), method: :delete,
+          class: 'px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition-colors flex items-center gap-2',
+          data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{@event_place.name}?" },
+          id: dom_id(@event_place, :delete) do %>
+        <img src="<%= asset_path('bin.svg')%>" class="h-5 w-5 invert"/>
+      <% end %>
+    </div>
   </div>
 
-  <div class="space-y-4">
-    <p><strong>Endereço:</strong> <%= @event_place.street %>, <%= @event_place.number %></p>
-    <p><strong>Bairro:</strong> <%= @event_place.neighborhood %></p>
-    <p><strong>Cidade:</strong> <%= @event_place.city %> - <%= @event_place.state %></p>
-    <p><strong>CEP:</strong> <%= @event_place.zip_code %></p>
+  <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="card">
+      <% if @event_place.photo.attached? %>
+        <%= image_tag @event_place.photo, alt: "Foto de #{@event_place.name}",
+                    class: "w-full h-96 object-cover rounded-t-lg" %>
+      <% else %>
+        <div class="w-full h-96 bg-gray-200 flex items-center justify-center rounded-t-lg">
+          <span class="text-gray-500">Sem foto</span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="card p-6">
+      <div class="space-y-4 text-gray-600">
+        <div>
+          <p class="font-medium text-gray-700">Endereço:</p>
+          <p><%= @event_place.street %>, <%= @event_place.number %></p>
+          <p><%= @event_place.neighborhood %></p>
+        </div>
+
+        <div>
+          <p class="font-medium text-gray-700">Cidade/Estado:</p>
+          <p><%= @event_place.city %> - <%= @event_place.state %></p>
+        </div>
+
+        <div>
+          <p class="font-medium text-gray-700">CEP:</p>
+          <p><%= @event_place.zip_code %></p>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <%= link_to event_places_path, class: 'form_button w-full md:w-auto' do %>
+          Voltar para lista de locais
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
-
-<div class="mt-8 flex gap-4">
-  <%= link_to 'Editar', edit_event_place_path(@event_place), class: 'button-primary' %>
-  <%= link_to 'Voltar', event_places_path, class: 'button-secondary' %>
-</div>
-

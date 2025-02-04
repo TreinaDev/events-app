@@ -46,6 +46,16 @@ class EventPlacesController < ApplicationController
     end
   end
 
+  def destroy
+    @event_place = EventPlace.find_by(id: params[:id])
+    if @event_place.user == current_user
+      @event_place.destroy
+      redirect_to event_places_path, notice: "Local de Evento excluido com sucesso."
+    else
+      redirect_to event_places_path, alert: "Não é possivel excluir esse Local de Evento."
+    end
+  end
+
   private
 
   def event_place_params
