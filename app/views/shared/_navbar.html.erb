@@ -1,4 +1,11 @@
 <nav class="text-backgroundWhite flex items-center">
+
+  <ul>
+    <li>
+      <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
+    </li>
+  </ul>
+
   <% if current_user.role == "admin" %>
     <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>

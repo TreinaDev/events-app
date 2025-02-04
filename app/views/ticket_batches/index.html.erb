@@ -18,7 +18,7 @@
         <div class="flex justify-between items-center px-8 flex-1">
           <div class="flex flex-col font-mono px-4 py-8 gap-4">
            <p class="font-extrabold text-primary text-2xl font-sans"></span><%= batch.name %></p>
-           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Valor dos Ingressos: </span><%= number_to_currency batch.ticket_price %></p>
+           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Valor do Ingresso: </span><%= number_to_currency batch.ticket_price %></p>
            <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Limite de Ingressos: </span><%= batch.tickets_limit %></p>
            <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Opção de Desconto: </span><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option)%> </p>
           </div>

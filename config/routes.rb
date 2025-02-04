@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :event_places, only: [ :new, :create, :index, :show, :edit, :update, :destroy ]
+
   resources :keywords, only: [ :new, :create ]
 
   resources :verifications, only: [ :new, :create ]

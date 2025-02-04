@@ -6,10 +6,6 @@ class SchedulesController < ApplicationController
 
 
   def show
-    if @schedule.nil?
-      return redirect_to root_path, alert: "Acesso não autorizado."
-    end
-
     @schedule = Schedule.find_by(id: params[:id])
     @schedule_items = @schedule.schedule_items.order(:start_time)
   end

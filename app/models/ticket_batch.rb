@@ -26,7 +26,7 @@ class TicketBatch < ApplicationRecord
   end
 
   def apply_discount
-    if self.discount_option != :no_discount
+    if self.discount_option != "no_discount"
       self.ticket_price /= 2
     end
   end
