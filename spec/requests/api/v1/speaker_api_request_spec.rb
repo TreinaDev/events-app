@@ -154,7 +154,7 @@ describe 'Speaker API' do
       get "/api/v1/speakers/#{speaker.code}/schedules/INVALID_CODE"
 
       json_response = JSON.parse(response.body)
-      expect(json_response["error"]). to eq 'Código não pertence a nenhum evento.'
+      expect(json_response["error"]). to eq 'Palestrante não possui nenhum evento com esse código.'
       expect(response.status).to eq 404
       expect(response.content_type).to include('application/json')
     end
@@ -173,7 +173,7 @@ describe 'Speaker API' do
     end
   end
 
-  context 'Busca itens de agenda do palestrante' do
+  context 'Busca item de agenda do palestrante' do
     it 'com sucesso' do
       user = create(:user)
       event = create(:event, user: user)
@@ -189,7 +189,7 @@ describe 'Speaker API' do
       expect(response.content_type).to include('application/json')
     end
 
-    it 'e código do participante não é encontrado' do
+    it 'e código do palestrante não é encontrado' do
       user = create(:user)
       event = create(:event, user: user)
       schedule = create(:schedule, event: event)
@@ -214,7 +214,7 @@ describe 'Speaker API' do
       get "/api/v1/speakers/#{speaker.code}/schedule_item/INVALID_CODE"
 
       json_response = JSON.parse(response.body)
-      expect(json_response["error"]). to eq 'Código não pertence a nenhum item de agenda.'
+      expect(json_response["error"]). to eq 'Palestrante não possui nenhum item de agenda com esse código.'
       expect(response.status).to eq 404
       expect(response.content_type).to include('application/json')
     end
@@ -231,21 +231,64 @@ describe 'Speaker API' do
 
       expect(response.status).to eq 500
     end
+  end
 
-    it 'e falha por não ter autorização' do
+  context 'Busca detalhes de um evento do palestrante' do
+    it 'com sucesso' do
+      user = create(:user)
+      event = create(:event, user: user, name: 'Tropical Rails Fake')
+      schedule = create(:schedule, event: event)
+      create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
+      speaker = Speaker.last
+
+      get "/api/v1/speakers/#{speaker.code}/events/#{event.code}"
+
+      json_response = JSON.parse(response.body)
+      expect(json_response['name']).to eq 'Tropical Rails Fake'
+      expect(response.status).to eq 200
+      expect(response.content_type).to include('application/json')
+    end
+
+    it 'e o código do palestrante não é encontrado' do
+      user = create(:user)
+      event = create(:event, user: user)
+      schedule = create(:schedule, event: event)
+      create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
+
+      get "/api/v1/speakers/INVALID_CODE/events/#{event.code}"
+
+      json_response = JSON.parse(response.body)
+      expect(json_response["error"]). to eq 'Código não pertence a nenhum palestrante.'
+      expect(response.status).to eq 404
+      expect(response.content_type).to include('application/json')
+    end
+
+    it 'e código do evento não é encontrado' do
       user = create(:user)
       event = create(:event, user: user)
       schedule = create(:schedule, event: event)
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
       speaker = Speaker.last
-      schedule_item = create(:schedule_item, schedule: schedule, responsible_email: "gabriel@email.com", start_time: (Time.now + 1.day).change(hour: 10, min: 0, sec: 0), end_time: (Time.now + 1.day).change(hour: 11, min: 0, sec: 0))
 
-      get "/api/v1/speakers/#{speaker.code}/schedule_item/#{schedule_item.code}"
+      get "/api/v1/speakers/#{speaker.code}/events/INVALID_CODE"
 
       json_response = JSON.parse(response.body)
-      expect(json_response["error"]). to eq 'O item de agenda não pertence ao palestrante.'
+      expect(json_response["error"]). to eq 'Palestrante não possui nenhum evento com esse código.'
+      expect(response.status).to eq 404
       expect(response.content_type).to include('application/json')
-      expect(response.status).to eq 401
+    end
+
+    it 'e falha com um erro interno de servidor' do
+      user = create(:user)
+      event = create(:event, user: user)
+      schedule = create(:schedule, event: event)
+      create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
+      speaker = Speaker.last
+      allow(Speaker).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
+
+      get "/api/v1/speakers/#{speaker.code}/events/#{event.code}"
+
+      expect(response.status).to eq 500
     end
   end
 end
