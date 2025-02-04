@@ -3,15 +3,15 @@ class Speaker < ApplicationRecord
   has_many :schedules, through: :schedule_items
   has_many :events, through: :schedules
 
-  validates :name, :token, :email, presence: true
-  validates :email, :token, uniqueness: true
+  validates :name, :code, :email, presence: true
+  validates :email, :code, uniqueness: true
 
   after_initialize :generate_unique_code, if: :new_record?
 
   def generate_unique_code
-    self.token = loop do
-      random_token = SecureRandom.alphanumeric(8).upcase
-      break random_token unless Speaker.exists?(token: random_token)
+    self.code = loop do
+      random_code = SecureRandom.alphanumeric(8).upcase
+      break random_code unless Speaker.exists?(code: random_code)
     end
   end
 end

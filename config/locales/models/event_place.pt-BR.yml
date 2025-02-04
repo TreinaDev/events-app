@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      event_place:
+        one: Local do Evento
+        other: Locais dos Eventos
+    attributes:
+      event_place:
+        name: Nome
+        street: Rua
+        number: Número
+        neighborhood: Bairro
+        city: Cidade
+        state: Estado
+        zip_code: CEP
+        photo: Foto do Local
