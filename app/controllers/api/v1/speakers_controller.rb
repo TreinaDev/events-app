@@ -17,7 +17,21 @@ class Api::V1::SpeakersController < Api::V1::ApiController
     speaker = Speaker.find_by(code: params[:code])
 
     if speaker
-      events = speaker.events.distinct.as_json(except: [ :id, :user_id, :discarded_at, :updated_at ])
+      events = speaker.events.distinct.map do |event|
+        {
+          code: event.code,
+          name: event.name,
+          event_type: event.event_type,
+          description: event.description.body ? event.description.body.to_html : "",
+          address: event.address,
+          logo_url: event.logo.attached? ? url_for(event.logo) : nil,
+          banner_url: event.banner.attached? ? url_for(event.banner) : nil,
+          participants_limit: event.participants_limit,
+          event_owner: event.user.name,
+          start_date: event.start_date,
+          end_date: event.end_date
+        }
+      end
       render json: events, status: :ok
     else
       render json: { error: "Código não pertence a nenhum palestrante." }, status: :not_found

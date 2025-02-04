@@ -73,6 +73,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_203225) do
     t.index ["event_id"], name: "index_event_categories_on_event_id"
   end
 
+  create_table "event_places", force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "zip_code"
+    t.string "state"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_event_places_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.integer "user_id", null: false
@@ -175,6 +189,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_203225) do
   add_foreign_key "category_keywords", "keywords"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
+  add_foreign_key "event_places", "users"
   add_foreign_key "events", "users"
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
