@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_003728) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_053127) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -71,6 +71,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_003728) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_event_categories_on_category_id"
     t.index ["event_id"], name: "index_event_categories_on_event_id"
+  end
+
+  create_table "event_places", force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "number"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "zip_code"
+    t.string "state"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_event_places_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -171,7 +185,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_003728) do
     t.string "family_name"
     t.string "registration_number"
     t.integer "role", default: 1
-    t.integer "verification_status", default: 1
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -179,8 +192,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_003728) do
     t.string "phone_number"
     t.string "id_photo"
     t.string "address_proof"
+    t.integer "verification_status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "verifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "reviewed_by_id"
+    t.integer "status", default: 1
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewed_by_id"], name: "index_verifications_on_reviewed_by_id"
+    t.index ["user_id"], name: "index_verifications_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -189,9 +214,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_003728) do
   add_foreign_key "category_keywords", "keywords"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
+  add_foreign_key "event_places", "users"
   add_foreign_key "events", "users"
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
   add_foreign_key "ticket_batches", "events"
   add_foreign_key "user_addresses", "users"
+  add_foreign_key "verifications", "users"
+  add_foreign_key "verifications", "users", column: "reviewed_by_id"
 end

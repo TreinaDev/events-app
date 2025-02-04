@@ -11,8 +11,9 @@ class VerificationsController < ApplicationController
   def create
     @user = current_user
     @user.update(user_verification_params)
+    verification_request = Verification.new(user: @user)
 
-    if @user.save
+    if @user.save && verification_request.save
       redirect_to dashboard_path, notice: "Sua requisição de análise do perfil foi criada com sucesso! Aguarde pela validação por um administrador"
     else
       flash.now[:alert] = "Erro ao enviar requisição de análise do perfil"
