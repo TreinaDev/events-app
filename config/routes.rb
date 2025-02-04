@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources :keywords, only: [ :new, :create ]
 
+  resources :verifications, only: [ :new, :create ]
+
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
 

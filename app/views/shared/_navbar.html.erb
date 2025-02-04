@@ -4,10 +4,24 @@
     <span class="link_separator"></span>
   <% end %>
 
-  <div class="min-w-fit ml-12">
-    <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
-    <div class="flex w-full justify-end">
-      <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button' %>
+  <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
+      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
+
+    <%= image_tag 'chevron.svg', class: 'hover:cursor-pointer h-4 w-4', data: { 'user-options-target': 'chevron', action: 'click->user-options#toggleProfileMenu' } %>
+    <div class="opacity-0 transition-opacity w-52 mt-2 absolute top-5 right-0 p-4 rounded-md bg-backgroundWhite border border-primary text-textPrimary font-light flex flex-col items-end gap-4" data-user-options-target="profileMenu">
+      <% if current_user.verification_status == 'unverified' %>
+        <div class="flex gap-2 items-center justify-end">
+          <%= image_tag 'unchecked.svg', class: 'w-4 h-4 opacity-50' %>
+          <p class="text-[#D9D9D9] opacity-80">Não verificado</p>
+        </div>
+        <%= link_to 'Requisitar verificação', new_verification_path, class: 'logout_button' %>
+      <% else %>
+        <div class="flex gap-2 items-center justify-end">
+          <%= image_tag 'checked.svg', class: 'w-4 h-4' %>
+          <p class="text-success font-semibold">Verificado</p>
+        </div>
+      <% end %>
+      <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button px-2' %>
     </div>
   </div>
 </nav>
