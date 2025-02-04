@@ -241,7 +241,7 @@ describe 'Speaker API' do
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
       speaker = Speaker.last
 
-      get "/api/v1/speakers/#{speaker.code}/events/#{event.code}"
+      get "/api/v1/speakers/#{speaker.code}/event/#{event.code}"
 
       json_response = JSON.parse(response.body)
       expect(json_response['name']).to eq 'Tropical Rails Fake'
@@ -255,7 +255,7 @@ describe 'Speaker API' do
       schedule = create(:schedule, event: event)
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
 
-      get "/api/v1/speakers/INVALID_CODE/events/#{event.code}"
+      get "/api/v1/speakers/INVALID_CODE/event/#{event.code}"
 
       json_response = JSON.parse(response.body)
       expect(json_response["error"]). to eq 'Código não pertence a nenhum palestrante.'
@@ -270,7 +270,7 @@ describe 'Speaker API' do
       create(:schedule_item, schedule: schedule, responsible_email: "marcos@email.com")
       speaker = Speaker.last
 
-      get "/api/v1/speakers/#{speaker.code}/events/INVALID_CODE"
+      get "/api/v1/speakers/#{speaker.code}/event/INVALID_CODE"
 
       json_response = JSON.parse(response.body)
       expect(json_response["error"]). to eq 'Palestrante não possui nenhum evento com esse código.'
@@ -286,7 +286,7 @@ describe 'Speaker API' do
       speaker = Speaker.last
       allow(Speaker).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
 
-      get "/api/v1/speakers/#{speaker.code}/events/#{event.code}"
+      get "/api/v1/speakers/#{speaker.code}/event/#{event.code}"
 
       expect(response.status).to eq 500
     end

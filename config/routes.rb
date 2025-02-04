@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
       resources :speakers, only: [ :create ], param: :code do
         get "events", on: :member
-        get "events/:event_code", to: "speakers#event", as: :events
+        get "event/:event_code", to: "speakers#event", as: :events
         get "schedules/:event_code", to: "speakers#schedules", as: :schedules
         get "schedule_item/:schedule_item_code", to: "speakers#schedule_item", as: :schedule_item
       end
