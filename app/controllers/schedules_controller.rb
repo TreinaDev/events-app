@@ -18,7 +18,7 @@ class SchedulesController < ApplicationController
 
   def authorize_schedule_access
     @schedule = Schedule.find(params[:id])
-    unless @schedule.event.user == current_user
+    unless @schedule.event.user == current_user || current_user.role == "admin"
       redirect_to root_path, alert: "Acesso não autorizado."
     end
   end
