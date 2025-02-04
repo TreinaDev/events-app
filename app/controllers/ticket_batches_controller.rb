@@ -12,7 +12,7 @@ class TicketBatchesController < ApplicationController
   end
 
   def create
-    return redirect_to dashboard_path, alert: "Você não tem permissão para efetuar essa transação" if @event.user != current_user
+    return redirect_to dashboard_path, alert: "Você não tem permissão para efetuar essa transação" if @event.user != current_user && current_user.role != "admin"
 
     @ticket_batch = TicketBatch.new(ticket_batch_params)
     @ticket_batch.event = @event
