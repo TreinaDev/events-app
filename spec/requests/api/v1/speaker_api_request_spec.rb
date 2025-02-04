@@ -75,8 +75,8 @@ describe 'Speaker API' do
 
       json_response = JSON.parse(response.body)
       expect(json_response[0]['name']).to eq 'Conferência Ruby'
-      expect(json_response[0]['logo_url']).to be_present
-      expect(json_response[0]['banner_url']).to eq be_present
+      expect(json_response[0]['logo_url']).to eq rails_blob_url(event.logo, only_path: false)
+      expect(json_response[0]['banner_url']).to eq rails_blob_url(event.banner, only_path: false)
       expect(json_response.size).to eq 1
       expect(response.status).to eq 200
       expect(response.content_type).to include('application/json')
