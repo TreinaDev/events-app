@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :user_address do
-    street { "MyString" }
-    number { 1 }
-    district { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
-    zip_code { "MyString" }
+    street { "Rua das Laranjeiras" }
+    number { 522 }
+    district { "Laranjeiras" }
+    city { "Rio de Janeiro" }
+    state { "RJ" }
+    zip_code { "37.000-000" }
     user { nil }
   end
 end

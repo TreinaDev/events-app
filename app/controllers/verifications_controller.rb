@@ -10,7 +10,14 @@ class VerificationsController < ApplicationController
 
   def create
     @user = current_user
-    @user.update(user_verification_params)
+
+    received_data = user_verification_params
+    if received_data.values.any? { |value| value.blank? }
+      flash.now[:alert] = "Erro ao enviar requisição de análise do perfil: Todos os campos são obrigatórios"
+      return render :new, status: :unprocessable_entity
+    end
+
+    @user.update(received_data)
     verification_request = Verification.new(user: @user)
 
     if @user.save && verification_request.save
