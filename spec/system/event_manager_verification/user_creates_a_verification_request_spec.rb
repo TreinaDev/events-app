@@ -39,6 +39,8 @@ describe 'Usuário não verificado visita a tela de criar solicitação de verif
     click_on 'Requisitar Validação'
 
     expect(page).to have_content('Sua requisição de análise do perfil foi criada com sucesso! Aguarde pela validação por um administrador')
+    expect(user.reload.verification_status).to eq "pending"
+    expect(Verification.last.status).to eq "pending"
     expect(current_path).to eq dashboard_path
   end
 
