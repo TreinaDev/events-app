@@ -7,7 +7,7 @@ describe 'Usuário cria verificação' do
 
       post verifications_path(
         user: {
-          address: {
+          user_address_attributes: {
             street: 'Rua Judite dos Santos',
             number: '522',
             district: 'Centro',
@@ -15,8 +15,9 @@ describe 'Usuário cria verificação' do
             state: 'SP',
             zip_code: '01000-000'
           },
-          id_photo: Rails.root.join('spec/support/images/id_photo.png'),
-          address_proof: Rails.root.join('spec/support/images/residency_proof.jpeg')
+          id_photo: '',
+          address_proof: '',
+          phone_number: ''
         }
       )
 
@@ -30,7 +31,7 @@ describe 'Usuário cria verificação' do
 
       post verifications_path(
         user: {
-          address: {
+          user_address_attributes: {
             street: 'Rua Judite dos Santos',
             number: '522',
             district: 'Centro',
@@ -38,8 +39,9 @@ describe 'Usuário cria verificação' do
             state: 'SP',
             zip_code: '01000-000'
           },
-          id_photo: Rails.root.join('spec/support/images/id_photo.png'),
-          address_proof: Rails.root.join('spec/support/images/residency_proof.jpeg')
+          id_photo: '',
+          address_proof: '',
+          phone_number: ''
         }
       )
 
@@ -49,13 +51,13 @@ describe 'Usuário cria verificação' do
   end
 
   context 'e falha' do
-    it 'por não informar todos os dados necessários' do
+    it 'por não informar todos os dados necessários (inclusive os que sao opcionais na criaçao de user)' do
       user = create(:user)
       login_as user
 
       post verifications_path(
         user: {
-          address: {
+          user_address_attributes: {
             street: 'Rua Judite dos Santos',
             number: '522',
             district: 'Centro',
@@ -63,13 +65,36 @@ describe 'Usuário cria verificação' do
             state: 'SP',
             zip_code: '01000-000'
           },
-          id_photo: nil,
-          address_proof: Rails.root.join('spec/support/images/residency_proof.jpeg')
+          id_photo: '',
+          address_proof: '',
+          phone_number: ''
         }
       )
 
-      user.reload
       expect(response).to have_http_status :unprocessable_entity
+    end
+
+    it 'por já ser um usuário verificado' do
+      user = create(:user, verification_status: :verified)
+      login_as user
+
+      post verifications_path(
+        user: {
+          user_address_attributes: {
+            street: 'Rua Judite dos Santos',
+            number: '522',
+            district: 'Centro',
+            city: 'São Paulo',
+            state: 'SP',
+            zip_code: '01000-000'
+          }
+        }
+      )
+
+      expect(response).to redirect_to dashboard_path
+      expect(response).to have_http_status :found
+      puts response.body
+      expect(flash[:alert]).to eq('Usuário já possui status verificado')
     end
   end
 end

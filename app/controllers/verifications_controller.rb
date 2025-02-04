@@ -9,18 +9,13 @@ class VerificationsController < ApplicationController
   end
 
   def create
+    return redirect_to dashboard_path, alert: "Usuário já possui status verificado" if current_user.verification_status == "verified"
     @user = current_user
 
-    received_data = user_verification_params
-    if received_data.values.any? { |value| value.blank? }
-      flash.now[:alert] = "Erro ao enviar requisição de análise do perfil: Todos os campos são obrigatórios"
-      return render :new, status: :unprocessable_entity
-    end
+    @received_data = user_verification_params
 
-    @user.update(received_data)
     verification_request = Verification.new(user: @user)
-
-    if @user.save && verification_request.save
+    if @user.update(@received_data) && verification_request.save
       redirect_to dashboard_path, notice: "Sua requisição de análise do perfil foi criada com sucesso! Aguarde pela validação por um administrador"
     else
       flash.now[:alert] = "Erro ao enviar requisição de análise do perfil"
