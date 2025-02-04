@@ -93,7 +93,6 @@ describe 'Usuário cria verificação' do
 
       expect(response).to redirect_to dashboard_path
       expect(response).to have_http_status :found
-      puts response.body
       expect(flash[:alert]).to eq('Usuário já possui status verificado')
     end
   end

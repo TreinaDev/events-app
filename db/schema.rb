@@ -124,6 +124,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_053127) do
     t.integer "schedule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code", null: false
+    t.index ["code"], name: "index_schedule_items_on_code", unique: true
     t.index ["schedule_id"], name: "index_schedule_items_on_schedule_id"
   end
 
@@ -185,6 +187,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_053127) do
     t.string "family_name"
     t.string "registration_number"
     t.integer "role", default: 1
+    t.integer "verification_status"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -192,7 +195,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_053127) do
     t.string "phone_number"
     t.string "id_photo"
     t.string "address_proof"
-    t.integer "verification_status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
