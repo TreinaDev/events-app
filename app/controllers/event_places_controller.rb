@@ -1,6 +1,7 @@
 class EventPlacesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
+  before_action :check_if_event_manager
 
   def index
     @event_places = current_user.event_places
