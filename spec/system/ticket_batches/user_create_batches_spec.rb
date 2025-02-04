@@ -21,9 +21,9 @@ describe 'Usuário cria lotes' do
     ticket_batch = TicketBatch.last
     expect(page).to have_content 'Lote de Ingresso adicionado com sucesso.'
     expect(page).to have_content 'Primeiro Lote'
-    expect(page).to have_content 'Limite de Ingressos: 30'
-    expect(page).to have_content 'Valor do Ingresso: R$ 1.000,00'
-    expect(page).to have_content 'Opção de Desconto: Sem Desconto'
+    expect(page).to have_content '0 - 30'
+    expect(page).to have_content 'R$ 1.000,00'
+    expect(page).to have_content 'Sem Desconto'
     expect(page).to have_content I18n.l ticket_batch.start_date.to_date, format: :short
     expect(page).to have_content I18n.l ticket_batch.end_date.to_date, format: :short
     expect(current_path).to eq event_ticket_batches_path(event)
@@ -47,8 +47,8 @@ describe 'Usuário cria lotes' do
     click_on 'Criar Lote'
 
     expect(page).to have_content 'Primeiro Lote - Meia Estudante'
-    expect(page).to have_content 'Opção de Desconto: Meia Estudante'
-    expect(page).to have_content 'Valor do Ingresso: R$ 500,00'
+    expect(page).to have_content 'Meia Estudante'
+    expect(page).to have_content 'R$ 500,00'
   end
 
   it 'e falha por informar dados inválidos' do
