@@ -28,12 +28,7 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
-    if @category.update(category_params)
-      redirect_to categories_path, notice: t(".success")
-    else
-      flash.now[:alert] = t(".failure")
-      render :show, status: :unprocessable_entity
-    end
+    redirect_to categories_path, notice: t(".success") if @category.update(category_params)
   end
 
   private
