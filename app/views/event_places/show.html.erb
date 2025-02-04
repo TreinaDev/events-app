@@ -54,4 +54,26 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <h3>Recomendações de estabelecimentos próximos</h3>
+
+    <%= link_to 'Recomendar local', new_event_place_recommendation_path(@event_place), class: 'form_button w-full md:w-auto' %>
+
+    <% if @event_place.event_place_recommendations.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <% @event_place.event_place_recommendations.each do |recommendation| %>
+          <div class="card">
+            <div class="p-4">
+              <h2 class="card_title"><%= recommendation.name %></h2>
+              <p><%= recommendation.full_address %></p>
+              <p><%= recommendation.phone %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="mt-4">Nenhuma recomendação encontrada.</p>
+    <% end %>
+  </div>
 </div>
