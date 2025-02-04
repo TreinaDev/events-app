@@ -51,6 +51,28 @@ RSpec.describe User, type: :model do
         expect(user).not_to be_valid
       end
     end
+
+    context 'tipo dos arquivos da verificacao' do
+      it 'deve ser .pdf, .jpg, .jpeg, .png, .doc, .docx para foto do documento de identidade' do
+        temporary_file = Tempfile.new([ 'empty_document', '.txt' ])
+        user = build(:user)
+        user.id_photo.attach(io: temporary_file, filename: 'empty_document.txt', content_type: 'text/plain')
+        user.valid?
+
+        expect(user.errors).to include(:id_photo)
+        expect(user).not_to be_valid
+      end
+
+      it 'deve ser .pdf, .jpg, .jpeg, .png, .doc, .docx para foto do comprovante de residencia' do
+        temporary_file = Tempfile.new([ 'empty_document', '.txt' ])
+        user = build(:user)
+        user.address_proof.attach(io: temporary_file, filename: 'empty_document.txt', content_type: 'text/plain')
+        user.valid?
+
+        expect(user.errors).to include(:address_proof)
+        expect(user).not_to be_valid
+      end
+    end
   end
 
   describe 'recebe um status' do
