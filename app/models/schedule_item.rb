@@ -1,6 +1,8 @@
 class ScheduleItem < ApplicationRecord
   include Discard::Model
 
+  default_scope -> { kept }
+
   belongs_to :schedule
   belongs_to :speaker, foreign_key: "responsible_email", primary_key: "email", optional: true
 

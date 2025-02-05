@@ -1,28 +1,30 @@
 <% if current_user.role == "event_manager"%>
-<div class="bg-white p-10 shadow-md rounded">
-  <div class="flex justify-between items-center">
-    <h1>Meus Eventos</h1>
+  <div class="bg-white p-10 shadow-md rounded">
+    <div class="flex justify-between items-center">
+      <h1>Meus Eventos</h1>
 
-    <%= link_to 'Criar Evento', new_event_path, class: 'form_button w-fit'%>
-  </div>
+      <%= link_to 'Criar Evento', new_event_path, class: 'form_button w-fit'%>
+    </div>
 
-  <div class="mt-4">
-    <% if @events.any? %>
-      <table class="w-full text-left table-auto">
-        <thead>
-          <tr>
-            <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
-            <th class="px-4 py-2 border-b border-blue-gray-500">Status</th>
-            <th class="px-4 py-2 border-b border-blue-gray-500">Limite de participantes</th>
-            <th class="px-4 py-2 border-b border-blue-gray-500">Quando</th>
-            <th class="px-4 py-2 border-b border-blue-gray-500"></th>
-          </tr>
+    <div class="mt-4">
+      <% if @events.any? %>
+        <table class="w-full text-left table-auto">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Status</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Limite de participantes</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Quando</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500"></th>
+            </tr>
           </thead>
           <tbody>
-            <% @events.kept.each do |e| %>
+            <% @events.each do |e| %>
               <tr class="even:bg-gray-100">
                 <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.name %></td>
-                <td class="px-4 py-2 border-b border-blue-gray-100"><p class="<%=e.status == 'published' ? "text-success font-medium" : "text-warning font-medium" %>"><%= Event.human_enum_name(:status, e.status) %></p></td>
+                <td class="px-4 py-2 border-b border-blue-gray-100">
+                  <p class="<%=e.status == 'published' ? "text-success font-medium" : "text-warning font-medium" %>"><%= Event.human_enum_name(:status, e.status) %></p>
+                </td>
                 <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.participants_limit%></td>
                 <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(e.start_date.to_date)%></td>
                 <td class="px-4 py-2 border-b border-blue-gray-100">
@@ -36,11 +38,11 @@
               </tr>
             <% end %>
           </tbody>
-      </table>
-    
-    <% else %>
-      <p>Você não possui eventos cadastrados.</p>
-    <% end %>
+        </table>
+
+      <% else %>
+        <p>Você não possui eventos cadastrados.</p>
+      <% end %>
+    </div>
   </div>
-</div>
 <% end %>
