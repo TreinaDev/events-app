@@ -1,8 +1,10 @@
 class EventsController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
+  before_action :check_if_admin, only: [ :history ]
   before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
   before_action :check_event_status, only: [ :update ]
+  before_action :check_if_event_manager, only: [ :new, :create ]
 
   def new
     @event = Event.new
@@ -47,7 +49,14 @@ class EventsController < ApplicationController
 
   def destroy
     @event.discard!
+    if current_user.role == "admin"
+      return redirect_to history_events_path, notice: "Evento deletado com sucesso"
+    end
     redirect_to dashboard_path, notice: "Evento deletado com sucesso"
+  end
+
+  def history
+    @events = Event.with_discarded
   end
 
   private
@@ -58,7 +67,7 @@ class EventsController < ApplicationController
 
   def authorize_event_access
     @event = Event.find(params[:id])
-    unless @event.user == current_user
+    unless @event.user == current_user || current_user.role == "admin"
       redirect_to root_path, alert: "Acesso não autorizado."
     end
   end
@@ -66,6 +75,12 @@ class EventsController < ApplicationController
   def check_event_status
     if @event.published?
       redirect_to @event, alert: "Não é possível atualizar evento publicado"
+    end
+  end
+
+  def check_if_event_manager
+    if current_user && current_user.role != "event_manager"
+      redirect_to dashboard_path, alert: "Acesso não autorizado."
     end
   end
 end

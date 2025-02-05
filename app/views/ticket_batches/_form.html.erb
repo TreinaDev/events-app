@@ -1,0 +1,65 @@
+<%= form_with(model: [event, ticket_batch]) do |f| %>
+  <div class="form">
+    <div class="input_container">
+      <%= f.label :name, class: 'input_label' %>
+      <%= f.text_field :name, class: 'input' %>
+      <% if ticket_batch.errors[:name].any? %>
+          <% ticket_batch.errors.full_messages_for(:name).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :tickets_limit, class: 'input_label' %>
+      <%= f.number_field :tickets_limit, class: 'input' %>
+      <% if ticket_batch.errors[:tickets_limit].any? %>
+          <% ticket_batch.errors.full_messages_for(:tickets_limit).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :start_date, class: 'input_label' %>
+      <%= f.date_field :start_date, class: 'input' %>
+      <% if ticket_batch.errors[:start_date].any? %>
+          <% ticket_batch.errors.full_messages_for(:start_date).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :end_date, class: 'input_label' %>
+      <%= f.date_field :end_date, class: 'input' %>
+      <% if ticket_batch.errors[:end_date].any? %>
+          <% ticket_batch.errors.full_messages_for(:end_date).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container"> 
+      <%= f.label :ticket_price, class: 'input_label' %>
+      <%= f.number_field :ticket_price, class: 'input' %>
+      <% if ticket_batch.errors[:ticket_price].any? %>
+          <% ticket_batch.errors.full_messages_for(:ticket_price).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container"> 
+      <%= f.label :discount_option, class: 'input_label' %>
+      <%= f.select :discount_option, options_for_select([['Sem Desconto', "no_discount"], ['Meia Estudante', "student"], ['Meia Idoso', "elderly"], ['Meia PCD', "disability"]]), {}, {class: "input"} %>
+      <% if ticket_batch.errors[:discount_option].any? %>
+          <% ticket_batch.errors.full_messages_for(:discount_option).each do |e| %>
+            <span class="form_error"><%= e %></span>
+          <% end %>
+      <% end %>
+    </div>
+
+    <%= f.submit btn_text, class: 'form_button' %>
+  </div>
+<% end %> 

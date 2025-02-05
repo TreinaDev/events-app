@@ -1,36 +1,48 @@
-<div class="flex items-center justify-between mb-10">
-  <h1>Lotes de Ingresso - Evento: <%= @event.name %></h1>
+<div class="bg-white p-10 shadow-md rounded">
+  <div class="flex items-center justify-between mb-10">
+    <h1>Lotes de Ingresso - Evento: <%= @event.name %></h1>
 
-  <div class="flex gap-4">
-    <%= link_to '+ Lote', new_event_ticket_batch_path(@event), class: 'form_button' %>
+    <div class="flex gap-4">
+      <%= link_to '+ Lote', new_event_ticket_batch_path(@event), class: 'form_button' %>
+    </div>
   </div>
-</div>
 
-<section class="flex flex-col gap-4">
-  <% if @ticket_batches.any? %>
-    <% @ticket_batches.each do |batch| %>
-      <div class="flex border-2 border-primary rounded-md overflow-hidden bg-projectPaperWhite w-2/3">
-        <div class="flex flex-col gap-4 bg-primary text-backgroundWhite px-8 py-8 items-center justify-center">
-          <p class="font-bold text-primaryLight">Vendas:</p>
-          <p class="font-bold"><%= l batch.start_date, format: :short %> <span class="font-normal">até</span> <%= l batch.end_date, format: :short %></p>
-        </div>
-
-        <div class="flex justify-between items-center px-8 flex-1">
-          <div class="flex flex-col font-mono px-4 py-8 gap-4">
-           <p class="font-extrabold text-primary text-2xl font-sans"></span><%= batch.name %></p>
-           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Valor do Ingresso: </span><%= number_to_currency batch.ticket_price %></p>
-           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Limite de Ingressos: </span><%= batch.tickets_limit %></p>
-           <p class="font-normal text-textSecondary"><span class="font-bold text-textPrimary">Opção de Desconto: </span><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option)%> </p>
-          </div>
-
-          <div class="py-8 h-full">
-            <%= image_tag "bar_code.svg", class: 'w-full'%>
-            <p class="font-light text-textSecondary text-center"><%= SecureRandom.alphanumeric(7).upcase! %></p>
-          </div>
-        </div>
-      </div>
+  <section class="flex flex-col gap-4">
+    <% if @ticket_batches.any? %>
+    <table class="w-full text-left table-auto">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Vendido/Total</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Valor</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Desconto</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Data de início</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Data de fim</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500"></th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @ticket_batches.each do |batch| %>
+                <tr class="even:bg-gray-100">
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= batch.name%></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100">0 - <%= batch.tickets_limit %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= number_to_currency batch.ticket_price %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option) %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(batch.start_date.to_date)%></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(batch.end_date.to_date)%></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100">
+                    <div class="flex gap-4 items-center justify-end">
+                      <%= link_to edit_event_ticket_batch_path(@event, batch), class: 'alert_button', data: {test_id: "edit-#{batch.id}"} do %>
+                        <img src="<%= asset_path('edit.svg')%>" class="h-6 w-6"/>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+        </table>
+    <% else %>
+      <h2 class="font-bold text-lg text-textPrimary">Nenhum Lote de Ingresso cadastrado</h2>
     <% end %>
-  <% else %>
-    <h2 class="font-bold text-lg text-textPrimary">Nenhum Lote de Ingresso cadastrado</h2>
-  <% end %>
-</section>
+  </section>
+</div>

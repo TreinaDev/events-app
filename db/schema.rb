@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_223854) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_024835) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -83,6 +83,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_223854) do
     t.index ["event_id"], name: "index_event_categories_on_event_id"
   end
 
+  create_table "event_place_recommendations", force: :cascade do |t|
+    t.string "name"
+    t.string "full_address"
+    t.string "phone"
+    t.integer "event_place_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_place_id"], name: "index_event_place_recommendations_on_event_place_id"
+  end
+
   create_table "event_places", force: :cascade do |t|
     t.string "name"
     t.string "street"
@@ -135,7 +145,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_223854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code", null: false
+    t.datetime "discarded_at"
     t.index ["code"], name: "index_schedule_items_on_code", unique: true
+    t.index ["discarded_at"], name: "index_schedule_items_on_discarded_at"
     t.index ["schedule_id"], name: "index_schedule_items_on_schedule_id"
   end
 
@@ -228,6 +240,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_223854) do
   add_foreign_key "category_keywords", "keywords"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
+  add_foreign_key "event_place_recommendations", "event_places"
   add_foreign_key "event_places", "users"
   add_foreign_key "events", "users"
   add_foreign_key "schedule_items", "schedules"
