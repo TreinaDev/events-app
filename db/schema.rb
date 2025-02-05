@@ -134,6 +134,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_185249) do
     t.integer "schedule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code", null: false
+    t.index ["code"], name: "index_schedule_items_on_code", unique: true
     t.index ["schedule_id"], name: "index_schedule_items_on_schedule_id"
   end
 
@@ -170,6 +172,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_185249) do
     t.index ["event_id"], name: "index_ticket_batches_on_event_id"
   end
 
+  create_table "user_addresses", force: :cascade do |t|
+    t.string "street"
+    t.integer "number"
+    t.string "district"
+    t.string "city"
+    t.string "state", limit: 2
+    t.string "zip_code"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_addresses_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -182,13 +197,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_185249) do
     t.string "family_name"
     t.string "registration_number"
     t.integer "role", default: 1
-    t.integer "verification_status", default: 1
+    t.integer "verification_status"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "phone_number"
+    t.string "id_photo"
+    t.string "address_proof"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "verifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "reviewed_by_id"
+    t.integer "status", default: 1
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewed_by_id"], name: "index_verifications_on_reviewed_by_id"
+    t.index ["user_id"], name: "index_verifications_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -203,4 +232,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_185249) do
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
   add_foreign_key "ticket_batches", "events"
+  add_foreign_key "user_addresses", "users"
+  add_foreign_key "verifications", "users"
+  add_foreign_key "verifications", "users", column: "reviewed_by_id"
 end
