@@ -63,6 +63,14 @@
     @apply flex items-center justify-center text-center hover:cursor-pointer bg-alert hover:bg-[#C00302] text-backgroundWhite p-3 rounded-md transition duration-150 font-bold border border-alert;
   }
 
+  .danger_button:disabled {
+    @apply bg-neutral-500 cursor-not-allowed border-none;
+  }
+
+  .alert_button {
+    @apply flex items-center justify-center text-center hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-backgroundWhite p-3 rounded-md transition duration-150 font-bold border border-amber-500;
+  }
+
   .nav_link_active {
     @apply relative text-backgroundWhite font-light mx-4 decoration-2 underline-offset-4 decoration-success border-b-2 border-b-success hover:no-underline;
   }
@@ -81,10 +89,6 @@
 
   .button-primary {
     @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
-  }
-
-  .button-alert {
-    @apply focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900;
   }
 
   .button-secondary {

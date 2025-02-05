@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between">
   <div class="flex items-center gap-4">
-  <%= link_to 'Voltar', dashboard_path, class: 'outline_button w-fit' %>
+  <%= link_to 'Voltar', current_user.role == 'admin' ? history_events_path : dashboard_path, class: 'outline_button w-fit' %>
     <% if @event.logo.attached? %>
       <div class="w-16 h-16 overflow-hidden">
         <%= image_tag url_for(@event.logo), class: 'object-contain h-full w-full' %>

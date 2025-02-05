@@ -6,16 +6,22 @@ Rails.application.routes.draw do
   resources :events, only: [ :new, :edit, :create, :update, :destroy, :show ] do
     patch :publish, on: :member
 
-    resources :ticket_batches, only: [ :index, :new, :create ]
+    resources :ticket_batches, only: [ :index, :new, :create, :edit, :update ]
+
+    collection do
+      get :history
+    end
 
     resources :announcements, only: [ :index, :create ]
 
     resources :schedules, only: [ :show ] do
-      resources :schedule_items, as: :items, only: [ :new, :create ]
+      resources :schedule_items, as: :items, only: [ :new, :create, :destroy ]
     end
   end
 
-  resources :event_places, only: [ :new, :create, :index, :show, :edit, :update, :destroy ]
+  resources :event_places, only: [ :new, :create, :index, :show, :edit, :update, :destroy ] do
+    resources :event_place_recommendations, as: :recommendations, only: [ :new, :create, :edit, :update, :destroy ]
+  end
 
   resources :keywords, only: [ :new, :create ]
 

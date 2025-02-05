@@ -1,6 +1,6 @@
 class ScheduleItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_schedule_owner, only: [ :new, :create ]
+  before_action :authorize_schedule_owner, only: [ :new, :create, :destroy ]
 
   def new
     @schedule_item = @schedule.schedule_items.build
@@ -16,6 +16,13 @@ class ScheduleItemsController < ApplicationController
       flash.now[:alert] = "Não foi possível criar a atividade."
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @schedule_item = ScheduleItem.find_by(id: params[:id])
+
+    @schedule_item.discard!
+    redirect_to event_schedule_path(@schedule_item.schedule.event, @schedule_item.schedule), notice: "Item deletado com sucesso."
   end
 
   private
