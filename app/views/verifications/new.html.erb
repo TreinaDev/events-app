@@ -1,0 +1,112 @@
+<h1>Nova Requisição de Verificação</h1>
+
+<%= form_for(@user, url: verifications_path, method: :post) do |f| %>
+  <div class="form">
+    <div class="input_container">
+      <%= f.label :phone_number, class: 'input_label' %>
+      <%= f.text_field :phone_number, class: 'input' %>
+
+      <% if @user.errors[:phone_number].any? %>
+        <% @user.errors.full_messages_for(:phone_number).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :id_photo, class: 'input_label' %>
+      <%= f.file_field :id_photo, accept: '.pdf, .jpg, .jpeg, .png, .doc, .docx' %>
+
+      <% if @user.errors[:id_photo].any? %>
+        <% @user.errors.full_messages_for(:id_photo).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="input_container">
+      <%= f.label :address_proof, class: 'input_label' %>
+      <%= f.file_field :address_proof, accept: '.pdf, .jpg, .jpeg, .png, .doc, .docx' %>
+
+      <% if @user.errors[:address_proof].any? %>
+        <% @user.errors.full_messages_for(:address_proof).each do |e| %>
+          <span class="form_error"><%= e %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= f.fields_for :user_address do |f_address| %>
+      <div class="form w-full mt-6" id="address_form">
+        <h2>Endereço Completo:</h2>
+
+        <div class="input_container">
+          <%= f_address.label :street, class: 'input_label' %>
+          <%= f_address.text_field :street, class: 'input' %>
+
+          <% if @user.user_address.errors[:street].any? %>
+            <% @user.user_address.errors.full_messages_for(:street).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="input_container">
+          <%= f_address.label :number, class: 'input_label' %>
+          <%= f_address.number_field :number, class: 'input', step: 1, minimum: 0 %>
+
+          <% if @user.user_address.errors[:number].any? %>
+            <% @user.user_address.errors.full_messages_for(:number).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="input_container">
+          <%= f_address.label :district, class: 'input_label' %>
+          <%= f_address.text_field :district, class: 'input' %>
+
+          <% if @user.user_address.errors[:district].any? %>
+            <% @user.user_address.errors.full_messages_for(:district).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="input_container">
+          <%= f_address.label :city, class: 'input_label' %>
+          <%= f_address.text_field :city, class: 'input' %>
+
+          <% if @user.user_address.errors[:city].any? %>
+            <% @user.user_address.errors.full_messages_for(:city).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="input_container">
+          <%= f_address.label :state, class: 'input_label' %>
+          <%= f_address.select :state, options_for_select([['AC', 'AC'], ['AL', 'AL'], ['AP', 'AP'], ['AM', 'AM'], ['BA', 'BA'], ['CE', 'CE'], ['DF', 'DF'], ['ES', 'ES'], ['GO', 'GO'], ['MA', 'MA'], ['MT', 'MT'], ['MS', 'MS'], ['MG', 'MG'], ['PA', 'PA'], ['PB', 'PB'], ['PR', 'PR'], ['PE', 'PE'], ['PI', 'PI'], ['RJ', 'RJ'], ['RN', 'RN'], ['RS', 'RS'], ['RO', 'RO'], ['RR', 'RR'], ['SC', 'SC'], ['SP', 'SP'], ['SE', 'SE'], ['TO', 'TO']]), {}, { class: 'input' } %>
+
+          <% if @user.user_address.errors[:state].any? %>
+            <% @user.user_address.errors.full_messages_for(:state).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="input_container">
+          <%= f_address.label :zip_code, class: 'input_label' %>
+          <%= f_address.text_field :zip_code, class: 'input' %>
+
+          <% if @user.user_address.errors[:zip_code].any? %>
+            <% @user.user_address.errors.full_messages_for(:zip_code).each do |e| %>
+              <span class="form_error"><%= e %></span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= f.submit "Requisitar Validação", class: 'form_button' %>
+  </div>
+<% end %>

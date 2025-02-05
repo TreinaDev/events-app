@@ -11,3 +11,6 @@ pt-BR:
         email: E-mail
         password: Senha
         registration_number: CPF
+        phone_number: Número de Telefone
+        id_photo: Foto/Arquivo do Documento de Identificação
+        address_proof: Foto/Arquivo do Comprovante de Residência

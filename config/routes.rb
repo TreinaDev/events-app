@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
     resources :ticket_batches, only: [ :index, :new, :create, :edit, :update ]
 
+    collection do
+      get :history
+    end
+
     resources :schedules, only: [ :show ] do
       resources :schedule_items, as: :items, only: [ :new, :create ]
     end
@@ -17,6 +21,8 @@ Rails.application.routes.draw do
 
   resources :keywords, only: [ :new, :create ]
 
+  resources :verifications, only: [ :new, :create ]
+
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
 
@@ -25,9 +31,12 @@ Rails.application.routes.draw do
       resources :events, param: :code, only: [ :index, :show ] do
         resources :ticket_batches, param: :code, only: [ :index, :show ]
       end
+
       resources :speakers, only: [ :create ], param: :code do
         get "events", on: :member
+        get "event/:event_code", to: "speakers#event", as: :events
         get "schedules/:event_code", to: "speakers#schedules", as: :schedules
+        get "schedule_item/:schedule_item_code", to: "speakers#schedule_item", as: :schedule_item
       end
     end
   end

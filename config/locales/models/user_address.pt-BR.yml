@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      user_address:
+        one: Endereço
+        other: Endereços
+    attributes:
+      user_address:
+        street: Rua
+        number: Número
+        district: Bairro
+        city: Cidade
+        state: Estado
+        zip_code: CEP
