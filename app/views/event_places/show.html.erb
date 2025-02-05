@@ -114,6 +114,13 @@
                   </svg>
                   Editar
                 <% end %>
+
+                <%= button_to event_place_recommendation_path(@event_place, recommendation), method: :delete,
+                    class: 'danger_button',
+                    data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir #{recommendation.name}?" },
+                    id: dom_id(recommendation, :delete) do %>
+                  <img src="<%= asset_path('bin.svg')%>" class="h-5 w-5 invert"/>
+                <% end %>
               </div>
             </div>
           </div>

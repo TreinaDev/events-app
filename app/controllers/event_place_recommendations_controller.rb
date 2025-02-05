@@ -54,6 +54,18 @@ class EventPlaceRecommendationsController < ApplicationController
     end
   end
 
+  def destroy
+    @event_place = EventPlace.find_by(id: params[:event_place_id])
+    @event_place_recommendation = EventPlaceRecommendation.find_by(id: params[:id])
+
+    if @event_place.nil? || @event_place.user != current_user || @event_place_recommendation.nil?
+      return redirect_to event_places_path
+    end
+
+    @event_place_recommendation.destroy
+    redirect_to @event_place, notice: "Recomendação de Local excluida com sucesso."
+  end
+
   private
 
   def event_place_recommendation_params

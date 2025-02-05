@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :event_places, only: [ :new, :create, :index, :show, :edit, :update, :destroy ] do
-    resources :event_place_recommendations, as: :recommendations, only: [ :new, :create, :edit, :update ]
+    resources :event_place_recommendations, as: :recommendations, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
   resources :keywords, only: [ :new, :create ]
