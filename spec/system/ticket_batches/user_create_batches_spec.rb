@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe 'Usuário cria lotes' do
+  it 'e falha por não estar autenticado' do
+    user = create(:user)
+    event = create(:event, name: 'AAXP', user: user)
+    visit new_event_ticket_batch_path(event)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
+
   it 'com sucesso' do
     user = create(:user)
     event = create(:event, user: user)

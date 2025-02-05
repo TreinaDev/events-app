@@ -11,6 +11,19 @@ describe 'Usuário edita lote' do
     expect(response).to have_http_status :found
   end
 
+  it 'e falha pois o evento é de outro usuário' do
+    event = create(:event)
+    batch = create(:ticket_batch, event: event)
+
+    new_user = create(:user, email: 'marcelino@email.com')
+
+    login_as new_user
+    patch event_ticket_batch_path(event, batch)
+
+    expect(response).to redirect_to root_path
+    expect(response).to have_http_status :found
+  end
+
   it 'e não consegue editar o lote de outro usuário sendo um usuário organizador' do
     user = create(:user, email: 'teste@email.com')
     category = create(:category, name: 'Tecnologia')
