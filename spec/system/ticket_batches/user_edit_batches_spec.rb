@@ -41,6 +41,7 @@ describe 'Usuário tenta editar lotes' do
     fill_in 'Nome', with: ''
     click_on 'Atualizar'
 
+    expect(page).to have_content 'Editar Lote'
     expect(page).to have_content 'Lote de Ingresso não foi atualizado'
     expect(page).to have_content 'Nome não pode ficar em branco'
   end
