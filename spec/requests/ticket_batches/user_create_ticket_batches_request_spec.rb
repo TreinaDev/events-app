@@ -31,7 +31,7 @@ describe 'Usuário cadastra lote de ingresso' do
         }
       )
 
-    expect(response).to redirect_to dashboard_path
+    expect(response).to redirect_to root_path
     expect(response).to have_http_status :found
   end
 
