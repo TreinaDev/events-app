@@ -1,5 +1,7 @@
 class EventPlaceRecommendationsController < ApplicationController
+  layout "dashboard"
   before_action :authenticate_user!
+  before_action :check_if_event_manager
 
   def new
     @event_place = EventPlace.find_by(id: params[:event_place_id])
@@ -14,6 +16,10 @@ class EventPlaceRecommendationsController < ApplicationController
     @event_place = EventPlace.find_by(id: params[:event_place_id])
     @event_place_recommendation = EventPlaceRecommendation.new(event_place_recommendation_params)
     @event_place_recommendation.event_place = @event_place
+
+    if @event_place.nil? || @event_place.user != current_user
+      return redirect_to event_places_path
+    end
 
     if @event_place_recommendation.save
       redirect_to @event_place, notice: "Recomendação de Local criada com sucesso."
@@ -35,6 +41,10 @@ class EventPlaceRecommendationsController < ApplicationController
   def update
     @event_place = EventPlace.find_by(id: params[:event_place_id])
     @event_place_recommendation = EventPlaceRecommendation.find_by(id: params[:id])
+
+    if @event_place.nil? || @event_place.user != current_user || @event_place_recommendation.nil?
+      return redirect_to event_places_path
+    end
 
     if @event_place_recommendation.update(event_place_recommendation_params)
       redirect_to @event_place, notice: "Recomendação de Local atualizada com sucesso."
