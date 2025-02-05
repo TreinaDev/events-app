@@ -4,7 +4,8 @@ class VerificationsController < ApplicationController
   before_action :check_if_event_manager, only: [ :new, :create ]
 
   def index
-    @verifications = current_user.verifications.order(created_at: :desc)
+    @verifications = current_user.verifications.order(created_at: :desc) if current_user.role == "event_manager"
+    @verifications = Verification.pending.order(created_at: :desc) if current_user.role == "admin"
   end
 
   def new

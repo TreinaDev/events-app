@@ -38,5 +38,26 @@ describe 'Usuário visita a tela de visualizar solicitações de verificação' 
       end
       expect(current_path).to eq verifications_path
     end
+
+  context 'como admin' do
+      it 'e ve todas solicitações pendentes' do
+        user = create(:user, :with_pending_request)
+        second_user = create(:user, :with_pending_request, email: 'second@user.com')
+        admin = create(:user, :admin)
+        login_as admin
+
+        visit root_path
+        within "[data-controller='user-options']" do
+          click_on 'Consultar reqs. de verificação'
+        end
+
+        within 'section' do
+          expect(page).to have_selector "article", count: 2
+          expect(page).to have_content "Solicitação #1 - Enviada por #{user.name } em #{I18n.l user.verifications.first.created_at, format: :short }"
+          expect(page).to have_content "Solicitação #2 - Enviada por #{second_user.name } em #{I18n.l second_user.verifications.first.created_at, format: :short }"
+        end
+        expect(current_path).to eq verifications_path
+      end
+    end
   end
 end
