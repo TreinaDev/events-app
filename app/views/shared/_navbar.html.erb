@@ -7,6 +7,9 @@
   </ul>
 
   <% if current_user.role == "admin" %>
+
+    <%= link_to 'Histórico de eventos', history_events_path, class: controller_name == 'events' ? 'nav_link_active' : 'nav_link_inactive' %>
+    <span class="link_separator"></span>
     <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
   <% end %>

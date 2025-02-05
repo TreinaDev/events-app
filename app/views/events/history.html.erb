@@ -1,0 +1,50 @@
+<div class="bg-white p-10 shadow-md rounded">
+  <div class="flex items-center">
+    <h1>Histórico de eventos</h1>
+  </div>
+
+  <div class="mt-4">
+    <% if @events.any? %>
+      <table class="w-full text-left table-auto">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 border-b border-blue-gray-500">Usuário</th>
+            <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
+            <th class="px-4 py-2 border-b border-blue-gray-500">Status</th>
+            <th class="px-4 py-2 border-b border-blue-gray-500">Data de início</th>
+            <th class="px-4 py-2 border-b border-blue-gray-500">Data de fim</th>
+            <th class="px-4 py-2 border-b border-blue-gray-500"></th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |e| %>
+              <tr class="even:bg-gray-100">
+                <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.user.name%></td>
+                <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.name %></td>
+                <td class="px-4 py-2 border-b border-blue-gray-100">
+                    <% if e.discarded?%>
+                        <p class="text-red-500 font-medium">Apagado</p>
+                    <% else %>
+                        <p class="<%=e.status == 'published' ? "text-success font-medium" : "text-warning font-medium" %>"><%= Event.human_enum_name(:status, e.status) %></p>
+                    <% end %>
+                </td>
+                <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(e.start_date.to_date)%></td>
+                <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(e.end_date.to_date)%></td>
+                <td class="px-4 py-2 border-b border-blue-gray-100">
+                  <div class="flex gap-4 items-center justify-end">
+                    <%= link_to 'Gerenciar', event_path(e), class: 'outline_button', test_id: "manage-#{e.id}" %>
+                    <%= button_to event_path(e), method: :delete, class: 'danger_button', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{e.name}", test_id: "delete-#{e.id}" }, disabled: e.discarded? do %>
+                      <img src="<%= asset_path('bin.svg')%>" class="h-6 w-6"/>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+    
+    <% else %>
+      <p>Você não possui eventos cadastrados.</p>
+    <% end %>
+  </div>
+</div>
