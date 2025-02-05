@@ -2,14 +2,13 @@ class AnnouncementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
   before_action :check_if_published
+  before_action :check_if_event_manager, only: [ :create ]
 
   def index
     @announcements = @event.announcements
     @announcement = Announcement.new
   end
 
-  def new
-  end
 
   def create
     @announcement = Announcement.new(announcement_params)

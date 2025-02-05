@@ -8,7 +8,7 @@ describe 'Usuário tenta ver anuncios' do
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
 
-  it 'falha por conta do evento não estar publicado' do
+  it 'e falha por conta do evento não estar publicado' do
     event = create(:event, status: :draft)
 
     visit event_announcements_path(event)
