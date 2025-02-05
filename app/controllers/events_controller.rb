@@ -77,10 +77,4 @@ class EventsController < ApplicationController
       redirect_to @event, alert: "Não é possível atualizar evento publicado"
     end
   end
-
-  def check_if_event_manager
-    if current_user && current_user.role != "event_manager"
-      redirect_to dashboard_path, alert: "Acesso não autorizado."
-    end
-  end
 end
