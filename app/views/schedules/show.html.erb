@@ -6,13 +6,16 @@
   %>
 </div>
 
-
 <section class="mt-10 flex flex-col gap-4" data-controller="schedule">
   <% if @schedule_items.empty? %>
     <h2 class="font-bold text-lg text-textPrimary">Ainda não atividades na Agenda deste dia de Evento.</h2>
   <% else %>
     <% @schedule_items.each do |item| %>
       <article class="flex items-center p-6 bg-white rounded-xl w-2/3">
+        <%= button_to event_schedule_item_path(item.schedule.event, item.schedule, item), method: :delete, class: 'danger_button mr-4', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o item de agenda:\n#{item.name}", test_id: "delete-#{item.id}" } do %>
+          <img src="<%= asset_path('bin.svg')%>" class="h-6 w-6 object-contain" style="max-width: 24px; max-height: 24px;"/>
+        <% end %>
+
         <% if item.schedule_type == "activity" %>
           <div class="flex pr-8 flex-col border-r-4 border-primary gap-1">
             <p class="font-extrabold text-primary"><%= l(item.start_time, format: :time_only) %></p>
