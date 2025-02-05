@@ -2,7 +2,9 @@
 
   <ul>
     <li>
-      <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
+      <% if current_user.role == "event_manager" %>
+        <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
+      <% end %>
     </li>
   </ul>
 
