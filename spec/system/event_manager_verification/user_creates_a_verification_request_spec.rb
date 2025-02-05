@@ -35,7 +35,7 @@ describe 'Usuário não verificado visita a tela de criar solicitação de verif
       fill_in 'CEP', with: '01000-000'
     end
     attach_file('Foto/Arquivo do Documento de Identificação', Rails.root.join('spec/support/images/id_photo.png'))
-    attach_file('Foto/Arquivo do Comprovante de Residência', Rails.root.join('spec/support/images/residency_proof.jpeg'))
+    attach_file('Foto/Arquivo do Comprovante de Residência', Rails.root.join('spec/support/images/address_proof.jpeg'))
     click_on 'Requisitar Validação'
 
     expect(page).to have_content('Sua requisição de análise do perfil foi criada com sucesso! Aguarde pela validação por um administrador')
@@ -62,7 +62,7 @@ describe 'Usuário não verificado visita a tela de criar solicitação de verif
       fill_in 'CEP', with: '01000-000'
     end
     attach_file('Foto/Arquivo do Documento de Identificação', Rails.root.join('spec/support/images/id_photo.png'))
-    attach_file('Foto/Arquivo do Comprovante de Residência', Rails.root.join('spec/support/images/residency_proof.jpeg'))
+    attach_file('Foto/Arquivo do Comprovante de Residência', Rails.root.join('spec/support/images/address_proof.jpeg'))
     click_on 'Requisitar Validação'
 
     expect(page).to have_content('Erro ao enviar requisição de análise do perfil')

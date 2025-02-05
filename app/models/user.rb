@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_one_attached :id_photo
   has_one_attached :address_proof
   has_many :event_places
+  has_many :verifications
 
 
   enum :verification_status, { unverified: 1, pending: 3, verified: 5 }, default: :unverified
