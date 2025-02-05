@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_05_024835) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_212037) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_024835) do
     t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.index ["code"], name: "index_announcements_on_code", unique: true
     t.index ["event_id"], name: "index_announcements_on_event_id"
     t.index ["user_id"], name: "index_announcements_on_user_id"
   end
