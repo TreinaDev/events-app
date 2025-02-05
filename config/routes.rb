@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :ticket_batches, only: [ :index, :new, :create ]
 
     resources :schedules, only: [ :show ] do
-      resources :schedule_items, as: :items, only: [ :new, :create ]
+      resources :schedule_items, as: :items, only: [ :new, :create, :destroy ]
     end
   end
 

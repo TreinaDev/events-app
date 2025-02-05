@@ -56,7 +56,7 @@ class EventsController < ApplicationController
   end
 
   def history
-    @events = Event.all
+    @events = Event.with_discarded
   end
 
   private
