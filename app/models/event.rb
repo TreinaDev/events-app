@@ -1,5 +1,8 @@
 class Event < ApplicationRecord
   include Discard::Model
+
+  default_scope -> { kept }
+
   belongs_to :user
 
   has_one_attached :logo
@@ -9,6 +12,7 @@ class Event < ApplicationRecord
   has_many :ticket_batches
   has_many :categories, through: :event_categories
   has_many :schedules
+  has_many :announcements
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]

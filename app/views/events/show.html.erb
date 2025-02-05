@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between">
   <div class="flex items-center gap-4">
-  <%= link_to 'Voltar', dashboard_path, class: 'outline_button w-fit' %>
+  <%= link_to 'Voltar', current_user.role == 'admin' ? history_events_path : dashboard_path, class: 'outline_button w-fit' %>
     <% if @event.logo.attached? %>
       <div class="w-16 h-16 overflow-hidden">
         <%= image_tag url_for(@event.logo), class: 'object-contain h-full w-full' %>
@@ -17,6 +17,7 @@
     <% if @event.draft? %>
       <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'outline_button' %>
     <% end %>
+    <%= link_to 'Comunicados', event_announcements_path(@event), class: 'outline_button' %>
     <%= link_to 'Lotes', event_ticket_batches_path(@event), class: 'outline_button' %>
     <%= link_to 'Editar', edit_event_path(@event), class: 'outline_button' %>
     <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button h-full w-full', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>

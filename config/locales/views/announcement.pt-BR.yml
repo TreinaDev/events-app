@@ -1,0 +1,7 @@
+pt-BR:
+  announcements:
+    index:
+      title: "Novo Comunicado"
+    create:
+      success: "Comunicado adicionado com sucesso."
+      failure: "Comunicado não foi adicionado."

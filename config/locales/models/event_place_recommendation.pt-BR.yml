@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      event_place_recommendation:
+        one: Recomendação de Local
+        other: Recomendações de Locais
+    attributes:
+      event_place_recommendation:
+        name: Nome
+        full_address: Endereço Completo
+        phone: Telefone
