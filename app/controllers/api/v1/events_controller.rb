@@ -43,9 +43,14 @@ class Api::V1::EventsController < Api::V1::ApiController
           date: schedule.date.strftime("%Y-%m-%d"),
           schedule_items: schedule.schedule_items.map do |item|
             {
+              code: item.code,
               name: item.name,
+              description: item.description,
               start_time: item.start_time,
-              end_time: item.end_time
+              end_time: item.end_time,
+              responsible_name: item.responsible_name,
+              responsible_email: item.responsible_email,
+              schedule_type: item.schedule_type
             }
           end
         }
