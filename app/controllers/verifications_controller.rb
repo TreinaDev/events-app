@@ -1,6 +1,7 @@
 class VerificationsController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
+  before_action :check_if_event_manager, only: [ :new, :create ]
 
   def new
     @user = current_user
@@ -28,11 +29,5 @@ class VerificationsController < ApplicationController
 
   def user_verification_params
     params.require(:user).permit(:phone_number, :id_photo, :address_proof, user_address_attributes: [ :street, :number, :district, :city, :state, :zip_code ])
-  end
-
-  def check_if_event_manager
-    if current_user && current_user.role != "event_manager"
-      redirect_to dashboard_path, alert: "Acesso não autorizado."
-    end
   end
 end

@@ -7,6 +7,7 @@ TicketBatch.destroy_all
 CategoryKeyword.destroy_all
 Keyword.destroy_all
 EventCategory.destroy_all
+Announcement.destroy_all
 Event.destroy_all
 Category.destroy_all
 User.destroy_all
@@ -83,8 +84,8 @@ tropical_event = FactoryBot.create(:event,
   status: :published,
   user: joao_user,
   categories: [ ruby_category ],
-  start_date: 2.weeks.from_now,
-  end_date: 3.weeks.from_now,
+  start_date: 10.minute.from_now,
+  end_date: 1.weeks.from_now,
   description: "O Tropical on Rails 2025 é a Conferência Latam de Rails e tem como objetivo fortalecer a comunidade de Rails da América Latina para que ela continue sendo uma parte integral do presente e do futuro do Ruby on Rails. O que antes era bom como Tropical.rb agora ficou melhor ainda sendo Tropical On Rails, nossa estrutura também cresceu e nessa edição vamos ter 700 com palestrantes incríveis estarão no nosso palco: Xavier Noria, Chris Oliver, Rosa Gutiérrez, Irina Nazarova, Rafael França, Vinicius Stock e muitos outros."
 )
 tropical_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo.jpg')), filename: 'logo.jpg')
@@ -127,28 +128,28 @@ full_stack_conf_event.banner.attach(io: File.open(Rails.root.join('spec/support/
 puts 'Criando PRIMEIRO LOTE de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: ruby_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: javascript_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :no_discount)
-FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :no_discount)
+FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 1.week.ago, end_date: 3.minutes.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: ruby_summit_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: full_stack_conf_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :no_discount)
 
 puts 'Criando PRIMEIRO LOTE - MEIA (PCD) de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: ruby_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: javascript_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
-FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: tropical_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
+FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: tropical_event, start_date: 1.week.ago, end_date: 3.minutes.from_now, discount_option: :disability)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: ruby_summit_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: full_stack_conf_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
 
 puts 'Criando SEGUNDO LOTE de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 5, event: ruby_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: javascript_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
-FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
+FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 8.weeks.ago, end_date: 3.minutes.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: ruby_summit_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: full_stack_conf_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 
 puts 'Criando SEGUNDO LOTE - MEIA (Estudante) de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: ruby_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: javascript_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
-FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: tropical_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
+FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: tropical_event, start_date: 1.week.ago, end_date: 1.day.ago, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: ruby_summit_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: full_stack_conf_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 
@@ -163,5 +164,9 @@ puts 'Criando SEGUNDO item de agenda para CADA evento...'
 FactoryBot.create(:schedule_item, schedule: ruby_event.schedules.first, name: 'Palestra sobre as vantagens do Ruby', description: 'Discutindo e comparando Ruby com outras linguagens de programação.', start_time: (Time.now).change(hour: 10, min: 0, sec: 0), end_time: (Time.now).change(hour: 11, min: 0, sec: 0), responsible_name: 'Marcos', responsible_email: 'marcos@email.com')
 FactoryBot.create(:schedule_item, schedule: javascript_event.schedules.first, name: 'Palestra sobre Bun', description: 'Palestra sobre tudo do Bun', start_time: (Time.now).change(hour: 10, min: 0, sec: 0), end_time: (Time.now).change(hour: 11, min: 0, sec: 0), responsible_name: 'Marcos', responsible_email: 'marcos@email.com')
 FactoryBot.create(:schedule_item, schedule: tropical_event.schedules.first, name: 'Palestra sobre futuro do Rails', description: 'Discutindo sobre as novidades que chegarão para o Rails.', start_time: (Time.now).change(hour: 10, min: 0, sec: 0), end_time: (Time.now).change(hour: 11, min: 0, sec: 0), responsible_name: 'Marcos', responsible_email: 'marcos@email.com')
+
+puts 'Adicionando Comunicados...'
+FactoryBot.create(:announcement, user: joao_user, event: tropical_event, title: '📢 Comunicado Importante Tropical Rails 🌴🚂', description: '<div>Prezados participantes,</div><div>Agradecemos por fazerem parte da <strong>Tropical Rails</strong>! 🎉 Esperamos que estejam aproveitando as palestras, workshops e as incríveis conexões que este evento proporciona.</div><div>📌 <strong>Avisos Importantes:</strong><br>✅ <strong>Próxima palestra:</strong> hotwire em ação com João – 📍 Salão de palestras ⏰ 12:30<br>✅ <strong>Área de networking</strong> disponível na sala 3 para quem deseja trocar experiências com outros profissionais do setor.<br>✅ <strong>Lembre-se de usar a hashtag #TropicalRails para compartilhar sua experiência nas redes sociais!</strong></div><div>⚠️ <strong>Problemas ou dúvidas?</strong> Nossa equipe de apoio está disponível no balcão de informações e pelo WhatsApp: [inserir contato].</div><div>Aproveitem ao máximo e bons trilhos rumo à inovação! 🚆💡</div><div>Atenciosamente,<br><strong>Equipe Tropical Rails</strong></div>')
+FactoryBot.create(:announcement, user: joao_user, event: tropical_event, title: '📢 Pegue seu adesivo exclusivo da Tropical Rails! 🌴🚂', description: '<div>Prezados participantes,</div><div>Para marcar sua presença na <strong>Tropical Rails</strong>, estamos distribuindo <strong>adesivos exclusivos do evento</strong>! 🎉</div><div><br>🎟️ <strong>Quem pode retirar?</strong> Todos os participantes credenciados</div><div>Cole no seu notebook, garrafa, caderno ou onde quiser e mostre que você faz parte dessa experiência incrível!</div><div>⚠️ <strong>Os adesivos são limitados</strong>, então garanta o seu o quanto antes!</div><div>Nos vemos pelos trilhos da inovação! 🚆✨</div><div>Atenciosamente,<br><strong>Equipe Tropical Rails</strong></div>')
 
 puts 'Seeds aplicados com sucesso!'
