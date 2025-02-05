@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      verification:
+        one: Requisição de Verificação
+        other: Requisições de Verificação
+    attributes:
+      verification:
+        name: Nome
+        comment: Comentário
+        reviewed_by_id: Revisor
+        status: Status
+        statuses:
+          pending: Pendente
+          accepted: Aceita
+          rejected: Rejeitada

@@ -18,7 +18,7 @@ FactoryBot.create(:user, :admin, name: 'Kleber', family_name: 'Renan', registrat
 
 puts 'Criando DOIS usuários do tipo ORGANIZADOR...'
 joao_user = FactoryBot.create(:user, name: 'Joao', family_name: 'Campus', registration_number: CPF.generate, email: 'joao@email.com', password: 'password123')
-maria_user = FactoryBot.create(:user, name: 'Maria', family_name: 'Campus', registration_number: CPF.generate, email: 'maria@email.com', password: 'password123')
+maria_user = FactoryBot.create(:user, :with_pending_request, name: 'Maria', family_name: 'Campus', registration_number: CPF.generate, email: 'maria@email.com', password: 'password123')
 
 puts 'Criando CINCO categorias...'
 ruby_category = FactoryBot.create(:category, name: 'Ruby')
