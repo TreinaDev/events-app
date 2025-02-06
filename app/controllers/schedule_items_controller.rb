@@ -1,4 +1,5 @@
 class ScheduleItemsController < ApplicationController
+  layout "dashboard"
   before_action :authenticate_user!
   before_action :authorize_schedule_owner, only: [ :new, :create, :destroy ]
 
