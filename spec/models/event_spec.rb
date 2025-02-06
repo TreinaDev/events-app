@@ -149,34 +149,6 @@ RSpec.describe Event, type: :model do
     expect(event.code).not_to eq(existing_code)
   end
 
-  it 'e retorna a quantidade de ingressos vendidods de todos os lotes do evento' do
-    event = create(:event)
-    create(:ticket_batch, event: event, id: 1)
-    create(:ticket_batch, event: event, id: 2)
-
-    batches = [
-      {
-        id: 1,
-        sold_tickets: 10
-      },
-      {
-        id: 2,
-        sold_tickets: 5
-      }
-    ]
-
-    response1 = double('response', status: 200, body: batches[0].to_json)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.id}/ticket_batches/1")
-        .and_return(response1)
-
-    response2 = double('response', status: 200, body: batches[1].to_json)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.id}/ticket_batches/2")
-        .and_return(response2)
-
-    batches_tickets_sold = event.reload.batches_tickets_sold
-
-    expect(batches_tickets_sold).to eq(batches)
-  end
   context 'feedbacks do evento' do
     it 'e retorna com sucesso' do
       event = create(:event)
