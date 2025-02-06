@@ -1,0 +1,45 @@
+
+<% if current_user.role == 'event_manager' %>
+  <h1>Minhas Solicitações de Verificação</h1>
+
+  <section class="mt-10 flex flex-col gap-4">
+    <% if @verifications.any? %>
+      <% @verifications.each_with_index do |verification, index| %>
+        <% if verification.status == 'pending'  %>
+          <article class='border-l-4 border-warning pl-4 py-2 flex flex-col mb-3'>
+            <p class="text-xl font-bold text-textPrimary">Solicitação #<%= index + 1 %> - <span class="text-warning"><%= Verification.human_enum_name(:status, verification.status) %></span> - Enviada em: <%= l verification.created_at, format: :short %></p>
+            <p class="mt-4 font-light">Esperando aprovação de um admin</p>
+          </article>
+        <% elsif verification.status == 'rejected' %>
+          <article class='border-l-4 border-alert pl-4 py-2 flex flex-col mb-3'>
+            <p class="text-xl font-bold text-textPrimary">Solicitação #<%= index + 1 %> - <span class="text-alert"><%= Verification.human_enum_name(:status, verification.status) %></span> - Enviada em: <%= l verification.created_at, format: :short %></p>
+            <p class="mt-4 font-light">Comentário: <%= verification.comment %></p>
+          </article>
+        <% else %>
+          <article class='border-l-4 border-success pl-4 py-2 flex flex-col mb-3'>
+            <p class="text-xl font-bold text-textPrimary">Solicitação #<%= index + 1 %> - <span class="text-success"><%= Verification.human_enum_name(:status, verification.status) %></span> - Enviada em: <%= l verification.created_at, format: :short %></p>
+            <p class="mt-4 font-light">Sua requisição foi aprovada e agora você pode aproveitar o sistema sem restrições!</p>
+          </article>
+        <% end  %>
+      <% end %>
+    <% else %>
+      <h2>Você ainda não tem nenhuma Solicitação de Verificação cadastrada</h2>
+    <% end %>
+  </section>
+
+<% else %>
+  <h1>Solicitações de Verificação Pendentes</h1>
+  <section class="mt-10 flex flex-col gap-4">
+    <% if @verifications.any? %>
+      <% @verifications.each_with_index do |verification, index| %>
+        <%= link_to verification_path(verification) do %>
+          <article class='border-l-4 border-warning pl-4 py-2 flex flex-col mb-3'>
+            <p class="text-xl font-bold text-textPrimary">Solicitação <span class="text-warning">#<%= index + 1 %></span> - Enviada por <span class="italic underline underline-offset-2 decoration-warning"><%= verification.user.name %></span> em <%= l verification.created_at, format: :short %></p>
+          </article>
+        <% end %>
+      <% end %>
+    <% else %>
+      <h2>Nenhuma Solicitação de Verificação cadastrada com status Pendente</h2>
+    <% end %>
+  </section>
+<% end %>

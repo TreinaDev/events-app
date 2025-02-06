@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      announcement:
+        one: Comunicado
+        other: Comunicados
+    attributes:
+      announcement:
+        title: Titulo
+        description: Descrição

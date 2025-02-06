@@ -12,6 +12,7 @@ class Event < ApplicationRecord
   has_many :ticket_batches
   has_many :categories, through: :event_categories
   has_many :schedules
+  has_many :announcements
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
@@ -63,5 +64,12 @@ class Event < ApplicationRecord
     (formatted_start_date..formatted_end_date).each do |date|
       self.schedules.create(date: date)
     end
+  end
+
+  def self.search(query)
+    return all if query.blank?
+
+    query = query.downcase
+    joins(:categories).where("LOWER(events.name) LIKE :query OR LOWER(events.code) LIKE :query OR LOWER(categories.name) LIKE :query", query: "%#{query}%").distinct
   end
 end

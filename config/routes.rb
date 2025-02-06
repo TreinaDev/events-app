@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get :history
     end
 
+    resources :announcements, only: [ :index, :create ]
+
     resources :schedules, only: [ :show ] do
       resources :schedule_items, as: :items, only: [ :new, :create, :destroy, :edit, :update ]
     end
@@ -23,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :keywords, only: [ :new, :create ]
 
-  resources :verifications, only: [ :new, :create ]
+  resources :verifications, only: [ :new, :create, :index, :show ]
 
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, param: :code, only: [ :index, :show ] do
         resources :ticket_batches, param: :code, only: [ :index, :show ]
+        resources :announcements, param: :code,  only: [ :index, :show ]
       end
 
       resources :speakers, only: [ :create ], param: :code do

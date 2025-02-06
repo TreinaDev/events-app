@@ -1,0 +1,29 @@
+<section class="p-5 shadow-md rounded bg-white">
+    <%= form_with model: [@event, @announcement], local: true do |f| %>
+        <h2 class="p-2"><%= t('.title')%></h2>
+        <%= f.text_field :title, placeholder: 'Título', class: 'w-full text-3xl bg-blue-200 py-6 mb-2', autocomplete: 'off'%>
+        <%= f.rich_text_area :description, placeholder: "Descrição"%>
+         <% if @announcement.errors.any? %>
+          <% @announcement.errors.full_messages.each do |e| %>
+            <p class="form_error"><%= e %></p>
+          <% end %>
+      <% end %>
+
+    <%= f.submit 'Enviar', class: 'form_button mt-6' %>
+<% end %>
+</section>
+<% @announcements.each do |a|%>
+    <div class="bg-white shadow-md rounded mt-10">
+        <p class="p-2"><%= l a.created_at, format: :short%></p>
+        <h1 class="bg-blue-200 py-6 px-3"><%= a.title%></h1>
+        <div class="min-h-[6rem] p-3 px-3">
+            <%= render layout: 'layouts/action_text/contents/content' do %>
+                <%= a.description %>
+            <% end %>
+        </div>
+    </div>
+    
+<% end %>
+
+    
+

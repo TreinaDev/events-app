@@ -14,6 +14,7 @@
     <span class="link_separator"></span>
     <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
+    <%= link_to 'Verificações', verifications_path, class: controller_name == 'verifications' ? 'nav_link_active' : 'nav_link_inactive' %>
   <% end %>
 
   <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
@@ -31,9 +32,8 @@
     <%= image_tag 'chevron.svg', class: 'hover:cursor-pointer h-4 w-4', data: { 'user-options-target': 'chevron', action: 'click->user-options#toggleProfileMenu' } %>
     <div class="opacity-0 transition-opacity w-52 mt-2 absolute top-5 right-0 p-4 rounded-md bg-backgroundWhite border border-primary text-textPrimary font-light" data-user-options-target="profileMenu">
       <div class="flex-col items-end gap-4 hidden" data-user-options-target="links">
-        <% if current_user.verification_status == 'unverified' %>
-          <%= link_to 'Requisitar verificação', new_verification_path, class: 'logout_button' %>
-        <% end %>
+        <%= link_to 'Requisitar verificação', new_verification_path, class: 'logout_button' if current_user.verification_status == 'unverified' %>
+        <%= link_to 'Consultar reqs. de verificação', verifications_path, class: 'logout_button' %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button px-2' %>
       </div>
     </div>
