@@ -32,6 +32,20 @@ class Event < ApplicationRecord
   after_initialize :set_status, if: :new_record?
   before_validation :generate_code
 
+
+  def feedbacks
+    response = ParticipantsApiService.get_feedbacks_by_event_code(self.code)
+    feedbacks = response[:feedbacks]
+    build_feedbacks(feedbacks)
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
+
+  def ended?
+    end_date < Time.current && status == "published"
+  end
+
   private
 
   def set_status
@@ -71,5 +85,9 @@ class Event < ApplicationRecord
 
     query = query.downcase
     joins(:categories).where("LOWER(events.name) LIKE :query OR LOWER(events.code) LIKE :query OR LOWER(categories.name) LIKE :query", query: "%#{query}%").distinct
+  end
+
+  def build_feedbacks(feedbacks)
+    feedbacks.map { |feedback| Feedback.new(id: feedback[:id], title: feedback[:title], comment: feedback[:comment], mark: feedback[:mark], participant_username: feedback[:user]) }
   end
 end
