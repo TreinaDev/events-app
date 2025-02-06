@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :announcements, only: [ :index, :create ]
 
     resources :schedules, only: [ :show ] do
-      resources :schedule_items, as: :items, only: [ :new, :create, :destroy ]
+      resources :schedule_items, as: :items, only: [ :new, :create, :destroy, :edit, :update ]
     end
   end
 

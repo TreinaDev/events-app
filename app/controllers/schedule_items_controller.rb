@@ -1,6 +1,7 @@
 class ScheduleItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_schedule_owner, only: [ :new, :create, :destroy ]
+  before_action :authorize_schedule_owner, only: [ :new, :create, :destroy, :edit, :update ]
+  before_action :find_schedule_item, only: [ :edit, :update, :destroy ]
 
   def new
     @schedule_item = @schedule.schedule_items.build
@@ -18,9 +19,18 @@ class ScheduleItemsController < ApplicationController
     end
   end
 
-  def destroy
-    @schedule_item = ScheduleItem.find_by(id: params[:id])
+  def edit; end
 
+  def update
+    if @schedule_item.update(schedule_items_params)
+      redirect_to event_schedule_path(@schedule_item.schedule.event, @schedule_item.schedule), notice: "Item atualizado com sucesso."
+    else
+      flash.now[:alert] = "Falha ao atualizar o item"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
     @schedule_item.discard!
     redirect_to event_schedule_path(@schedule_item.schedule.event, @schedule_item.schedule), notice: "Item deletado com sucesso."
   end
@@ -35,6 +45,14 @@ class ScheduleItemsController < ApplicationController
     @schedule = Schedule.find(params[:schedule_id])
 
     unless @schedule.event.user == current_user
+      redirect_to root_path, alert: "Acesso não autorizado."
+    end
+  end
+
+  def find_schedule_item
+    @schedule_item = ScheduleItem.find_by(id: params[:id])
+
+    unless @schedule_item.schedule.event.user == current_user
       redirect_to root_path, alert: "Acesso não autorizado."
     end
   end
