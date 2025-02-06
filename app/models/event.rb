@@ -65,4 +65,11 @@ class Event < ApplicationRecord
       self.schedules.create(date: date)
     end
   end
+
+  def self.search(query)
+    return all if query.blank?
+
+    query = query.downcase
+    joins(:categories).where("LOWER(events.name) LIKE :query OR LOWER(events.code) LIKE :query OR LOWER(categories.name) LIKE :query", query: "%#{query}%").distinct
+  end
 end
