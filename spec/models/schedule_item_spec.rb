@@ -128,4 +128,59 @@ RSpec.describe ScheduleItem, type: :model do
       end
     end
   end
+
+  describe 'Cria um anuncio oficial' do
+    it 'cria um anúncio oficial quando um item de agenda é atualizado' do
+      user = create(:user)
+      event = create(:event, user: user)
+      schedule = create(:schedule, event: event)
+      schedule_item = create(:schedule_item, schedule: schedule, name: 'Atividade Antiga')
+
+      schedule_item.update(name: 'Novo Nome')
+
+      expect(event.announcements.count).to eq(1)
+
+      announcement = event.announcements.last
+      expect(announcement.title).to eq('Atualização na atividade Novo Nome')
+      expect(announcement.description.to_plain_text).to include("Nome alterado de 'Atividade Antiga' para 'Novo Nome'")
+    end
+
+    it 'não cria um anúncio se não houver alterações relevantes' do
+      user = create(:user)
+      event = create(:event, user: user)
+      schedule = create(:schedule, event: event)
+      schedule_item = create(:schedule_item, schedule: schedule, name: 'Atividade Antiga')
+
+      schedule_item.update(name: 'Atividade Antiga')
+
+      expect(event.announcements.count).to eq(0)
+    end
+
+    it 'cria um anúncio com múltiplas mudanças' do
+      user = create(:user)
+      event = create(:event, user: user)
+      schedule = create(:schedule, event: event)
+      schedule_item = create(:schedule_item,
+        schedule: schedule,
+        name: 'Atividade Antiga',
+        start_time: '2025-02-10 09:00:00',
+        end_time: '2025-02-10 10:00:00'
+      )
+
+      schedule_item.update(
+        name: 'Nova Atividade',
+        start_time: '2025-02-10 10:30:00',
+        end_time: '2025-02-10 11:30:00'
+      )
+
+      expect(event.announcements.count).to eq(1)
+
+      announcement = event.announcements.last
+      expect(announcement.title).to eq('Atualização na atividade Nova Atividade')
+      description_text = announcement.description.to_plain_text
+      expect(description_text).to include("Nome alterado de 'Atividade Antiga' para 'Nova Atividade'")
+      expect(description_text).to include("Início alterado de '09:00' para '10:30'")
+      expect(description_text).to include("Término alterado de '10:00' para '11:30'")
+    end
+  end
 end

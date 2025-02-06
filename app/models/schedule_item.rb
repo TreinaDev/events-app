@@ -18,6 +18,7 @@ class ScheduleItem < ApplicationRecord
   after_create :create_speaker, if: -> { activity? }
 
   after_initialize :generate_unique_code, if: :new_record?
+  after_update :create_announcement
 
   private
 
@@ -52,5 +53,36 @@ class ScheduleItem < ApplicationRecord
       random_code = SecureRandom.alphanumeric(8).upcase
       break random_code unless Speaker.exists?(code: random_code)
     end
+  end
+
+  def create_announcement
+    event = schedule.event
+    user = event.user
+    changes = saved_changes.except(:updated_at, :schedule_type)
+
+    change_messages = changes.map do |attribute, values|
+      next if values[0] == values[1]
+
+      case attribute
+      when "name"
+        "Nome alterado de '#{values[0]}' para '#{values[1]}'"
+      when "description"
+        "Descrição alterada de '#{values[0]}' para '#{values[1]}'"
+      when "start_time", "end_time"
+        "#{attribute == 'start_time' ? 'Início' : 'Término'} alterado de '#{values[0].strftime('%H:%M')}' para '#{values[1].strftime('%H:%M')}'"
+      when "responsible_name"
+        "Responsável alterado de '#{values[0]}' para '#{values[1]}'"
+      else
+        nil
+      end
+    end.compact.join(", ")
+
+    return if change_messages.blank?
+    Announcement.create!(
+      event: event,
+      user: user,
+      title: "Atualização na atividade #{name}",
+      description: "As seguintes alterações foram feitas: #{change_messages}."
+    )
   end
 end
