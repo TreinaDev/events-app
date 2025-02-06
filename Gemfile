@@ -52,6 +52,7 @@ group :development, :test do
   gem "cuprite"
   gem "simplecov", require: false
   gem "factory_bot_rails"
+  gem "timecop"
 end
 
 group :development do
@@ -62,3 +63,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "cpf_cnpj"
+
+gem "faraday"
