@@ -1,6 +1,7 @@
 class Api::V1::EventsController < Api::V1::ApiController
   def index
-    @events = Event.published.all
+    query = params[:query]
+    @events = Event.published.search(query)
 
     render status: :ok, json: { events: @events.map do |event|
       {
