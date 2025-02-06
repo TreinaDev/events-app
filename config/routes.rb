@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
 
     resources :announcements, only: [ :index, :create ]
+    resources :feedbacks, only: [ :index ]
 
     resources :schedules, only: [ :show ] do
       resources :schedule_items, as: :items, only: [ :new, :create, :destroy ]
