@@ -2,13 +2,19 @@ class CategoriesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
   before_action :check_if_admin
+  add_breadcrumb "Home", :dashboard_path
 
   def index
     @categories = Category.all
+
+    add_breadcrumb "Categorias"
   end
 
   def new
     @category = Category.new
+
+    add_breadcrumb "Categorias", :categories_path
+    add_breadcrumb "Nova Categoria"
   end
 
   def create
@@ -24,6 +30,9 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @linked_keyword_ids = @category.keywords.ids
+
+    add_breadcrumb "Categorias", :categories_path
+    add_breadcrumb "#{@category.name}"
   end
 
   def update

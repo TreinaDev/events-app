@@ -5,9 +5,12 @@ class EventsController < ApplicationController
   before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
   before_action :check_event_status, only: [ :update ]
   before_action :check_if_event_manager, only: [ :new, :create ]
+  add_breadcrumb "Home", :dashboard_path
 
   def new
     @event = Event.new
+
+    add_breadcrumb "Cadastro de Evento"
   end
 
   def create
@@ -22,9 +25,14 @@ class EventsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    add_breadcrumb "#{@event.name}", :event_path
+  end
 
-  def edit; end
+  def edit
+    add_breadcrumb "#{@event.name}", :event_path
+    add_breadcrumb "Editar Evento"
+  end
 
   def update
     if @event.update event_params
@@ -57,6 +65,8 @@ class EventsController < ApplicationController
 
   def history
     @events = Event.with_discarded
+
+    add_breadcrumb "Histórico de eventos"
   end
 
   private

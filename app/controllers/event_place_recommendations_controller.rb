@@ -3,9 +3,13 @@ class EventPlaceRecommendationsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_event_place, only: [ :new, :create, :edit, :update, :destroy ]
   before_action :find_event_place_recommendation, only: [ :edit, :update, :destroy ]
+  add_breadcrumb "Home", :dashboard_path
 
   def new
     @event_place_recommendation = EventPlaceRecommendation.new
+
+    add_breadcrumb "#{@event_place.name}", Proc.new { event_place_path(@event_place) }
+    add_breadcrumb "Adicionar Recomendação"
   end
 
   def create
@@ -22,6 +26,9 @@ class EventPlaceRecommendationsController < ApplicationController
 
   def edit
     @event_place_recommendation = EventPlaceRecommendation.find_by(id: params[:id])
+
+    add_breadcrumb "#{@event_place.name}", Proc.new { event_place_path(@event_place) }
+    add_breadcrumb "Editar Recomendação - #{@event_place_recommendation.name}"
   end
 
   def update

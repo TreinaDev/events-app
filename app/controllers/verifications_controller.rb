@@ -2,15 +2,21 @@ class VerificationsController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
   before_action :check_if_event_manager, only: [ :new, :create ]
+  add_breadcrumb "Home", :dashboard_path
 
   def index
     @verifications = current_user.verifications.order(created_at: :desc) if current_user.role == "event_manager"
     @verifications = Verification.pending.order(created_at: :desc) if current_user.role == "admin"
+
+    add_breadcrumb "Minhas Solicitações de Verificação" if current_user.role == "event_manager"
+    add_breadcrumb "Solicitações de Verificação Pendentes" if current_user.role == "admin"
   end
 
   def new
     @user = current_user
     @user.build_user_address
+
+    add_breadcrumb "Nova Solicitação de Verificação"
   end
 
   def create
