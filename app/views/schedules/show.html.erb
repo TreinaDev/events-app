@@ -16,6 +16,12 @@
           <img src="<%= asset_path('bin.svg')%>" class="h-6 w-6 object-contain" style="max-width: 24px; max-height: 24px;"/>
         <% end %>
 
+        <%= link_to edit_event_schedule_item_path(item.schedule.event, item.schedule, item),
+          class: 'outline_button mr-4',
+          id: dom_id(item, :edit) do %>
+          <img src="<%= asset_path('edit_blue.svg')%>" class="h-6 w-6 object-contain" style="max-width: 24px; max-height: 24px;"/>
+        <% end %>
+
         <% if item.schedule_type == "activity" %>
           <div class="flex pr-8 flex-col border-r-4 border-primary gap-1">
             <p class="font-extrabold text-primary"><%= l(item.start_time, format: :time_only) %></p>
