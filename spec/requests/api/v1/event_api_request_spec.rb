@@ -77,6 +77,34 @@ describe 'Event API' do
       expect(response.parsed_body['events'][0]['end_date']).to eq event.end_date.iso8601(3)
       expect(response.parsed_body['events'].count).to eq 1
     end
+
+    it 'e há um local recomendado' do
+      user = create(:user)
+
+      event = build(
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
+        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
+
+
+      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
+      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+
+      event.save
+
+      event_place = create(:event_place, user: user)
+      event_place_recommendation = create(:event_place_recommendation, event_place: event_place)
+      create(:place_recommendation, event: event, event_place_recommendation: event_place_recommendation)
+
+      get '/api/v1/events'
+
+      expect(response).to have_http_status :success
+      expect(response.content_type).to include('application/json')
+      expect(response.parsed_body['events'][0]['name']).to include(event.name)
+      expect(response.parsed_body['events'][0]['recommendations'][0]['name']).to include(event_place_recommendation.name)
+      expect(response.parsed_body['events'][0]['recommendations'][0]['full_address']).to include(event_place_recommendation.full_address)
+      expect(response.parsed_body['events'][0]['recommendations'][0]['phone']).to include(event_place_recommendation.phone)
+    end
   end
 
   context 'Usuário ve detalhes' do
