@@ -10,7 +10,7 @@
       <p><strong>Solicitado em:</strong> <%= l @verification.created_at, format: :long %></p>
       <p><strong>Status atual:</strong> <span><%= Verification.human_enum_name(:status, @verification.status) %></span></p>
 
-      <% if @verification.status != "pending" && !@verification.comment.blank? %>
+      <% if !@verification.pending? && @verification.comment.present? %>
         <p><strong>Comentário da análise:</strong> <span><%= @verification.comment %></span></p>
       <% end %>
     </div>
@@ -94,7 +94,7 @@
       </div>
 
       <div data-verification-target="modal"
-     class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+     class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
      onclick="event.target === this && this.classList.add('hidden')">
         <div class="relative max-w-4xl max-h-screen bg-white p-4 rounded-lg">
           <button class="absolute top-2 right-2 bg-gray-800 text-white rounded-full p-2"
