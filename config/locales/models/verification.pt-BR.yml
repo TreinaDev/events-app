@@ -12,5 +12,5 @@ pt-BR:
         status: Status
         statuses:
           pending: Pendente
-          accepted: Aceita
+          approved: Aprovada
           rejected: Rejeitada

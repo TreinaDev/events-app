@@ -1,0 +1,146 @@
+<div class="w-full grid grid-cols-2 gap-8">
+  <div class="space-y-12">
+    <div class="break-words border-l-4 pl-4 py-2 flex flex-col mb-3 space-y-2 <%= case @verification.status
+                                                           when 'pending' then 'border-warning'
+                                                           when 'rejected' then 'border-alert'
+                                                           when 'approved' then 'border-success'
+                                                           else '' 
+                                                        end %>">
+      <h1 class="mb-10">Solicitação de verificação de <strong><%= @verification.user.name %></strong></h1>
+      <p><strong>Solicitado em:</strong> <%= l @verification.created_at, format: :long %></p>
+      <p><strong>Status atual:</strong> <span><%= Verification.human_enum_name(:status, @verification.status) %></span></p>
+
+      <% if !@verification.pending? && @verification.comment.present? %>
+        <p><strong>Comentário da análise:</strong> <span><%= @verification.comment %></span></p>
+      <% end %>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="mb-4 mt-2">Informações do usuário</h2>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <p class="font-bold">Nome</p>
+          <p><%= @verification.user.name%></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">Sobrenome</p>
+          <p><%= @verification.user.family_name%></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">CPF</p>
+          <p><%= CPF.new(@verification.user.registration_number).formatted %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">E-mail</p>
+          <p><%= @verification.user.email%></p>
+        </div>
+      </div>
+    </div>
+
+    <% if current_user.role == "admin" && @verification.status == "pending" %>
+      <div class="border-t border-gray-400"></div>
+
+      <div>
+        <h2 class="mb-3">Analisar verificação</h2>
+
+        <%= form_with model: @verification, url: verification_review_path(@verification), html: { id: 'verification-form' }, method: :patch do |f| %>
+          <div class="mb-4">
+            <%= f.label :comment, class: 'input_label' %>
+            <%= f.text_area :comment, class: "w-full border rounded px-3 py-2", rows: 3 %>
+
+            <% if @verification.errors[:comment].any? %>
+              <% @verification.errors.full_messages_for(:comment).each do |e| %>
+                <span class='form_error'><%= e %></span>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="flex space-x-4 items-center justify-center">
+            <button type="submit" name="status" value="approved"
+              class="success_button">
+              Aprovar
+            </button>
+
+            <button type="submit" name="status" value="rejected"
+              class="danger_button">
+              Reprovar
+            </button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="space-y-4">
+    <h2 class="mb-4 mt-2">Informações adicionais</h2>
+
+    <div class="grid grid-cols-2 gap-4" data-controller="verification">
+      <div class="space-y-4">
+        <p class="font-bold">Documento de identificação</p>
+        <%= image_tag url_for(@verification.user.id_photo),
+          class: "w-full h-[280px] cursor-pointer rounded-lg shadow-lg hover:opacity-75",
+          data: { action: "click->verification#open" } %>
+      </div>
+
+      <div class="space-y-4">
+        <p class="font-bold">Comprovante de residência</p>
+        <%= image_tag url_for(@verification.user.address_proof),
+          class: "w-full h-[280px] cursor-pointer rounded-lg shadow-lg hover:opacity-75",
+          data: { action: "click->verification#open" } %>
+      </div>
+
+      <div data-verification-target="modal"
+     class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
+     onclick="event.target === this && this.classList.add('hidden')">
+        <div class="relative max-w-4xl max-h-screen bg-white p-4 rounded-lg">
+          <button class="absolute top-2 right-2 bg-gray-800 text-white rounded-full p-2"
+            onclick="this.parentElement.parentElement.classList.add('hidden')">
+            ✖
+          </button>
+          <img data-verification-target="image" class="max-w-full max-h-[90vh] rounded-lg" />
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Telefone:</strong> <%= @verification.user.phone_number %></p>
+
+    <div class="space-y-1">
+      <p class="font-bold">Endereço:</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <p class="font-bold">Rua</p>
+          <p><%= @verification.user.user_address.street %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">Número</p>
+          <p><%= @verification.user.user_address.number %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">Bairro</p>
+          <p><%= @verification.user.user_address.district %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">CEP</p>
+          <p><%= @verification.user.user_address.zip_code %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">Cidade</p>
+          <p><%= @verification.user.user_address.city %></p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="font-bold">Estado</p>
+          <p><%= @verification.user.user_address.state %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
