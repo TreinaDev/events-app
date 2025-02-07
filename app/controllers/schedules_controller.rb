@@ -7,7 +7,7 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find_by(id: params[:id])
-    @schedule_items = @schedule.schedule_items.order(start_time: :desc)
+    @schedule_items = @schedule.schedule_items.order(start_time: :asc)
   end
 
   private
