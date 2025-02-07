@@ -35,8 +35,8 @@ describe 'Usuário visita a tela de criacao de evento' do
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
     fill_in 'Data de início', with: 1.day.from_now.strftime('%Y-%m-%dT%H:%M')
     fill_in 'Data de fim', with: 9.days.from_now.strftime('%Y-%m-%dT%H:%M')
-    attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
-    attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
+    attach_file('Logo', Rails.root.join('spec/support/images/logo.jpg'))
+    attach_file('Banner', Rails.root.join('spec/support/images/banner.png'))
     find('trix-editor').click.set('<strong>test</strong>')
     check 'Festa'
     check 'Palestra'

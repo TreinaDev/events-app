@@ -13,8 +13,8 @@ describe 'Event API' do
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
 
-      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/png')
+      event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/jpg')
 
       event.save
 
@@ -52,8 +52,8 @@ describe 'Event API' do
         address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
-      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/png')
+      event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/jpg')
 
       event.save
 
@@ -86,8 +86,8 @@ describe 'Event API' do
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
         address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
         start_date:  (Time.now + 3.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 4.day).change(hour: 18, min: 0, sec: 0))
-      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/png')
+      event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/jpg')
       event.save
       schedule = event.schedules.first
       ticket_batch = create(:ticket_batch, event: event,
