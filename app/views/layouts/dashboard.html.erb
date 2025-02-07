@@ -34,9 +34,7 @@
     <% end %>
 
     <main class="site-main">
-      <nav id="breadcrumbs" class="flex gap-2">
-        <%= render_breadcrumbs :separator => ' > ' %>
-      </nav>
+      <%= render 'shared/breadcrumbs' %>
       <%= yield %>
     </main>
   </body>
