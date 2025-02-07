@@ -10,10 +10,13 @@ describe 'Usuário tenta visualizar feedbacks' do
 
     it 'pelo evento ainda não ter terminado' do
       event_manager = create(:user, email: 'teste@email.com')
-      event = create(:event, name: 'ccxp', status: :published, user: event_manager, start_date: 1.day.from_now, end_date: 2.days.from_now)
+      create(:event, name: 'ccxp', status: :published, user: event_manager, start_date: 1.day.from_now, end_date: 2.days.from_now)
 
       login_as event_manager
       visit root_path
+      within "nav#navbar" do
+        click_on 'Meus Eventos'
+      end
       click_on 'Gerenciar'
 
       expect(page).not_to have_link('Feedbacks')
@@ -42,7 +45,7 @@ describe 'Usuário tenta visualizar feedbacks' do
         ]
       }
       other_event_manager = create(:user, email: 'manoel@email.com')
-      category = Category.create!(name: 'Culinária')
+      Category.create!(name: 'Culinária')
       allow(ParticipantsApiService).to receive(:get_feedbacks_by_event_code).and_return(feedbacks)
 
       login_as other_event_manager
@@ -55,7 +58,7 @@ describe 'Usuário tenta visualizar feedbacks' do
 
   it 'com sucesso', js: true  do
     event_manager = create(:user, email: 'teste@email.com')
-      event = create(:event, name: 'ccxp', status: :published, user: event_manager,  start_date: 1.day.from_now, end_date: 2.days.from_now)
+      create(:event, name: 'ccxp', status: :published, user: event_manager,  start_date: 1.day.from_now, end_date: 2.days.from_now)
 
       feedbacks = {
         feedbacks: [
@@ -80,6 +83,9 @@ describe 'Usuário tenta visualizar feedbacks' do
       login_as event_manager
       Timecop.travel(3.days.from_now) do
         visit root_path
+        within "nav#navbar" do
+          click_on 'Meus Eventos'
+        end
         click_on 'Gerenciar'
         click_on 'Feedbacks'
 

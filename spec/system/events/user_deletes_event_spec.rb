@@ -8,7 +8,7 @@ describe 'Usuário deleta um evento' do
     create(:event, name: 'CCXP', user: user, categories: [ category ])
 
     login_as user
-    visit root_path
+    visit events_path
     find("button[data-test-id='delete-#{event1.id}']").click
 
     expect(page).to have_content 'Evento deletado com sucesso'
@@ -22,7 +22,7 @@ describe 'Usuário deleta um evento' do
     create(:event, name: 'CCXP', user: user, categories: [ category ])
 
     login_as user
-    visit root_path
+    visit events_path
     find("a[test_id='manage-#{event_to_be_deleted.id}']").click
     click_on 'Excluir'
 

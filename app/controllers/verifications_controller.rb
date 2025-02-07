@@ -6,7 +6,6 @@ class VerificationsController < ApplicationController
   before_action :authorize_verification_access, only: [ :show ]
   add_breadcrumb "Home", :dashboard_path
 
-
   def index
     @verifications = current_user.verifications.order(created_at: :desc) if current_user.role == "event_manager"
     @verifications = Verification.pending.order(created_at: :desc) if current_user.role == "admin"

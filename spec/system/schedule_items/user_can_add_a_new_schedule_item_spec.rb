@@ -3,11 +3,14 @@ require 'rails_helper'
 describe 'Usuário adiciona um novo item de agenda' do
   it 'adiciona uma atividade com sucesso', js: true do
     user = create(:user)
-    event = create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
+    create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
 
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 2.days.from_now.strftime('%d/%m')
     click_on '+ Atividade'
@@ -25,11 +28,14 @@ describe 'Usuário adiciona um novo item de agenda' do
 
   it 'adiciona um intervalo com sucesso' do
     user = create(:user)
-    event = create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
+    create(:event, user: user, start_date: 1.days.from_now, end_date: 3.days.from_now)
 
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 2.days.from_now.strftime('%d/%m')
     click_on '+ Atividade'

@@ -16,6 +16,9 @@ describe 'Usuário cria lotes' do
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'
@@ -44,6 +47,9 @@ describe 'Usuário cria lotes' do
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'
@@ -66,6 +72,9 @@ describe 'Usuário cria lotes' do
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
     click_on '+ Lote'

@@ -9,6 +9,9 @@ describe 'Usuário tenta editar evento' do
 
       login_as user
       visit root_path
+      within "nav#navbar" do
+        click_on 'Meus Eventos'
+      end
       click_on 'Gerenciar'
       click_on 'Editar'
       fill_in 'Nome', with: 'Rails Brasil'
@@ -26,6 +29,9 @@ describe 'Usuário tenta editar evento' do
 
       login_as user
       visit root_path
+      within "nav#navbar" do
+        click_on 'Meus Eventos'
+      end
       click_on 'Gerenciar'
       click_on 'Editar'
       fill_in 'Nome', with: ''
@@ -44,6 +50,9 @@ describe 'Usuário tenta editar evento' do
 
       login_as user
       visit root_path
+      within "nav#navbar" do
+        click_on 'Meus Eventos'
+      end
       click_on 'Gerenciar'
       click_on 'Editar'
       fill_in 'Nome', with: 'Rails Brasil'

@@ -10,6 +10,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq new_event_path
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Meus Eventos"
       expect(page).to have_content "Cadastro de Evento"
     end
   end
@@ -24,6 +25,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq event_path(event)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Meus Eventos"
       expect(page).to have_content "#{event.name}"
     end
   end
@@ -38,6 +40,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq edit_event_path(event)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Meus Eventos"
       expect(page).to have_link "#{event.name}"
       expect(page).to have_content "Editar Evento"
     end
@@ -54,6 +57,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq history_events_path
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Meus Eventos"
       expect(page).to have_content "Histórico de eventos"
     end
   end
