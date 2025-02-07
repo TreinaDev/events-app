@@ -3,11 +3,12 @@ class Api::V1::EventsController < Api::V1::ApiController
     query = params[:query]
     @events = Event.published.search(query)
 
-    render status: :ok, json: { events: @events.map do |event|
-      {
+    events_data = @events.map do |event|
+      data = {
         code: event.code,
         name: event.name,
         description: event.description.body ? event.description.body.to_html : "",
+        event_type: event.event_type,
         address: event.address,
         logo_url: event.logo.attached? ? url_for(event.logo) : nil,
         banner_url: event.banner.attached? ? url_for(event.banner) : nil,
@@ -16,21 +17,26 @@ class Api::V1::EventsController < Api::V1::ApiController
         start_date: event.start_date,
         end_date: event.end_date
       }
+
+      data.delete(:address) if event.online?
+      data
     end
-    }
+
+    render status: :ok, json: { events: events_data }
   end
 
   def show
     event = Event.published.find_by(code: params[:code])
 
     unless event
-      return render status: :not_found, json: { error: "Event not found" }
+      return render status: :not_found, json: { error: "Evento não encontrado" }
     end
 
-    render status: :ok, json: {
+    event_data = {
       code: event.code,
       name: event.name,
       description: event.description.body ? event.description.body.to_html : "",
+      event_type: event.event_type,
       address: event.address,
       logo_url: event.logo.attached? ? url_for(event.logo) : nil,
       banner_url: event.banner.attached? ? url_for(event.banner) : nil,
@@ -57,5 +63,8 @@ class Api::V1::EventsController < Api::V1::ApiController
         }
       end
     }
+
+    event_data.delete(:address) if event.online?
+    render status: :ok, json: event_data
   end
 end
