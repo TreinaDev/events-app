@@ -59,6 +59,10 @@
     @apply p-5 bg-alert text-backgroundWhite rounded-3xl font-bold absolute top-[90px] right-32 left-32;
   }
 
+  .success_button {
+    @apply flex items-center justify-center text-center hover:cursor-pointer bg-success hover:bg-[#3c8b3f] text-backgroundWhite p-3 rounded-md transition duration-150 font-bold border border-success;
+  }
+
   .danger_button {
     @apply flex items-center justify-center text-center hover:cursor-pointer bg-alert hover:bg-[#C00302] text-backgroundWhite p-3 rounded-md transition duration-150 font-bold border border-alert;
   }
