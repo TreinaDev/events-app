@@ -25,7 +25,7 @@
               <% @ticket_batches.each do |batch| %>
                 <tr class="even:bg-gray-100">
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= batch.name%></td>
-                  <td class="px-4 py-2 border-b border-blue-gray-100">0 - <%= batch.tickets_limit %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= batch.sold_tickets_count %> - <%= batch.tickets_limit %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= number_to_currency batch.ticket_price %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option) %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(batch.start_date.to_date)%></td>

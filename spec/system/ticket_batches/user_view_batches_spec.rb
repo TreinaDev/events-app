@@ -15,6 +15,11 @@ describe 'Usuário tenta editar lotes' do
     user = create(:user)
     event = create(:event, name: 'CCXP', user: user)
     create(:ticket_batch, event: event)
+    response_json = {
+      id: 1,
+      sold_tickets: 10
+    }
+    allow(ParticipantsApiService).to receive(:get_sold_tickets_count_by_event_and_batch_code).and_return(response_json)
 
     login_as user
     visit root_path
@@ -23,6 +28,7 @@ describe 'Usuário tenta editar lotes' do
 
     expect(page).to have_content 'Lotes de Ingresso - Evento: CCXP'
     expect(page).to have_content 'CCXP'
+    expect(page).to have_content '10 - 15'
   end
 
   it 'e não consegue visualizar o lote de outro usuário' do

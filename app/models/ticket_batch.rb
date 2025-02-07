@@ -13,6 +13,15 @@ class TicketBatch < ApplicationRecord
 
   before_validation :generate_code
 
+  def sold_tickets_count
+    response = ParticipantsApiService.get_sold_tickets_count_by_event_and_batch_code(self.event.code, self.code)
+    response[:sold_tickets]
+
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
+
   private
 
   def end_date_before_event_start
