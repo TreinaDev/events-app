@@ -12,7 +12,6 @@ class SchedulesController < ApplicationController
 
     add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
     add_breadcrumb "Agenda de #{I18n.l(@schedule.date.to_date, format: :short)}"
-
   end
 
   private
