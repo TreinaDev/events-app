@@ -13,6 +13,8 @@ class Event < ApplicationRecord
   has_many :categories, through: :event_categories
   has_many :schedules
   has_many :announcements
+  has_many :place_recommendations
+  has_many :event_place_recommendations, through: :place_recommendations
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]

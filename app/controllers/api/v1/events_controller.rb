@@ -15,7 +15,14 @@ class Api::V1::EventsController < Api::V1::ApiController
         participants_limit: event.participants_limit,
         event_owner: event.user.name,
         start_date: event.start_date,
-        end_date: event.end_date
+        end_date: event.end_date,
+        recommendations: event.event_place_recommendations.map do |recommendation|
+          {
+            name: recommendation.name,
+            full_address: recommendation.full_address,
+            phone: recommendation.phone
+          }
+        end
       }
 
       data.delete(:address) if event.online?
