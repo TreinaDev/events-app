@@ -36,7 +36,7 @@ class User < ApplicationRecord
   end
 
   def validate_optional_event_manager_fields_on_update
-    if self.role == "event_manager"
+    if self.role == "event_manager" && self.verification_status != "verified"
       self.errors.add(:phone_number, "não pode ficar em branco") if self.phone_number.blank?
       self.errors.add(:id_photo, "não pode ficar em branco") if self.id_photo.blank?
       self.errors.add(:address_proof, "não pode ficar em branco") if self.address_proof.blank?

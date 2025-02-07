@@ -18,7 +18,7 @@
   <% end %>
 
   <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
-      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
+      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= link_to current_user.name, profile_path %></span></p>
       <div class="flex gap-2 items-center justify-end relative group">
         <% if current_user.verification_status == 'unverified' || current_user.verification_status == 'pending'%>
           <%= image_tag 'unchecked.svg', class: 'w-4 h-4' %>

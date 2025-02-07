@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :verifications, only: [ :new, :create, :index, :show ]
 
+  resource :profile, only: [ :show, :edit, :update ]
+
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
 

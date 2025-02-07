@@ -1,0 +1,14 @@
+<div class="flex items-center justify-between">
+  <h1 class="title">Meu Perfil</h1>
+  <%= link_to 'Editar', edit_profile_path, class: 'form_button w-fit' %>
+</div>
+
+<div class="form">
+  <div class="input_container">
+    <h4>Nome</h4><h2><%= current_user.name %></h2>
+  </div>
+  
+  <div class="input_container">
+    <h4>Sobrenome</h4><h2><%= current_user.family_name %></h2>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+pt-BR:
+  profiles:
+    update:
+      success: 'Perfil atualizado com sucesso.'
+      failure: 'Perfil não foi atualizado.'
