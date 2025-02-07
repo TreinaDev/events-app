@@ -1,48 +1,5 @@
-<% if current_user.role == "event_manager"%>
-  <div class="bg-white p-10 shadow-md rounded">
-    <div class="flex justify-between items-center">
-      <h1>Meus Eventos</h1>
-
-      <%= link_to 'Criar Evento', new_event_path, class: 'form_button w-fit'%>
-    </div>
-
-    <div class="mt-4">
-      <% if @events.any? %>
-        <table class="w-full text-left table-auto">
-          <thead>
-            <tr>
-              <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
-              <th class="px-4 py-2 border-b border-blue-gray-500">Status</th>
-              <th class="px-4 py-2 border-b border-blue-gray-500">Limite de participantes</th>
-              <th class="px-4 py-2 border-b border-blue-gray-500">Quando</th>
-              <th class="px-4 py-2 border-b border-blue-gray-500"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @events.each do |e| %>
-              <tr class="even:bg-gray-100">
-                <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.name %></td>
-                <td class="px-4 py-2 border-b border-blue-gray-100">
-                  <p class="<%=e.status == 'published' ? "text-success font-medium" : "text-warning font-medium" %>"><%= Event.human_enum_name(:status, e.status) %></p>
-                </td>
-                <td class="px-4 py-2 border-b border-blue-gray-100"><%= e.participants_limit%></td>
-                <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(e.start_date.to_date)%></td>
-                <td class="px-4 py-2 border-b border-blue-gray-100">
-                  <div class="flex gap-4 items-center justify-end">
-                    <%= link_to 'Gerenciar', event_path(e), class: 'outline_button', test_id: "manage-#{e.id}" %>
-                    <%= button_to event_path(e), method: :delete, class: 'danger_button', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{e.name}", test_id: "delete-#{e.id}" } do %>
-                      <img src="<%= asset_path('bin.svg')%>" class="h-6 w-6"/>
-                    <% end %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-
-      <% else %>
-        <p>Você não possui eventos cadastrados.</p>
-      <% end %>
-    </div>
-  </div>
+<% if current_user.event_manager? %>
+  <p>Dashboard Manager</p>
+<% elsif current_user.admin? %>
+  <p>Dashboard Admin
 <% end %>

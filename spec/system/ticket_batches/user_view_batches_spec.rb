@@ -18,6 +18,9 @@ describe 'Usuário tenta editar lotes' do
 
     login_as user
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
 
@@ -37,6 +40,9 @@ describe 'Usuário tenta editar lotes' do
 
     login_as user
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
 

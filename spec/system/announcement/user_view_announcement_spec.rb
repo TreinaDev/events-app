@@ -21,7 +21,9 @@ describe 'Usuário tenta ver anuncios' do
 
     login_as event_manager
     visit root_path
-
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
 
@@ -41,7 +43,9 @@ describe 'Usuário tenta ver anuncios' do
 
     login_as event_manager
     visit root_path
-
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
 

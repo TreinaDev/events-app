@@ -26,6 +26,9 @@ describe 'Usuário vê detalhes da agenda do evento' do
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on "Dia #{I18n.l(event.schedules.first.date.to_date, format: :short)}"
 
@@ -41,6 +44,9 @@ describe 'Usuário vê detalhes da agenda do evento' do
     login_as user
 
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on "Dia #{I18n.l(event.schedules.first.date.to_date, format: :short)}"
 
