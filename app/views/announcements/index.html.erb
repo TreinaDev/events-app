@@ -1,3 +1,4 @@
+<div class="max-w-[60vw] min-w-[50vw] mx-auto">
 <section class="p-5 shadow-md rounded bg-white">
     <%= form_with model: [@event, @announcement], local: true do |f| %>
         <h2 class="p-2"><%= t('.title')%></h2>
@@ -15,7 +16,7 @@
 <% @announcements.each do |a|%>
     <div class="bg-white shadow-md rounded mt-10">
         <p class="p-2"><%= l a.created_at, format: :short%></p>
-        <h1 class="bg-blue-200 py-6 px-3"><%= a.title%></h1>
+        <h1 class="bg-blue-200 py-6 px-3" data-announcement-title><%= a.title%></h1>
         <div class="min-h-[6rem] p-3 px-3">
             <%= render layout: 'layouts/action_text/contents/content' do %>
                 <%= a.description %>
@@ -24,6 +25,8 @@
     </div>
     
 <% end %>
+
+</div>
 
     
 

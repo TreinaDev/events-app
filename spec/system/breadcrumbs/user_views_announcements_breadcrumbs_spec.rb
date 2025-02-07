@@ -11,6 +11,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq event_announcements_path(event)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Meus Eventos"
       expect(page).to have_link "#{event.name}"
       expect(page).to have_content "Comunicados"
     end

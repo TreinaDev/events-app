@@ -18,6 +18,9 @@ describe 'Usuário tenta editar lotes' do
 
     login_as user
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
     find("a[data-test-id='edit-#{batch.id}']").click
@@ -35,6 +38,9 @@ describe 'Usuário tenta editar lotes' do
 
     login_as user
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Lotes'
     find("a[data-test-id='edit-#{batch.id}']").click

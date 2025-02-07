@@ -21,11 +21,31 @@ describe 'Usuário tenta ver anuncios' do
 
     login_as event_manager
     visit root_path
-
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
 
     expect(page).to have_content 'Distribuição de cartas One Piece'
+  end
+
+  it 'e ve comunicado em ordem de horário' do
+    event_manager = create(:user, email: 'teste@email.com')
+    event = create(:event, name: 'ccxp', status: :published, user: event_manager)
+    create(:announcement, title: 'Distribuição de cartas One Piece', user: event_manager, event: event)
+    create(:announcement, title: 'Transporte da estação Luz', user: event_manager, event: event)
+
+    login_as event_manager
+    visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
+    click_on 'Gerenciar'
+    click_on 'Comunicados'
+
+    announcements = all('[data-announcement-title]')
+    expect(announcements.map(&:text)).to eq [ 'Transporte da estação Luz', 'Distribuição de cartas One Piece' ]
   end
 
   it 'e não vê comunicados de outro organizador' do
@@ -41,7 +61,9 @@ describe 'Usuário tenta ver anuncios' do
 
     login_as event_manager
     visit root_path
-
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
 
