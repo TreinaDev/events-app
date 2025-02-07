@@ -8,6 +8,7 @@ class EventPlaceRecommendationsController < ApplicationController
   def new
     @event_place_recommendation = EventPlaceRecommendation.new
 
+    add_breadcrumb "Locais de Evento", :event_places_path
     add_breadcrumb "#{@event_place.name}", Proc.new { event_place_path(@event_place) }
     add_breadcrumb "Adicionar Recomendação"
   end
@@ -27,6 +28,7 @@ class EventPlaceRecommendationsController < ApplicationController
   def edit
     @event_place_recommendation = EventPlaceRecommendation.find_by(id: params[:id])
 
+    add_breadcrumb "Locais de Evento", :event_places_path
     add_breadcrumb "#{@event_place.name}", Proc.new { event_place_path(@event_place) }
     add_breadcrumb "Editar Recomendação - #{@event_place_recommendation.name}"
   end

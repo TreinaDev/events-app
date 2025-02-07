@@ -27,6 +27,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq new_event_ticket_batch_path(ticket_batch.event)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Evento #{event.name}"
       expect(page).to have_link "Lotes de Ingresso - Evento #{event.name}"
       expect(page).to have_content "Criar Lote"
     end
@@ -43,6 +44,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq edit_event_ticket_batch_path(ticket_batch.event, ticket_batch)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Evento #{event.name}"
       expect(page).to have_link "Lotes de Ingresso - Evento #{event.name}"
       expect(page).to have_content "Editar Lote"
     end

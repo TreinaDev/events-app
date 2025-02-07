@@ -4,7 +4,7 @@
       <span class="breadcrumb_active_route"><%= breadcrumb.name %></span>
     <% else %>
       <% path = breadcrumb.path.is_a?(Proc) ? breadcrumb.path.call : send(breadcrumb.path) %>
-      <%= link_to breadcrumb.name, path, class: 'breadcrumb_link' %> <span class="text-primary">></span>
+      <%= link_to breadcrumb.name, path, class: 'breadcrumb_link' %> <span class="text-primary font-bold">></span>
     <% end %>
   <% end %>
 </nav>

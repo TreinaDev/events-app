@@ -12,6 +12,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq new_event_place_recommendation_path(event_place)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Locais de Evento"
       expect(page).to have_link "#{event_place.name}"
       expect(page).to have_content "Adicionar Recomendação"
     end
@@ -28,6 +29,7 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq edit_event_place_recommendation_path(event_place, event_place_recommendation)
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
+      expect(page).to have_link "Locais de Evento"
       expect(page).to have_link "#{event_place.name}"
       expect(page).to have_content "Editar Recomendação - #{event_place_recommendation.name}"
     end

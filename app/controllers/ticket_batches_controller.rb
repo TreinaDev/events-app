@@ -8,12 +8,14 @@ class TicketBatchesController < ApplicationController
   def index
     @ticket_batches = @event.ticket_batches
 
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
     add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}"
   end
 
   def new
     @ticket_batch = TicketBatch.new
 
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
     add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}", Proc.new { event_ticket_batches_path(@event) }
     add_breadcrumb "Criar Lote"
   end
@@ -33,6 +35,7 @@ class TicketBatchesController < ApplicationController
   end
 
   def edit
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
     add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}", Proc.new { event_ticket_batches_path(@event) }
     add_breadcrumb "Editar Lote"
   end

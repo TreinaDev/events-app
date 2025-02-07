@@ -13,7 +13,7 @@ class EventPlacesController < ApplicationController
     @event_place = EventPlace.find_by(id: params[:id])
 
     if @event_place.nil? || @event_place.user != current_user
-      redirect_to event_places_path
+      return redirect_to event_places_path
     end
 
     add_breadcrumb "Locais de Evento", :event_places_path
@@ -41,7 +41,7 @@ class EventPlacesController < ApplicationController
   def edit
     @event_place = EventPlace.find_by(id: params[:id])
     if @event_place.nil? || @event_place.user != current_user
-      redirect_to event_places_path
+      return redirect_to event_places_path
     end
 
     add_breadcrumb "Locais de Evento", :event_places_path
