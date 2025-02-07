@@ -78,7 +78,7 @@ class Api::V1::SpeakersController < Api::V1::ApiController
 
     event = schedule_item.schedule.event
 
-    render json: schedule_item.as_json(except: [ :id, :updated_at ]).merge(
+    render json: schedule_item.as_json(except: [ :id, :updated_at, :discarded_at ]).merge(
       event: {
         code: event.code,
         start_date: event.start_date,
