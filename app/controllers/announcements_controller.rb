@@ -3,9 +3,10 @@ class AnnouncementsController < ApplicationController
   before_action :set_event
   before_action :check_if_published
   before_action :check_if_event_manager, only: [ :create ]
+  layout "dashboard"
 
   def index
-    @announcements = @event.announcements
+    @announcements = @event.announcements.order(created_at: :desc)
     @announcement = Announcement.new
   end
 
