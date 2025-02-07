@@ -3,13 +3,21 @@ class TicketBatchesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_event_access
   before_action :set_ticket_batch, only: [ :edit, :update ]
+  add_breadcrumb "Home", :dashboard_path
 
   def index
     @ticket_batches = @event.ticket_batches
+
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
+    add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}"
   end
 
   def new
     @ticket_batch = TicketBatch.new
+
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
+    add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}", Proc.new { event_ticket_batches_path(@event) }
+    add_breadcrumb "Criar Lote"
   end
 
   def create
@@ -27,6 +35,9 @@ class TicketBatchesController < ApplicationController
   end
 
   def edit
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
+    add_breadcrumb "Lotes de Ingresso - Evento #{@event.name}", Proc.new { event_ticket_batches_path(@event) }
+    add_breadcrumb "Editar Lote"
   end
 
   def update

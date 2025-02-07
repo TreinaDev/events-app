@@ -1,21 +1,30 @@
 class EventPlacesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
+  add_breadcrumb "Home", :dashboard_path
 
   def index
     @event_places = current_user.event_places
+
+    add_breadcrumb "Locais de Eventos"
   end
 
   def show
     @event_place = EventPlace.find_by(id: params[:id])
 
     if @event_place.nil? || @event_place.user != current_user
-      redirect_to event_places_path
+      return redirect_to event_places_path
     end
+
+    add_breadcrumb "Locais de Evento", :event_places_path
+    add_breadcrumb "#{@event_place.name}"
   end
 
   def new
     @event_place = EventPlace.new
+
+    add_breadcrumb "Locais de Evento", :event_places_path
+    add_breadcrumb "Novo Local"
   end
 
   def create
@@ -32,8 +41,12 @@ class EventPlacesController < ApplicationController
   def edit
     @event_place = EventPlace.find_by(id: params[:id])
     if @event_place.nil? || @event_place.user != current_user
-      redirect_to event_places_path
+      return redirect_to event_places_path
     end
+
+    add_breadcrumb "Locais de Evento", :event_places_path
+    add_breadcrumb "#{@event_place.name}", Proc.new { event_place_path(@event_place) }
+    add_breadcrumb "Editar Local - #{@event_place.name}"
   end
 
   def update

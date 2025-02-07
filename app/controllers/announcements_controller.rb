@@ -1,14 +1,21 @@
 class AnnouncementsController < ApplicationController
+  layout "dashboard"
   before_action :authenticate_user!
   before_action :set_event
   before_action :check_if_published
   before_action :check_if_event_manager, only: [ :create ]
-  layout "dashboard"
+
+  add_breadcrumb "Home", :dashboard_path
+
 
   def index
     @announcements = @event.announcements.order(created_at: :desc)
     @announcement = Announcement.new
+
+    add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
+    add_breadcrumb "Comunicados"
   end
+
 
 
   def create
