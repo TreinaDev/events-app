@@ -76,7 +76,15 @@ class Api::V1::SpeakersController < Api::V1::ApiController
     schedule_item = @speaker.schedule_items.find_by(code: params[:schedule_item_code])
     return render json: { error: "Palestrante não possui nenhum item de agenda com esse código." }, status: :not_found unless schedule_item
 
-    render json: schedule_item.as_json(except: [ :id, :updated_at ]), status: :ok
+    event = schedule_item.schedule.event
+
+    render json: schedule_item.as_json(except: [ :id, :updated_at, :discarded_at ]).merge(
+      event: {
+        code: event.code,
+        start_date: event.start_date,
+        end_date: event.end_date
+      }
+    ), status: :ok
   end
 
   private

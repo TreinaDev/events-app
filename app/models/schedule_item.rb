@@ -15,7 +15,7 @@ class ScheduleItem < ApplicationRecord
   validate :end_time_must_be_greater_than_start_time
   validate :no_time_conflict_with_other_items
 
-  after_create :create_speaker, if: -> { activity? }
+  after_save :create_speaker, if: -> { activity? }
 
   after_initialize :generate_unique_code, if: :new_record?
   after_update :create_announcement
