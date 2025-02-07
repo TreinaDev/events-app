@@ -3,10 +3,16 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_verified, only: [ :edit, :update ]
   before_action :set_user_profile
+  add_breadcrumb "Home", :dashboard_path
 
-  def show; end
+  def show
+    add_breadcrumb "Meu Perfil"
+  end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Meu Perfil", :profile_path
+    add_breadcrumb "Editar Perfil"
+  end
 
   def update
     if @user.update(user_params)
