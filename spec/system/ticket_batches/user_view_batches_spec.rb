@@ -14,7 +14,7 @@ describe 'Usuário tenta editar lotes' do
   it 'com sucesso' do
     user = create(:user)
     event = create(:event, name: 'CCXP', user: user)
-    create(:ticket_batch, event: event)
+    ticket_batch = create(:ticket_batch, event: event)
     response_json = {
       id: 1,
       sold_tickets: 10
@@ -29,6 +29,7 @@ describe 'Usuário tenta editar lotes' do
     expect(page).to have_content 'Lotes de Ingresso - Evento: CCXP'
     expect(page).to have_content 'CCXP'
     expect(page).to have_content '10 - 15'
+    expect(page).to have_content "#{(response_json[:sold_tickets] * ticket_batch.ticket_price).to_s.sub('.', ',')}"
   end
 
   it 'e não consegue visualizar o lote de outro usuário' do
