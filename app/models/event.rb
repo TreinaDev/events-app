@@ -85,7 +85,7 @@ class Event < ApplicationRecord
     return all if query.blank?
 
     query = query.downcase
-    joins(categories: :keywords).where(
+    left_joins(categories: :keywords).where(
       "LOWER(events.name) LIKE :query OR LOWER(events.code) LIKE :query OR LOWER(categories.name) LIKE :query OR LOWER(keywords.value) LIKE :query",
       query: "%#{query}%"
     ).distinct
