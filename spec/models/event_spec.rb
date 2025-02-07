@@ -148,4 +148,56 @@ RSpec.describe Event, type: :model do
 
     expect(event.code).not_to eq(existing_code)
   end
+
+  context 'feedbacks do evento' do
+    it 'e retorna com sucesso' do
+      event = create(:event)
+      url = "http://localhost:3000/api/v1/events/#{event.code}/feedbacks"
+      feedbacks = {
+        feedbacks: [
+          {
+            id: 1,
+            title: 'Feedback 1',
+            comment: 'comentário',
+            mark: 3,
+            user: 'Jaison'
+          },
+          {
+            id: 2,
+            title: 'Feedback 2',
+            comment: 'comentário',
+            mark: 1,
+            user: 'Caio'
+          }
+        ]
+      }
+      response = double('response', status: 200, body: feedbacks.to_json)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
+      result = event.feedbacks
+
+      expect(result[0].id).to eq 1
+      expect(result[0].title).to eq 'Feedback 1'
+      expect(result[0].comment).to eq 'comentário'
+      expect(result[0].mark).to eq 3
+      expect(result[0].participant_username).to eq 'Jaison'
+
+      expect(result[1].id).to eq 2
+      expect(result[1].title).to eq 'Feedback 2'
+      expect(result[1].comment).to eq 'comentário'
+      expect(result[1].mark).to eq 1
+      expect(result[1].participant_username).to eq 'Caio'
+    end
+
+    it 'retorna array vazio caso de erro' do
+      event = create(:event)
+      url = "http://localhost:3000/api/v1/events/#{event.code}/feedbacks"
+      response = double('response', body: "{}", status: 500)
+      allow(Faraday).to receive(:get).with(url).and_return(response)
+      allow(response).to receive(:success?).and_return(false)
+
+      result = event.feedbacks
+
+      expect(result.length).to eq 0
+    end
+  end
 end
