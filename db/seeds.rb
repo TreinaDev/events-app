@@ -77,7 +77,7 @@ curso_de_padeiro_event = FactoryBot.create(:event,
 curso_de_padeiro_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo_curso_padeiro.png')), filename: 'logo_curso_padeiro.png')
 sleep(5)
 curso_de_padeiro_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_curso_padeiro.jpg')), filename: 'banner_curso_padeiro.jpg')
-
+curso_de_padeiro_event.update_columns(start_date: 2.day.ago, end_date: 1.day.ago, code: 'ABCD1234')
 
 puts 'Criando evento TROPICAL ON RAILS...'
 tropical_event = FactoryBot.create(:event,
@@ -89,13 +89,14 @@ tropical_event = FactoryBot.create(:event,
   status: :published,
   user: joao_user,
   categories: [ ruby_category ],
-  start_date: 10.minute.from_now,
+  start_date: Time.now,
   end_date: 1.day.from_now,
   description: ActionText::Content.new('<div><p><strong>O Tropical on Rails 2025</strong> é a <strong>Conferência Latam de Rails</strong> e tem como objetivo fortalecer a comunidade de Rails da América Latina para que ela continue sendo uma parte integral do presente e do futuro do Ruby on Rails.</p><br><p>O que antes era bom como <strong>Tropical.rb</strong> agora ficou melhor ainda sendo <strong>Tropical On Rails</strong>, nossa estrutura também cresceu e nessa edição vamos ter <strong>700 participantes</strong> com palestrantes incríveis estarão no nosso palco:</p><br><p><strong>Xavier Noria, Chris Oliver, Rosa Gutiérrez, Irina Nazarova, Rafael França, Vinicius Stock</strong> e muitos outros.</p></div><br><br><div><img src="https://framerusercontent.com/images/qYmo4AWLxXHNG2rARTdN8a1Vovw.jpeg" alt="plateia"></div>')
 )
 tropical_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo.jpg')), filename: 'logo.jpg')
 sleep(5)
 tropical_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner.png')), filename: 'banner.png')
+tropical_event.update_columns(code: 'EFGH1234')
 
 puts 'Criando evento RUBY SUMMIT BRASIL 2025...'
 ruby_summit_event = FactoryBot.create(:event,
@@ -131,11 +132,14 @@ full_stack_conf_event = FactoryBot.create(:event,
 full_stack_conf_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_fullstackconf.png')), filename: 'banner_fullstackconf.png')
 
 puts 'Criando PRIMEIRO LOTE de ingressos para CADA evento...'
-FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: ruby_event, start_date: 1.day.ago, end_date: 2.weeks.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: javascript_event, start_date:  1.day.ago, end_date: 2.weeks.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 1.week.ago, end_date: 3.minutes.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: ruby_summit_event, start_date:  1.day.ago, end_date: 2.weeks.from_now, discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: full_stack_conf_event, start_date:  1.day.ago, end_date: 2.weeks.from_now, discount_option: :no_discount)
+curso_de_padeiro_batch = FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: curso_de_padeiro_event, start_date: 2.week.ago, end_date: 1.week.ago, discount_option: :no_discount)
+curso_de_padeiro_batch.update_columns(code: 'ABCD1234')
+tropical_event_batch = FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 1.week.ago, end_date: 1.day.ago, discount_option: :no_discount)
+tropical_event_batch.update_columns(code: 'EFGH1234')
 
 puts 'Criando PRIMEIRO LOTE - MEIA (PCD) de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: ruby_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
