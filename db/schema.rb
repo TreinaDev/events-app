@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_06_184549) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_07_190710) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -113,7 +113,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184549) do
     t.string "name"
     t.integer "user_id", null: false
     t.integer "event_type"
-    t.string "address"
     t.integer "participants_limit"
     t.string "url"
     t.integer "status"
@@ -123,8 +122,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184549) do
     t.string "code", null: false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer "event_place_id"
     t.index ["code"], name: "index_events_on_code"
     t.index ["discarded_at"], name: "index_events_on_discarded_at"
+    t.index ["event_place_id"], name: "index_events_on_event_place_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -133,15 +134,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184549) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["value"], name: "index_keywords_on_value", unique: true
-  end
-
-  create_table "place_recommendations", force: :cascade do |t|
-    t.integer "event_id", null: false
-    t.integer "event_place_recommendation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_place_recommendations_on_event_id"
-    t.index ["event_place_recommendation_id"], name: "index_place_recommendations_on_event_place_recommendation_id"
   end
 
   create_table "schedule_items", force: :cascade do |t|
@@ -253,9 +245,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184549) do
   add_foreign_key "event_categories", "events"
   add_foreign_key "event_place_recommendations", "event_places"
   add_foreign_key "event_places", "users"
+  add_foreign_key "events", "event_places"
   add_foreign_key "events", "users"
-  add_foreign_key "place_recommendations", "event_place_recommendations"
-  add_foreign_key "place_recommendations", "events"
   add_foreign_key "schedule_items", "schedules"
   add_foreign_key "schedules", "events"
   add_foreign_key "ticket_batches", "events"

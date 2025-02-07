@@ -42,7 +42,6 @@ puts 'Criando evento CONFERENCIA RUBY...'
 ruby_event = FactoryBot.create(:event,
   name: 'Conferencia Ruby',
   event_type: :online,
-  address: 'Sem endereço',
   participants_limit: 25,
   url: 'confruby.com.br',
   status: :draft,
@@ -57,10 +56,10 @@ sleep(5)
 ruby_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_ruby.png')), filename: 'banner_ruby.png')
 
 puts 'Criando evento CONFERENCIA JAVASCRIPT...'
+
 javascript_event = FactoryBot.create(:event,
   name: 'Conferencia JS',
   event_type: :inperson,
-  address: 'Rua dos Computadores, 125',
   participants_limit: 30,
   url: 'confjs.com.br',
   status: :published,
@@ -68,17 +67,19 @@ javascript_event = FactoryBot.create(:event,
   categories: [ javascript_category ],
   start_date: 2.weeks.from_now,
   end_date: 3.weeks.from_now,
-  description: 'Um evento maneiro de Java escrito'
+  description: 'Um evento maneiro de Java escrito',
 )
+
 javascript_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/javascript.png')), filename: 'javascript.png')
 sleep(5)
 javascript_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_javascript.png')), filename: 'banner_javascript.png')
 
+
 puts 'Criando evento TROPICAL ON RAILS...'
+
 tropical_event = FactoryBot.create(:event,
   name: 'Tropical on Rails 2025',
   event_type: :hybrid,
-  address: 'Auditório Hotel Pullman - Vila Olímpia, São Paulo - SP',
   participants_limit: 30,
   url: 'www.evento.com',
   status: :published,
@@ -88,15 +89,18 @@ tropical_event = FactoryBot.create(:event,
   end_date: 1.weeks.from_now,
   description: "O Tropical on Rails 2025 é a Conferência Latam de Rails e tem como objetivo fortalecer a comunidade de Rails da América Latina para que ela continue sendo uma parte integral do presente e do futuro do Ruby on Rails. O que antes era bom como Tropical.rb agora ficou melhor ainda sendo Tropical On Rails, nossa estrutura também cresceu e nessa edição vamos ter 700 com palestrantes incríveis estarão no nosso palco: Xavier Noria, Chris Oliver, Rosa Gutiérrez, Irina Nazarova, Rafael França, Vinicius Stock e muitos outros."
 )
+
+
 tropical_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/logo.jpg')), filename: 'logo.jpg')
 sleep(5)
 tropical_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner.png')), filename: 'banner.png')
 
+
 puts 'Criando evento RUBY SUMMIT BRASIL 2025...'
+
 ruby_summit_event = FactoryBot.create(:event,
   name: 'Ruby Summit Brasil 2025',
   event_type: :inperson,
-  address: 'Teatro Renaissance - São Paulo, SP',
   participants_limit: 30,
   url: 'www.rubysummitbr.com',
   status: :published,
@@ -106,14 +110,16 @@ ruby_summit_event = FactoryBot.create(:event,
   end_date: (1.month.from_now + 1.day),
   description: "O Ruby Summit Brasil 2025 reúne a comunidade Ruby brasileira em um evento repleto de palestras, painéis e workshops com os melhores especialistas do mercado. Com keynotes internacionais e espaço para networking, é a oportunidade ideal para aprender e compartilhar conhecimento sobre Ruby e suas tecnologias relacionadas."
 )
+
+
 ruby_summit_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/ruby-summit-brasil.png')), filename: 'ruby-summit-brasil.png')
 sleep(5)
 
 puts 'Criando evento FULL STACK CONF 2025...'
+
 full_stack_conf_event = FactoryBot.create(:event,
   name: 'Full Stack Conf 2025',
   event_type: :online,
-  address: nil,
   participants_limit: 30,
   url: 'www.fullstackconf.com',
   status: :published,

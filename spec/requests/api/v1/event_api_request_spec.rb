@@ -9,7 +9,7 @@ describe 'Event API' do
 
       event = build(
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
 
@@ -20,14 +20,13 @@ describe 'Event API' do
 
       draft_event = create(
           :event, name: 'Formação de Padeiros', user: user, status: 'draft',
-          address: 'Rua dos ipês, 343', description: 'Aprenda a fazer Pão como um profissional', categories: [ category ])
+          description: 'Aprenda a fazer Pão como um profissional', categories: [ category ])
 
       get '/api/v1/events'
 
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['events'][0]['name']).to include(event.name)
-      expect(response.parsed_body['events'][0]['address']).to include(event.address)
       expect(response.parsed_body['events'][0]['description']).to include(event.description.body.to_html)
       expect(response.parsed_body['events'][0]['code']).to eq event.code
       expect(response.parsed_body['events'][0]['logo_url']).to eq url_for(event.logo)
@@ -37,7 +36,6 @@ describe 'Event API' do
       expect(response.parsed_body['events'][0]['start_date']).to eq event.start_date.iso8601(3)
       expect(response.parsed_body['events'][0]['end_date']).to eq event.end_date.iso8601(3)
       expect(response.parsed_body['events']).not_to include(draft_event.name)
-      expect(response.parsed_body['events']).not_to include(draft_event.address)
       expect(response.parsed_body['events']).not_to include(draft_event.description)
       expect(response.parsed_body['events']).not_to include(draft_event.id)
     end
@@ -48,8 +46,8 @@ describe 'Event API' do
       category = Category.create!(name: 'Palestra')
 
       event = build(
-        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published', event_type: 'online',
+        description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
@@ -58,15 +56,14 @@ describe 'Event API' do
       event.save
 
       create(
-          :event, name: 'Formação de Padeiros', user: user, status: 'published',
-          address: 'Rua dos ipês, 343', description: 'Aprenda a fazer Pão como um profissional', categories: [ category ])
+          :event, name: 'Formação de Padeiros', user: user, status: 'published', event_type: 'online',
+          description: 'Aprenda a fazer Pão como um profissional', categories: [ category ])
 
       get '/api/v1/events', params: { query: event.name }
 
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['events'][0]['name']).to include(event.name)
-      expect(response.parsed_body['events'][0]['address']).to include(event.address)
       expect(response.parsed_body['events'][0]['description']).to include(event.description.body.to_html)
       expect(response.parsed_body['events'][0]['code']).to eq event.code
       expect(response.parsed_body['events'][0]['logo_url']).to eq url_for(event.logo)
@@ -80,10 +77,11 @@ describe 'Event API' do
 
     it 'e há um local recomendado' do
       user = create(:user)
+      event_place = create(:event_place, user: user)
 
       event = build(
-        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published', event_type: 'hybrid',
+        description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30, event_place: event_place,
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0))
 
 
@@ -92,15 +90,20 @@ describe 'Event API' do
 
       event.save
 
-      event_place = create(:event_place, user: user)
       event_place_recommendation = create(:event_place_recommendation, event_place: event_place)
-      create(:place_recommendation, event: event, event_place_recommendation: event_place_recommendation)
 
       get '/api/v1/events'
 
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['events'][0]['name']).to include(event.name)
+      expect(response.parsed_body['events'][0]['address']['name']).to include(event.event_place.name)
+      expect(response.parsed_body['events'][0]['address']['street']).to include(event.event_place.street)
+      expect(response.parsed_body['events'][0]['address']['number']).to include(event.event_place.number)
+      expect(response.parsed_body['events'][0]['address']['neighborhood']).to include(event.event_place.neighborhood)
+      expect(response.parsed_body['events'][0]['address']['city']).to include(event.event_place.city)
+      expect(response.parsed_body['events'][0]['address']['zip_code']).to include(event.event_place.zip_code)
+      expect(response.parsed_body['events'][0]['address']['state']).to include(event.event_place.state)
       expect(response.parsed_body['events'][0]['recommendations'][0]['name']).to include(event_place_recommendation.name)
       expect(response.parsed_body['events'][0]['recommendations'][0]['full_address']).to include(event_place_recommendation.full_address)
       expect(response.parsed_body['events'][0]['recommendations'][0]['phone']).to include(event_place_recommendation.phone)
@@ -110,9 +113,10 @@ describe 'Event API' do
   context 'Usuário ve detalhes' do
     it 'com sucesso' do
       user = create(:user)
+      event_place = create(:event_place, user: user)
       event = build(
-        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        address: 'Rua das Laranjeiras, 123', description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published', event_place: event_place,
+        description: 'Aprenda a fazer churrasco como um profissional', participants_limit: 30,
         start_date:  (Time.now + 3.day).change(hour: 8, min: 0, sec: 0), end_date: (Time.now + 4.day).change(hour: 18, min: 0, sec: 0))
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
@@ -129,7 +133,7 @@ describe 'Event API' do
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['name']).to include(event.name)
-      expect(response.parsed_body['address']).to include(event.address)
+      expect(response.parsed_body['address']['name']).to include(event.event_place.name)
       expect(response.parsed_body['description']).to include(event.description.body.to_html)
       expect(response.parsed_body['code']).to eq event.code
       expect(response.parsed_body['logo_url']).to eq url_for(event.logo)

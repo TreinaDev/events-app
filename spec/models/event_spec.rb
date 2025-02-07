@@ -11,10 +11,10 @@ RSpec.describe Event, type: :model do
     end
 
     it 'falso quando endereço não está preenchido' do
-      event = FactoryBot.build(:event, address: '')
+      event = FactoryBot.build(:event, event_place: nil)
       event.valid?
 
-      expect(event.errors[:address]).to include 'não pode ficar em branco'
+      expect(event.errors[:event_place]).to include 'é obrigatório(a)'
       expect(event).not_to be_valid
     end
 
@@ -109,10 +109,10 @@ RSpec.describe Event, type: :model do
   end
 
   it 'endereço deve ser obrigatório somente quando o evento for presencial ou hibrido' do
-    event = FactoryBot.build(:event, event_type: :online, address: '')
+    event = FactoryBot.build(:event, event_type: :online)
     event.valid?
 
-    expect(event.errors).not_to include(:address)
+    expect(event.errors).not_to include(:event_place)
     expect(event).to be_valid
   end
 

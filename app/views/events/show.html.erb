@@ -65,10 +65,16 @@
       <%= @event.url %>
     </p>
 
-    <% if @event.address %>
+    <% if @event.event_place %>
       <p class="font-light text-textSecondary">
         <span class="font-bold text-textPrimary">Endereço:</span>
-        <%= @event.address %>
+        <%= @event.event_place.name %>
+        <%= @event.event_place.street %>
+        <%= @event.event_place.number %>
+        <%= @event.event_place.neighborhood %>
+        <%= @event.event_place.city %>
+        <%= @event.event_place.zip_code %>
+        <%= @event.event_place.state %>
       </p>
     <% end %>
   </article>

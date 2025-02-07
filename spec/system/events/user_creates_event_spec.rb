@@ -24,12 +24,14 @@ describe 'Usuário visita a tela de criacao de evento' do
     Category.create!(name: 'Festa')
     Category.create!(name: 'Palestra')
 
+    other_place = FactoryBot.create(:event_place)
+    event_place = FactoryBot.create(:event_place, name: 'Casa do João', street: 'Rua do João', number: '123', neighborhood: 'Centro', city: 'São Paulo', zip_code: '12345-678', state: 'SP')
+
     login_as user
 
     visit new_event_path
 
     fill_in 'Nome', with: 'Lollapaluza'
-    fill_in 'Endereço', with: 'Rua X'
     select 'Presencial', from: 'Tipo de evento'
     fill_in 'Limite de participantes', with: 30
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
@@ -38,6 +40,7 @@ describe 'Usuário visita a tela de criacao de evento' do
     attach_file('Logo', Rails.root.join('spec/support/images/logo.png'))
     attach_file('Banner', Rails.root.join('spec/support/images/banner.jpg'))
     find('trix-editor').click.set('<strong>test</strong>')
+    select 'Casa do João', from: 'Local do evento'
     check 'Festa'
     check 'Palestra'
     click_on 'Criar'

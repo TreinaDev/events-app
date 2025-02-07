@@ -5,7 +5,7 @@ describe 'Usuário tenta editar evento' do
     it 'com sucesso' do
       user = create(:user)
       category = create(:category, name: 'Tecnologia')
-      create(:event, user: user, name: 'Introdução ao RoR', categories: [ category ])
+      create(:event, user: user, name: 'Introdução ao RoR', categories: [ category ], event_type: :online)
 
       login_as user
       visit root_path

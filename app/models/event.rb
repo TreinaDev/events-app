@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   default_scope -> { kept }
 
   belongs_to :user
+  belongs_to :event_place
 
   has_one_attached :logo
   has_one_attached :banner
@@ -13,21 +14,19 @@ class Event < ApplicationRecord
   has_many :categories, through: :event_categories
   has_many :schedules
   has_many :announcements
-  has_many :place_recommendations
-  has_many :event_place_recommendations, through: :place_recommendations
 
   enum :status, [ :draft, :published ]
   enum :event_type, [ :inperson, :online, :hybrid ]
 
   validates :code, uniqueness: true
   validates :name, :participants_limit, :url, :status, :start_date, :end_date, presence: true
-  validates :address, presence: true, if: -> { inperson? || hybrid? }
   validates :logo, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
   validates :banner, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
   validates :start_date, :end_date, comparison: { greater_than: Time.now, message: "não pode ser depois da data atual" }
   validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
   validate :participants_limit_for_unverified_user
   validate :should_have_at_least_one_category
+  # validate :should_have_an_event_place
 
   after_create :set_schedules
 
@@ -51,6 +50,10 @@ class Event < ApplicationRecord
   def should_have_at_least_one_category
     errors.add(:categories, "deve ter ao menos uma categoria") if categories.empty?
   end
+
+  # def should_have_an_event_place
+  #   errors.add(:event_place, "deve ter um local de evento") if self.inperson? || self.hybrid? && event_place.nil?
+  # end
 
   def generate_code
     loop do
