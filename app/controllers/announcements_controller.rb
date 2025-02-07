@@ -5,6 +5,7 @@ class AnnouncementsController < ApplicationController
   before_action :check_if_published
   before_action :check_if_event_manager, only: [ :create ]
   add_breadcrumb "Home", :dashboard_path
+  add_breadcrumb "Meus Eventos", :events_path
 
   def index
     @announcements = @event.announcements

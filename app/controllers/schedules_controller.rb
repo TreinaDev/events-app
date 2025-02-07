@@ -4,6 +4,7 @@ class SchedulesController < ApplicationController
   before_action :authorize_schedule_access, only: [ :show ]
   before_action :find_event, only: [ :show ]
   add_breadcrumb "Home", :dashboard_path
+  add_breadcrumb "Meus Eventos", :events_path
 
   def show
     @schedule = Schedule.find_by(id: params[:id])

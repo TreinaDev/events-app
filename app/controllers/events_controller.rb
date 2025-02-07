@@ -6,11 +6,10 @@ class EventsController < ApplicationController
   before_action :check_event_status, only: [ :update ]
   before_action :check_if_event_manager, only: [ :new, :create ]
   add_breadcrumb "Home", :dashboard_path
+  add_breadcrumb "Meus Eventos", :events_path
 
   def index
     @events = current_user.events
-
-    add_breadcrumb "Meus Eventos"
   end
 
   def new
