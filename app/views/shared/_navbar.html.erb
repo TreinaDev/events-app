@@ -1,20 +1,16 @@
-<nav class="text-backgroundWhite flex items-center">
-
-  <ul>
-    <li>
-      <% if current_user.role == "event_manager" %>
-        <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
-      <% end %>
-    </li>
-  </ul>
+<nav class="text-backgroundWhite flex items-center" id="navbar">
 
   <% if current_user.role == "admin" %>
-
     <%= link_to 'Histórico de eventos', history_events_path, class: controller_name == 'events' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
     <%= link_to 'Categorias', categories_path, class: controller_name == 'categories' ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
     <%= link_to 'Verificações', verifications_path, class: controller_name == 'verifications' ? 'nav_link_active' : 'nav_link_inactive' %>
+
+  <% elsif current_user.role == "event_manager" %>
+    <%= link_to 'Eventos', dashboard_path, class: ['verifications', 'event_places', 'event_place_recommendations'].exclude?(controller_name)  ? 'nav_link_active' : 'nav_link_inactive' %>
+    <span class="link_separator"></span>
+    <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
   <% end %>
 
   <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
@@ -34,7 +30,7 @@
       <div class="flex-col items-end gap-4 hidden" data-user-options-target="links">
         <%= link_to 'Meu Perfil', profile_path, class: 'logout_button' %>
         <%= link_to 'Requisitar verificação', new_verification_path, class: 'logout_button' if current_user.verification_status == 'unverified' %>
-        <%= link_to 'Consultar reqs. de verificação', verifications_path, class: 'logout_button' %>
+        <%= link_to 'Consultar reqs. de verificação', verifications_path, class: 'logout_button text-right' %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button px-2' %>
       </div>
     </div>

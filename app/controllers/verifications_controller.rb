@@ -4,15 +4,22 @@ class VerificationsController < ApplicationController
   before_action :check_if_event_manager, only: [ :new, :create ]
   before_action :check_if_admin, only: [ :review ]
   before_action :authorize_verification_access, only: [ :show ]
+  add_breadcrumb "Home", :dashboard_path
+
 
   def index
     @verifications = current_user.verifications.order(created_at: :desc) if current_user.role == "event_manager"
     @verifications = Verification.pending.order(created_at: :desc) if current_user.role == "admin"
+
+    add_breadcrumb "Minhas Solicitações de Verificação" if current_user.role == "event_manager"
+    add_breadcrumb "Solicitações de Verificação Pendentes" if current_user.role == "admin"
   end
 
   def new
     @user = current_user
     @user.build_user_address unless @user.user_address
+
+    add_breadcrumb "Nova Solicitação de Verificação"
   end
 
   def create

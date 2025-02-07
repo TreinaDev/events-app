@@ -12,7 +12,7 @@ describe 'Usuário cria local de evento' do
     login_as user
 
     visit dashboard_path
-    within 'nav' do
+    within 'nav#navbar' do
       click_on 'Meus Locais'
     end
 
@@ -43,7 +43,7 @@ describe 'Usuário cria local de evento' do
     login_as user
 
     visit dashboard_path
-    within 'nav' do
+    within 'nav#navbar' do
       click_on 'Meus Locais'
     end
 

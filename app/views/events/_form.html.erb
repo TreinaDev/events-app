@@ -52,7 +52,7 @@
 
     <div class="input_container">
       <%= f.label :start_date, class: 'input_label' %>
-      <%= f.text_field :start_date, class: "input" %>
+      <%= f.date_field :start_date, class: "input" %>
       <% if event.errors[:start_date].any? %>
         <% event.errors.full_messages_for(:start_date).each do |e| %>
           <span class="form_error"><%= e %></span>
@@ -62,7 +62,7 @@
 
     <div class="input_container">
       <%= f.label :end_date, class: 'input_label' %>
-      <%= f.text_field :end_date, class: "input" %>
+      <%= f.date_field :end_date, class: "input" %>
       <% if event.errors[:end_date].any? %>
         <% event.errors.full_messages_for(:end_date).each do |e| %>
           <span class="form_error"><%= e %></span>

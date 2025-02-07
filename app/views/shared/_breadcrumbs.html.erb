@@ -1,0 +1,10 @@
+<nav id="breadcrumbs" class="flex gap-2 py-2 mb-10 border-y border-primary">
+  <% breadcrumbs.each_with_index do |breadcrumb, index| %>
+    <% if index == breadcrumbs.length - 1 %>
+      <span class="breadcrumb_active_route"><%= breadcrumb.name %></span>
+    <% else %>
+      <% path = breadcrumb.path.is_a?(Proc) ? breadcrumb.path.call : send(breadcrumb.path) %>
+      <%= link_to breadcrumb.name, path, class: 'breadcrumb_link' %> <span class="text-primary font-bold">></span>
+    <% end %>
+  <% end %>
+</nav>
