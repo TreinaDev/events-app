@@ -4,11 +4,17 @@
 </div>
 
 <div class="form">
-  <div class="input_container">
-    <h4>Nome</h4><h2><%= current_user.name %></h2>
-  </div>
-  
-  <div class="input_container">
-    <h4>Sobrenome</h4><h2><%= current_user.family_name %></h2>
+  <div class="flex items-center space-x-6">
+    <div class="profile_avatar">
+      <%= image_tag current_user.avatar.attached? ? current_user.avatar.variant(resize_to_fill: [150, 150]) : "default_avatar.jpg", class: "w-36 h-36 rounded-full object-cover" %>
+    </div>
+
+    <div class="input_container">
+      <h4>Nome</h4><h2><%= current_user.name %></h2>
+    </div>
+    
+    <div class="input_container">
+      <h4>Sobrenome</h4><h2><%= current_user.family_name %></h2>
+    </div>
   </div>
 </div>

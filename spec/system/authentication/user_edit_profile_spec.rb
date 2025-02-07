@@ -26,6 +26,7 @@ describe 'Usuário edita o seu perfil:' do
       click_on 'Goulart'
       click_on 'Editar'
       fill_in 'Nome', with: 'Guimarães'
+      attach_file('Foto de Perfil', Rails.root.join('spec/support/images/logo.png'))
       click_on 'Concluir'
 
       expect(page).to have_content 'Guimarães'
@@ -85,6 +86,7 @@ describe 'Usuário edita o seu perfil:' do
       click_on 'Goulart'
       click_on 'Editar'
       fill_in 'Nome', with: 'Guimarães'
+      attach_file('Foto de Perfil', Rails.root.join('spec/support/images/logo.png'))
       click_on 'Concluir'
 
       expect(page).to have_content 'Guimarães'

@@ -1,9 +1,17 @@
+<% if @user.errors.any? %>
+  <div class="error_explanation">
+    <% @user.errors.full_messages.each do |message| %>
+      <div class="form_error"><%= message %></div>
+    <% end %>
+  </div>
+<% end %>
+
 <div class="flex items-center justify-between">
   <h1 class="title">Editar Perfil</h1>
   <%= link_to 'Cancelar', profile_path, class: 'form_button w-fit' %>
 </div>
 
-<%= form_with model: @user, url: profile_path, method: :patch, local: true do |f| %>
+<%= form_with model: @user, url: profile_path, method: :patch, local: true, html: { multipart: true } do |f| %>
   <div class="form">
     <div class="input_container">
       <%= f.label :name, class: 'input_label' %>
@@ -24,6 +32,16 @@
         <% end %>
       <% end %>
     </div>
+
+  <div class="input_container">
+    <%= f.label :avatar, "Foto de Perfil", class: 'input_label' %>
+    <%= f.file_field :avatar, class: "input" %>
+    <% if @user.errors[:avatar].any? %>
+      <% @user.errors.full_messages_for(:avatar).each do |e| %>
+        <span class="form_error"><%= e %></span>
+      <% end %>
+    <% end %>
+  </div>
 
     <%= f.submit "Concluir", class: 'form_button' %>
   </div>

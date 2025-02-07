@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :events
   has_one :user_address, dependent: :destroy
   accepts_nested_attributes_for :user_address
+  has_one_attached :avatar
   has_one_attached :id_photo
   has_one_attached :address_proof
   has_many :event_places
@@ -19,6 +20,7 @@ class User < ApplicationRecord
 
   validates :name, :family_name, :registration_number, presence: true
   validates :registration_number, uniqueness: true
+  validates :avatar, content_type: [ "image/jpeg", "image/png", "image/jpg" ]
   validates :address_proof, content_type: [ "image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ]
   validates :id_photo, content_type: [ "image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ]
 
