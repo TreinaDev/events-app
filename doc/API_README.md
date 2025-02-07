@@ -2,10 +2,10 @@
 
 ## Índice
 
-- [Eventos](#eventos)
-- [Palestrantes](#palestrantes)
-- [Lotes de Ingressos](#lotes)
-- [Comunicados](#comunicados)
+-   [Eventos](#eventos)
+-   [Palestrantes](#palestrantes)
+-   [Lotes de Ingressos](#lotes)
+-   [Comunicados](#comunicados)
 
 ## Eventos
 
@@ -13,21 +13,21 @@
 
 ```json
 {
-  "events": [
-    {
-      "id": 1,
-      "name": "Evento 1",
-      "description": "\u003Ch1\u003EDescrição do evento 1\u003C/h1\u003E",
-      "event_type": "inperson",
-      "address": "Rua dos Computadores, 125",
-      "logo_url": "https://www.example.com/logo1.png",
-      "banner_url": "https://www.example.com/banner1.png",
-      "participants_limit": 100,
-      "event_owner": "João",
-      "start_date": "2025-02-21T00:07:00.827-03:00",
-      "end_date": "2025-02-28T00:07:00.827-03:00"
-    }
-  ]
+    "events": [
+        {
+            "id": 1,
+            "name": "Evento 1",
+            "description": "\u003Ch1\u003EDescrição do evento 1\u003C/h1\u003E",
+            "event_type": "inperson",
+            "address": "Rua dos Computadores, 125",
+            "logo_url": "https://www.example.com/logo1.png",
+            "banner_url": "https://www.example.com/banner1.png",
+            "participants_limit": 100,
+            "event_owner": "João",
+            "start_date": "2025-02-21T00:07:00.827-03:00",
+            "end_date": "2025-02-28T00:07:00.827-03:00"
+        }
+    ]
 }
 ```
 
@@ -35,49 +35,49 @@
 
 ```json
 {
-  "code": "OUZ73W3S",
-  "name": "Conferencia JS",
-  "description": "Um evento maneiro de Java escrito",
-  "event_type": "inperson",
-  "address": "Rua dos Computadores, 125",
-  "logo_url": "http://logo.png",
-  "banner_url": "http://banner.png",
-  "participants_limit": 30,
-  "event_owner": "Joao",
-  "start_date": "2025-02-21T00:07:00.827-03:00",
-  "end_date": "2025-02-28T00:07:00.827-03:00",
-  "ticket_batches": [
-    {
-      "id": 2,
-      "name": "Primeiro Lote - Inteira",
-      "tickets_limit": 10,
-      "start_date": "2025-02-06",
-      "end_date": "2025-02-21",
-      "ticket_price": "109.99",
-      "discount_option": "no_discount",
-      "event_id": 2,
-      "created_at": "2025-02-07T00:07:21.119-03:00",
-      "updated_at": "2025-02-07T00:07:21.119-03:00",
-      "code": "BXTU46AO"
-    }
-  ],
-  "schedules": [
-    {
-      "date": "2025-02-21",
-      "schedule_items": [
+    "code": "OUZ73W3S",
+    "name": "Conferencia JS",
+    "description": "Um evento maneiro de Java escrito",
+    "event_type": "inperson",
+    "address": "Rua dos Computadores, 125",
+    "logo_url": "http://logo.png",
+    "banner_url": "http://banner.png",
+    "participants_limit": 30,
+    "event_owner": "Joao",
+    "start_date": "2025-02-21T00:07:00.827-03:00",
+    "end_date": "2025-02-28T00:07:00.827-03:00",
+    "ticket_batches": [
         {
-          "code": "VI0PQFHV",
-          "name": "Paletra sobre NodeJS",
-          "description": "Palestra sobre tudo de NodeJS.",
-          "start_time": "2025-02-08T09:00:00.000-03:00",
-          "end_time": "2025-02-08T10:00:00.000-03:00",
-          "responsible_name": "José",
-          "responsible_email": "jose@email.com",
-          "schedule_type": "activity"
+            "id": 2,
+            "name": "Primeiro Lote - Inteira",
+            "tickets_limit": 10,
+            "start_date": "2025-02-06",
+            "end_date": "2025-02-21",
+            "ticket_price": "109.99",
+            "discount_option": "no_discount",
+            "event_id": 2,
+            "created_at": "2025-02-07T00:07:21.119-03:00",
+            "updated_at": "2025-02-07T00:07:21.119-03:00",
+            "code": "BXTU46AO"
         }
-      ]
-    }
-  ]
+    ],
+    "schedules": [
+        {
+            "date": "2025-02-21",
+            "schedule_items": [
+                {
+                    "code": "VI0PQFHV",
+                    "name": "Palestra sobre NodeJS",
+                    "description": "Palestra sobre tudo de NodeJS.",
+                    "start_time": "2025-02-08T09:00:00.000-03:00",
+                    "end_time": "2025-02-08T10:00:00.000-03:00",
+                    "responsible_name": "José",
+                    "responsible_email": "jose@email.com",
+                    "schedule_type": "activity"
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -89,7 +89,7 @@ Exemplo de corpo da requisição:
 
 ```json
 {
-  "email": "palestrante@example.com"
+    "email": "palestrante@example.com"
 }
 ```
 
@@ -105,21 +105,21 @@ Resposta:
 
 ```json
 {
-  "events": [
-    {
-      "code": "EVENT123",
-      "name": "Conferencia JS",
-      "event_type": "online",
-      "description": "<h1>Um evento maneiro de Java escrito</h1>",
-      "address": "Rua dos Computadores, 125",
-      "logo_url": "http://logo.png",
-      "banner_url": "http://banner.png",
-      "participants_limit": 30,
-      "event_owner": "Joao",
-      "start_date": "2025-02-21T00:07:00.827-03:00",
-      "end_date": "2025-02-28T00:07:00.827-03:00"
-    }
-  ]
+    "events": [
+        {
+            "code": "EVENT123",
+            "name": "Conferencia JS",
+            "event_type": "online",
+            "description": "<h1>Um evento maneiro de Java escrito</h1>",
+            "address": "Rua dos Computadores, 125",
+            "logo_url": "http://logo.png",
+            "banner_url": "http://banner.png",
+            "participants_limit": 30,
+            "event_owner": "Joao",
+            "start_date": "2025-02-21T00:07:00.827-03:00",
+            "end_date": "2025-02-28T00:07:00.827-03:00"
+        }
+    ]
 }
 ```
 
@@ -127,17 +127,17 @@ Resposta:
 
 ```json
 {
-  "code": "EVENT123",
-  "name": "Conferencia JS",
-  "event_type": "online",
-  "description": "<h1>Um evento maneiro de Java escrito</h1>",
-  "address": "Rua dos Computadores, 125",
-  "logo_url": "http://logo.png",
-  "banner_url": "http://banner.png",
-  "participants_limit": 30,
-  "event_owner": "Joao",
-  "start_date": "2025-02-21T00:07:00.827-03:00",
-  "end_date": "2025-02-28T00:07:00.827-03:00"
+    "code": "EVENT123",
+    "name": "Conferencia JS",
+    "event_type": "online",
+    "description": "<h1>Um evento maneiro de Java escrito</h1>",
+    "address": "Rua dos Computadores, 125",
+    "logo_url": "http://logo.png",
+    "banner_url": "http://banner.png",
+    "participants_limit": 30,
+    "event_owner": "Joao",
+    "start_date": "2025-02-21T00:07:00.827-03:00",
+    "end_date": "2025-02-28T00:07:00.827-03:00"
 }
 ```
 
@@ -145,23 +145,23 @@ Resposta:
 
 ```json
 {
-  "schedules": [
-    {
-      "date": "2025-02-21",
-      "schedule_items": [
+    "schedules": [
         {
-          "code": "VI0PQFHV",
-          "name": "Paletra sobre NodeJS",
-          "description": "Palestra sobre tudo de NodeJS.",
-          "start_time": "2025-02-08T09:00:00.000-03:00",
-          "end_time": "2025-02-08T10:00:00.000-03:00",
-          "responsible_name": "José",
-          "responsible_email": "jose@email.com",
-          "schedule_type": "activity"
+            "date": "2025-02-21",
+            "schedule_items": [
+                {
+                    "code": "VI0PQFHV",
+                    "name": "Palestra sobre NodeJS",
+                    "description": "Palestra sobre tudo de NodeJS.",
+                    "start_time": "2025-02-08T09:00:00.000-03:00",
+                    "end_time": "2025-02-08T10:00:00.000-03:00",
+                    "responsible_name": "José",
+                    "responsible_email": "jose@email.com",
+                    "schedule_type": "activity"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 ```
 
@@ -169,19 +169,19 @@ Resposta:
 
 ```json
 {
-  "code": "VI0PQFHV",
-  "name": "Paletra sobre NodeJS",
-  "description": "Palestra sobre tudo de NodeJS.",
-  "start_time": "2025-02-08T09:00:00.000-03:00",
-  "end_time": "2025-02-08T10:00:00.000-03:00",
-  "responsible_name": "José",
-  "responsible_email": "jose@email.com",
-  "schedule_type": "activity",
-  "event": {
-    "code": "ABCD1234",
-    "start_date": "2025-02-21T00:07:00.827-03:00",
-    "end_date": "2025-02-28T00:07:00.827-03:00"
-  }
+    "code": "VI0PQFHV",
+    "name": "Palestra sobre NodeJS",
+    "description": "Palestra sobre tudo de NodeJS.",
+    "start_time": "2025-02-08T09:00:00.000-03:00",
+    "end_time": "2025-02-08T10:00:00.000-03:00",
+    "responsible_name": "José",
+    "responsible_email": "jose@email.com",
+    "schedule_type": "activity",
+    "event": {
+        "code": "ABCD1234",
+        "start_date": "2025-02-21T00:07:00.827-03:00",
+        "end_date": "2025-02-28T00:07:00.827-03:00"
+    }
 }
 ```
 
@@ -191,18 +191,18 @@ Resposta:
 
 ```json
 {
-  "ticket_batches": [
-    {
-      "name": "Primeiro Lote",
-      "tickets_limit": 15,
-      "start_date": "2023-10-01",
-      "end_date": "2023-10-15",
-      "ticket_price": "500.0",
-      "discount_option": "student",
-      "event_id": 1,
-      "code": "ABC123"
-    }
-  ]
+    "ticket_batches": [
+        {
+            "name": "Primeiro Lote",
+            "tickets_limit": 15,
+            "start_date": "2023-10-01",
+            "end_date": "2023-10-15",
+            "ticket_price": "500.0",
+            "discount_option": "student",
+            "event_id": 1,
+            "code": "ABC123"
+        }
+    ]
 }
 ```
 
@@ -210,16 +210,16 @@ Resposta:
 
 ```json
 {
-  "ticket_batch": {
-    "name": "Primeiro Lote",
-    "tickets_limit": 15,
-    "start_date": "2023-10-01",
-    "end_date": "2023-10-15",
-    "ticket_price": "500.0",
-    "discount_option": "student",
-    "event_id": 1,
-    "code": "ABC123"
-  }
+    "ticket_batch": {
+        "name": "Primeiro Lote",
+        "tickets_limit": 15,
+        "start_date": "2023-10-01",
+        "end_date": "2023-10-15",
+        "ticket_price": "500.0",
+        "discount_option": "student",
+        "event_id": 1,
+        "code": "ABC123"
+    }
 }
 ```
 
@@ -229,14 +229,14 @@ Resposta:
 
 ```json
 {
-  "announcements": [
-    {
-      "title": "Título do Comunicado",
-      "description": "<p>Descrição do comunicado</p>",
-      "created_at": "2023-10-01T12:00:00Z",
-      "code": "ABC123"
-    }
-  ]
+    "announcements": [
+        {
+            "title": "Título do Comunicado",
+            "description": "<p>Descrição do comunicado</p>",
+            "created_at": "2023-10-01T12:00:00Z",
+            "code": "ABC123"
+        }
+    ]
 }
 ```
 
@@ -244,11 +244,11 @@ Resposta:
 
 ```json
 {
-  "announcement": {
-    "title": "Título do Comunicado",
-    "description": "<p>Descrição do comunicado</p>",
-    "created_at": "2023-10-01T12:00:00Z",
-    "code": "ABC123"
-  }
+    "announcement": {
+        "title": "Título do Comunicado",
+        "description": "<p>Descrição do comunicado</p>",
+        "created_at": "2023-10-01T12:00:00Z",
+        "code": "ABC123"
+    }
 }
 ```

@@ -169,11 +169,11 @@ FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: full_stack_conf_event, start_date: 4.weeks.ago, end_date: 3.weeks.ago, ticket_price: '129.99', discount_option: :student)
 
 puts 'Criando PRIMEIRO item de agenda para CADA evento...'
-FactoryBot.create(:schedule_item, schedule: ruby_event.schedules.first, name: 'Paletra sobre Ruby', description: 'Discutindo sobre a linguagem Ruby.')
-FactoryBot.create(:schedule_item, schedule: javascript_event.schedules.first, name: 'Paletra sobre NodeJS', description: 'Palestra sobre tudo de NodeJS.')
-FactoryBot.create(:schedule_item, schedule: tropical_event.schedules.first, name: 'Paletra sobre Rails 8', description: 'Discutindo sobre as novidades que chegaram para o Rails na sua versão 8.')
-FactoryBot.create(:schedule_item, schedule: ruby_summit_event.schedules.first, name: 'Paletra sobre Rails', description: 'Discutindo sobre as noticias atuais do ruby no rails')
-FactoryBot.create(:schedule_item, schedule: full_stack_conf_event.schedules.first, name: 'Paletra sobre FullStack', description: 'Palestra do backend ao frontend')
+FactoryBot.create(:schedule_item, schedule: ruby_event.schedules.first, name: 'Palestra sobre Ruby', description: 'Discutindo sobre a linguagem Ruby.')
+FactoryBot.create(:schedule_item, schedule: javascript_event.schedules.first, name: 'Palestra sobre NodeJS', description: 'Palestra sobre tudo de NodeJS.')
+FactoryBot.create(:schedule_item, schedule: tropical_event.schedules.first, name: 'Palestra sobre Rails 8', description: 'Discutindo sobre as novidades que chegaram para o Rails na sua versão 8.')
+FactoryBot.create(:schedule_item, schedule: ruby_summit_event.schedules.first, name: 'Palestra sobre Rails', description: 'Discutindo sobre as noticias atuais do ruby no rails')
+FactoryBot.create(:schedule_item, schedule: full_stack_conf_event.schedules.first, name: 'Palestra sobre FullStack', description: 'Palestra do backend ao frontend')
 FactoryBot.create(:schedule_item, schedule: aws_event.schedules.order(date: :asc).first, name: 'Keynote de Abertura', description: 'Abertura oficial do evento com as últimas inovações e tendências em computação em nuvem.', start_time: (Time.now).change(hour: 9, min: 0, sec: 0), end_time: (Time.now).change(hour: 9, min: 45, sec: 0), responsible_name: 'Adam Selipsky', responsible_email: 'adam@email.com')
 
 puts 'Criando SEGUNDO item de agenda para CADA evento...'
