@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
 
     resources :announcements, only: [ :index, :create ]
+    resources :feedbacks, only: [ :index ]
 
     resources :schedules, only: [ :show ] do
       resources :schedule_items, as: :items, only: [ :new, :create, :destroy, :edit, :update ]
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   resources :verifications, only: [ :new, :create, :index, :show ] do
     patch :review
   end
+
+  resource :profile, only: [ :show, :edit, :update ]
 
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"

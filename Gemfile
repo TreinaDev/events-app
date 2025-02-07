@@ -40,6 +40,8 @@ gem "active_storage_validations"
 
 gem "discard", "~> 1.4"
 
+gem "breadcrumbs_on_rails"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -52,6 +54,7 @@ group :development, :test do
   gem "cuprite"
   gem "simplecov", require: false
   gem "factory_bot_rails"
+  gem "timecop"
 end
 
 group :development do
@@ -62,3 +65,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "cpf_cnpj"
+
+gem "faraday"
