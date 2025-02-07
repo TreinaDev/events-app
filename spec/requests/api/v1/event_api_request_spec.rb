@@ -11,7 +11,7 @@ describe 'Event API' do
         event_type: :inperson,
         address: 'Rua das Laranjeiras, 123',
         participants_limit: 30,
-        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), 
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0),
         end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0)
         )
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
@@ -52,7 +52,7 @@ describe 'Event API' do
         description: 'Aprenda a fazer churrasco como um profissional',
         event_type: :online,
         participants_limit: 30,
-        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0), 
+        start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0),
         end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0)
         )
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')

@@ -17,7 +17,7 @@ class Api::V1::EventsController < Api::V1::ApiController
         start_date: event.start_date,
         end_date: event.end_date
       }
-      
+
       data.delete(:address) if event.online?
       data
     end
