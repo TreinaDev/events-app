@@ -76,7 +76,7 @@
 
   <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit">
     <h2 class="text-right">Agendas do Evento</h2>
-      <% @event.schedules.each do |schedule| %>
+      <% @event.schedules.order(date: :asc).each do |schedule| %>
         <%= link_to event_schedule_path(@event, schedule), class: "text-right justify-end underline underline-offset-4 decoration-primary hover:bg-textPrimary/15 p-3 rounded-md transition duration-150 font-bold hover:brightness-90" do %>
           Dia <%= l schedule.date.to_date, format: :short %>
         <% end %>
