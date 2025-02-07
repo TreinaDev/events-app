@@ -6,6 +6,10 @@ class ParticipantsApiService
     self.request("#{BASE_URL}/#{event_code}/feedbacks", :get)
   end
 
+  def self.get_participants_and_tickets_by_event_code(event_code)
+    self.request("#{BASE_URL}/#{event_code}", :get)
+  end
+
   def self.request(url, method)
     conn = Faraday.new do |faraday|
       faraday.response :raise_error

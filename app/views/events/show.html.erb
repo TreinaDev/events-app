@@ -47,10 +47,17 @@
         <% end %>
     </p>
 
-    <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Limite de Participantes:</span>
-      <%= @event.participants_limit %>
-    </p>
+    <% if @event.published?%>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Participantes:</span>
+        <%= @event.participants_count %> / <%= @event.participants_limit %>
+      </p>
+    <% else %>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Limite de Participantes:</span>
+        <%= @event.participants_limit %>
+      </p>
+    <% end %>
 
 
     <div class="font-light text-textSecondary">
@@ -62,10 +69,12 @@
 
     <p class="font-bold text-textPrimary">Evento <%= Event.human_enum_name(:event_type, @event.event_type)%></p>
 
-    <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Site do Evento:</span>
-      <%= @event.url %>
-    </p>
+    <% unless @event.online? %>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Site do Evento:</span>
+        <%= @event.url %>
+      </p>
+    <% end %>
 
     <% if @event.address %>
       <p class="font-light text-textSecondary">
