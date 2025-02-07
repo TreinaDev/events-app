@@ -10,7 +10,7 @@ RSpec.describe Announcement, type: :model do
     end
 
     it 'falha quando descrição está vazia' do
-      announcement = build(:announcement, title: '')
+      announcement = build(:announcement, description: '')
       announcement.valid?
 
       expect(announcement.errors[:description]).to include 'não pode ficar em branco'

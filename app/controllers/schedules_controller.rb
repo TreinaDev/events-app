@@ -8,7 +8,8 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find_by(id: params[:id])
-    @schedule_items = @schedule.schedule_items.order(start_time: :desc)
+    @schedule_items = @schedule.schedule_items.order(start_time: :asc)
+
 
     add_breadcrumb "#{@event.name}", Proc.new { event_path(@event) }
     add_breadcrumb "Agenda de #{I18n.l(@schedule.date.to_date, format: :short)}"
