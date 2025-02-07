@@ -1,6 +1,6 @@
+<div class="bg-white p-10 rounded shadow-md">
 <div class="flex items-center justify-between">
   <div class="flex items-center gap-4">
-  <%= link_to 'Voltar', current_user.role == 'admin' ? history_events_path : dashboard_path, class: 'outline_button w-fit' %>
     <% if @event.logo.attached? %>
       <div class="w-16 h-16 overflow-hidden">
         <%= image_tag url_for(@event.logo), class: 'object-contain h-full w-full' %>
@@ -36,29 +36,21 @@
       </div>
     <% end %>
 
-    <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Status:</span>
+    <div class="flex gap-4">
+      <p class="font-light text-textSecondary">
         <% if @event.draft? %>
           <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
         <% else %>
           <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
         <% end %>
-    </p>
+      </p>
+      <p class="font-bold text-textPrimary"><%= Event.human_enum_name(:event_type, @event.event_type)%></p>
+    </div>
 
     <p class="font-light text-textSecondary">
       <span class="font-bold text-textPrimary">Limite de Participantes:</span>
       <%= @event.participants_limit %>
     </p>
-
-
-    <div class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary mr-2">Descrição:</span>
-      <%= render layout: 'layouts/action_text/contents/content' do %>
-      <%= @event.description %>
-      <% end %>
-    </div>
-
-    <p class="font-bold text-textPrimary">Evento <%= Event.human_enum_name(:event_type, @event.event_type)%></p>
 
     <p class="font-light text-textSecondary">
       <span class="font-bold text-textPrimary">Site do Evento:</span>
@@ -71,6 +63,12 @@
         <%= @event.address %>
       </p>
     <% end %>
+
+    <div class="font-light text-textSecondary">
+      <%= render layout: 'layouts/action_text/contents/content' do %>
+      <%= @event.description %>
+      <% end %>
+    </div>
   </article>
 
   <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit">
@@ -82,3 +80,4 @@
       <% end %>
   </aside>
 </section>
+</div>
