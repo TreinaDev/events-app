@@ -28,7 +28,7 @@ describe 'Usuário publica evento' do
       event = create(:event,
         user: user,
         logo: File.open(Rails.root.join('spec/support/images/logo.jpg'), filename: 'logo.jpg'),
-        banner: File.open(Rails.root.join('spec/support/images/banner.jpg'), filename: 'banner.jpg')
+        banner: File.open(Rails.root.join('spec/support/images/banner.png'), filename: 'banner.png')
       )
 
       login_as user
