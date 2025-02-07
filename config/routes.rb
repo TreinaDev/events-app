@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     patch :review
   end
 
+  resource :profile, only: [ :show, :edit, :update ]
+
   resources :categories, only: [ :index, :new, :create, :show, :update ]
   get "dashboard" => "dashboard#index"
 
