@@ -1,4 +1,5 @@
 require 'simplecov'
+require 'timecop'
 SimpleCov.start 'rails'
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
@@ -38,6 +39,10 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
+
+  config.after(:each) do
+    Timecop.return
+  end
 
   config.before(:each, type: :system) do
     driven_by :rack_test

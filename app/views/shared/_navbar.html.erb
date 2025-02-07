@@ -18,7 +18,7 @@
   <% end %>
 
   <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
-      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= current_user.name %></span></p>
+      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= link_to current_user.name, profile_path %></span></p>
       <div class="flex gap-2 items-center justify-end relative group">
         <% if current_user.verification_status == 'unverified' || current_user.verification_status == 'pending'%>
           <%= image_tag 'unchecked.svg', class: 'w-4 h-4' %>
@@ -32,6 +32,7 @@
     <%= image_tag 'chevron.svg', class: 'hover:cursor-pointer h-4 w-4', data: { 'user-options-target': 'chevron', action: 'click->user-options#toggleProfileMenu' } %>
     <div class="opacity-0 transition-opacity w-52 mt-2 absolute top-5 right-0 p-4 rounded-md bg-backgroundWhite border border-primary text-textPrimary font-light" data-user-options-target="profileMenu">
       <div class="flex-col items-end gap-4 hidden" data-user-options-target="links">
+        <%= link_to 'Meu Perfil', profile_path, class: 'logout_button' %>
         <%= link_to 'Requisitar verificação', new_verification_path, class: 'logout_button' if current_user.verification_status == 'unverified' %>
         <%= link_to 'Consultar reqs. de verificação', verifications_path, class: 'logout_button' %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete, class:'logout_button px-2' %>

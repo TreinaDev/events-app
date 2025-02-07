@@ -19,6 +19,9 @@
     <% end %>
     <%= link_to 'Comunicados', event_announcements_path(@event), class: 'outline_button' %>
     <%= link_to 'Lotes', event_ticket_batches_path(@event), class: 'outline_button' %>
+    <% if @event.ended?%>
+      <%= link_to 'Feedbacks', event_feedbacks_path(@event), class: 'outline_button'%>
+    <% end %>
     <%= link_to 'Editar', edit_event_path(@event), class: 'outline_button' %>
     <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button h-full w-full', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>
     </div>
