@@ -8,7 +8,7 @@ describe 'Usuário visualiza eventos' do
     create(:event, name: 'Introdução ao RoR', user: user, categories: [ category ])
 
     login_as user
-    visit root_path
+    visit events_path
 
     expect(page).to have_content 'ccxp'
     expect(page).to have_content 'Introdução ao RoR'
@@ -20,7 +20,7 @@ describe 'Usuário visualiza eventos' do
     create(:event, name: 'ccxp', status: :published, user: user, categories: [ category ])
     create(:event, name: 'Introdução ao RoR', user: user, categories: [ category ])
 
-    visit root_path
+    visit events_path
 
     expect(page).not_to have_content 'Introdução ao RoR'
   end
@@ -33,7 +33,7 @@ describe 'Usuário visualiza eventos' do
     create(:event, name: 'Introdução ao RoR', user: marcelo, categories: [ category ])
 
     login_as marcelo
-    visit root_path
+    visit events_path
 
     expect(page).not_to have_content 'ccxp'
     expect(page).to have_content 'Introdução ao RoR'

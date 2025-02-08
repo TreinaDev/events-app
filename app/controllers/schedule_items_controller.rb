@@ -4,7 +4,7 @@ class ScheduleItemsController < ApplicationController
   before_action :authorize_schedule_owner, only: [ :new, :create, :destroy, :edit, :update ]
   before_action :find_schedule_item, only: [ :edit, :update, :destroy ]
   add_breadcrumb "Home", :dashboard_path
-
+  add_breadcrumb "Meus Eventos", :events_path
 
   def new
     @schedule_item = @schedule.schedule_items.build

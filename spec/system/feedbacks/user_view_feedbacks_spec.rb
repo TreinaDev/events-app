@@ -14,6 +14,9 @@ describe 'Usuário tenta visualizar feedbacks' do
 
       login_as event_manager
       visit root_path
+      within "nav#navbar" do
+        click_on 'Meus Eventos'
+      end
       click_on 'Gerenciar'
 
       expect(page).not_to have_link('Feedbacks')
@@ -77,11 +80,14 @@ describe 'Usuário tenta visualizar feedbacks' do
     }
     allow(ParticipantsApiService).to receive(:get_feedbacks_by_event_code).and_return(feedbacks)
 
-    login_as event_manager
-    Timecop.travel(3.days.from_now) do
-      visit root_path
-      click_on 'Gerenciar'
-      click_on 'Feedbacks'
+      login_as event_manager
+      Timecop.travel(3.days.from_now) do
+        visit root_path
+        within "nav#navbar" do
+          click_on 'Meus Eventos'
+        end
+        click_on 'Gerenciar'
+        click_on 'Feedbacks'
 
       expect(page).to have_content 'Feedback'
       expect(page).to have_content 'Caio'
