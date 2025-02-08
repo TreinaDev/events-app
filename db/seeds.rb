@@ -61,7 +61,7 @@ javascript_event.logo.attach(io: File.open(Rails.root.join('spec/support/images/
 sleep(5)
 javascript_event.banner.attach(io: File.open(Rails.root.join('spec/support/images/banner_javascript.png')), filename: 'banner_javascript.png')
 
-puts 'Criando evento AWS'
+puts 'Criando evento AWS...'
 aws_event = FactoryBot.create(:event,
   name: 'AWS re:Invent',
   event_type: :online,
@@ -152,21 +152,21 @@ FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: javascript_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: tropical_event, start_date: 1.week.ago, end_date: 3.minutes.from_now, discount_option: :disability)
 FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: ruby_summit_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
-FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: full_stack_conf_event, start_date: 4.weeks.ago, end_date: 3.weeks.ago, discount_option: :disability)
+FactoryBot.create(:ticket_batch, name: 'Primeiro Lote - Meia PCD', tickets_limit: 5, event: full_stack_conf_event, start_date: 1.weeks.from_now, end_date: 2.weeks.from_now, discount_option: :disability)
 
 puts 'Criando SEGUNDO LOTE de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 5, event: ruby_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: javascript_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: tropical_event, start_date: 8.weeks.ago, end_date: 3.minutes.from_now, ticket_price: '129.99', discount_option: :no_discount)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: ruby_summit_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
-FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: full_stack_conf_event, start_date: 4.weeks.ago, end_date: 3.weeks.ago, ticket_price: '129.99', discount_option: :no_discount)
+FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Inteira', tickets_limit: 10, event: full_stack_conf_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :no_discount)
 
 puts 'Criando SEGUNDO LOTE - MEIA (Estudante) de ingressos para CADA evento...'
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: ruby_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: javascript_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: tropical_event, start_date: 1.week.ago, end_date: 1.day.ago, ticket_price: '129.99', discount_option: :student)
 FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: ruby_summit_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
-FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: full_stack_conf_event, start_date: 4.weeks.ago, end_date: 3.weeks.ago, ticket_price: '129.99', discount_option: :student)
+FactoryBot.create(:ticket_batch, name: 'Segundo Lote - Meia Estudante', tickets_limit: 5, event: full_stack_conf_event, start_date: 8.days.from_now, end_date: 12.days.from_now, ticket_price: '129.99', discount_option: :student)
 
 puts 'Criando PRIMEIRO item de agenda para CADA evento...'
 FactoryBot.create(:schedule_item, schedule: ruby_event.schedules.first, name: 'Palestra sobre Ruby', description: 'Discutindo sobre a linguagem Ruby.')
