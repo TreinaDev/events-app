@@ -121,6 +121,9 @@ describe 'Usuário tenta visualizar feedbacks' do
     login_as event_manager
     Timecop.travel(3.days.from_now) do
       visit root_path
+      within "nav#navbar" do
+          click_on 'Meus Eventos'
+        end
       click_on 'Gerenciar'
       click_on 'Feedbacks'
       click_on '3'
@@ -143,6 +146,9 @@ describe 'Usuário tenta visualizar feedbacks' do
     login_as event_manager
     Timecop.travel(3.days.from_now) do
       visit root_path
+      within "nav#navbar" do
+          click_on 'Meus Eventos'
+        end
       click_on 'Gerenciar'
       click_on 'Feedbacks'
 
