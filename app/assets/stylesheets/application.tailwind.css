@@ -106,4 +106,8 @@
   .breadcrumb_active_route {
     @apply text-primary font-semibold text-lg;
   }
+
+  .filter_button {
+    @apply bg-primary text-white;
+  }
 }
