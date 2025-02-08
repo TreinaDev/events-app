@@ -39,21 +39,27 @@
       </div>
     <% end %>
 
-    <div class="flex gap-4">
-      <p class="font-light text-textSecondary">
-        <% if @event.draft? %>
-          <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
-        <% else %>
-          <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
-        <% end %>
-      </p>
-      <p class="font-bold text-textPrimary"><%= Event.human_enum_name(:event_type, @event.event_type)%></p>
-    </div>
-
     <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Limite de Participantes:</span>
-      <%= @event.participants_limit %>
+      <% if @event.draft? %>
+        <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
+      <% else %>
+        <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
+      <% end %>
     </p>
+
+    <% if @event.published?%>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Ingressos Vendidos:</span>
+        <%= @event.participants_count %> / <%= @event.participants_limit %>
+      </p>
+    <% else %>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Limite de Participantes:</span>
+        <%= @event.participants_limit %>
+      </p>
+    <% end %>
+
+    <p class="font-bold text-textPrimary">Evento <%= Event.human_enum_name(:event_type, @event.event_type)%></p>
 
     <p class="font-light text-textSecondary">
       <span class="font-bold text-textPrimary">Site do Evento:</span>
@@ -83,4 +89,3 @@
       <% end %>
   </aside>
 </section>
-</div>

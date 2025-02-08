@@ -13,6 +13,11 @@ describe 'Usuário cria lotes' do
   it 'com sucesso' do
     user = create(:user)
     event = create(:event, user: user)
+    response_json = {
+      id: 1,
+      sold_tickets: 0
+    }
+    allow(ParticipantsApiService).to receive(:get_sold_tickets_count_by_event_and_batch_code).and_return(response_json)
     login_as user
 
     visit root_path
