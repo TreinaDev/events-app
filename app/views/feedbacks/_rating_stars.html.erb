@@ -1,0 +1,9 @@
+<% width ||= "w-7" %>
+<div class="flex gap-2">
+    <% rating.times do %>
+        <img src="<%=asset_path('star.svg')%>" alt="Star" class="<%= width %>">
+    <% end %>
+    <% (5 - rating).times do%>
+        <img src="<%=asset_path('star-outline.svg')%>" alt="Star" class="<%= width %>">
+    <% end %>
+</div>

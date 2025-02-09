@@ -7,4 +7,10 @@ class Feedback
     @mark = mark
     @participant_username = participant_username
   end
+
+  def self.overall_rating(feedbacks)
+    return 0 if feedbacks.empty?
+
+    feedbacks.map(&:mark).sum / feedbacks.size
+  end
 end

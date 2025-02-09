@@ -34,6 +34,7 @@ Este é um sistema completo de gerenciamento de eventos, permitindo que organiza
 - Faraday
 - Timecop
 - Discard
+- rack-timeout
 
 ## Pré-requisitos
 
