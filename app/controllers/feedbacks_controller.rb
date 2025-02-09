@@ -4,6 +4,7 @@ class FeedbacksController < ApplicationController
   before_action :authorize_event_access
   before_action :check_if_event_ended
   add_breadcrumb "Home", :dashboard_path
+  add_breadcrumb "Meus Eventos", :events_path
 
   def index
     @feedbacks = @event.feedbacks
