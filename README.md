@@ -13,6 +13,13 @@ Este é um sistema completo de gerenciamento de eventos, permitindo que organiza
 - Cadastro de eventos
 - Cadastro de Agenda de eventos
 - Categorias de eventos com palavras-chave associadas
+- Cadastro de Lotes
+- Cadastro de Comunicados
+- Cadastro de Locais de eventos
+- Cadastro de Recomendações de eventos
+- Verificação do usuário
+- Feedback do evento
+- Histórico de eventos
 
 ## Gems utilizadas
 
@@ -24,6 +31,10 @@ Este é um sistema completo de gerenciamento de eventos, permitindo que organiza
 - Rspec
 - Capybara
 - Devise
+- Faraday
+- Timecop
+- Discard
+- rack-timeout
 
 ## Pré-requisitos
 
@@ -45,6 +56,9 @@ node 16.20.2
 
   # Execute a aplicação
     $ bin/setup
+
+  # A aplicação estará disponível em
+    http://localhost:3003
 ```
 
 ## Como rodar testes
@@ -65,29 +79,7 @@ node 16.20.2
 
 # APIs
 
-GET /api/v1/events
-
-Caso não hajam eventos cadastrados, a API retorna:
-`status: 200, json: []`
-
-Caso contrário, a API retorna `status: 200` e todos os eventos publicados no seguinte formato:
-
-```json
-{
-  "events": [
-    {
-      "id": 1,
-      "name": "Evento 1",
-      "description": "Descrição do evento 1",
-      "address": "Rua 1, 123",
-      "logo_url": "https://www.example.com/logo1.png",
-      "banner_url": "https://www.example.com/banner1.png",
-      "participants_limit": 100,
-      "event_owner": "João"
-    }
-  ]
-}
-```
+Para ver os endpoint acesse esse link: [Documentação da API](doc/API_README.md).
 
 ## Contribuidores
 

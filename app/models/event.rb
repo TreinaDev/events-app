@@ -43,6 +43,19 @@ class Event < ApplicationRecord
     []
   end
 
+  def participants_count
+    if self.published?
+      response = ParticipantsApiService.get_participants_and_tickets_by_event_code(self.code)
+      response[:sold_tickets]
+    else
+      0
+    end
+
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
+
   def ended?
     end_date < Time.current && status == "published"
   end

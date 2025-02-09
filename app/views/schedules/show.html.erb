@@ -29,7 +29,7 @@
           </div>
 
           <div class="flex justify-between w-full">
-            <p class="ml-8 font-bold text-primary"><%= item.name %></p>
+            <p class="ml-8 font-bold text-primary" data-item-name><%= item.name %></p>
             <p class="font-light"><span class="font-bold mr-2">Responsável:</span><%= item.responsible_name %></p>
           </div>
         <% else %>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="flex justify-between w-full">
-            <p class="ml-8 font-bold text-primaryLight"><%= item.name %></p>
+            <p class="ml-8 font-bold text-primaryLight" data-item-name><%= item.name %></p>
           </div>
         <% end %>
       </article>

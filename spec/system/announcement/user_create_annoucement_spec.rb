@@ -7,6 +7,9 @@ describe 'Usuário tenta criar anúncio' do
 
     login_as event_manager
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
     fill_in 'announcement[title]', with: 'Palestra x foi cancelada'
@@ -24,6 +27,9 @@ describe 'Usuário tenta criar anúncio' do
 
     login_as event_manager
     visit root_path
+    within "nav#navbar" do
+      click_on 'Meus Eventos'
+    end
     click_on 'Gerenciar'
     click_on 'Comunicados'
     click_on 'Enviar'

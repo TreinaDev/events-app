@@ -1,4 +1,6 @@
 <nav class="text-backgroundWhite flex items-center" id="navbar">
+  <%= link_to 'Home', dashboard_path, class: controller_name == 'dashboard' ? 'nav_link_active' : 'nav_link_inactive' %>
+  <span class="link_separator"></span>
 
   <% if current_user.role == "admin" %>
     <%= link_to 'Histórico de eventos', history_events_path, class: controller_name == 'events' ? 'nav_link_active' : 'nav_link_inactive' %>
@@ -8,22 +10,22 @@
     <%= link_to 'Verificações', verifications_path, class: controller_name == 'verifications' ? 'nav_link_active' : 'nav_link_inactive' %>
 
   <% elsif current_user.role == "event_manager" %>
-    <%= link_to 'Eventos', dashboard_path, class: ['verifications', 'event_places', 'event_place_recommendations'].exclude?(controller_name)  ? 'nav_link_active' : 'nav_link_inactive' %>
+    <%= link_to 'Meus Eventos', events_path, class: ['verifications', 'event_places', 'event_place_recommendations', 'dashboard'].exclude?(controller_name)  ? 'nav_link_active' : 'nav_link_inactive' %>
     <span class="link_separator"></span>
     <%= link_to 'Meus Locais', event_places_path, class: controller_name == 'event_places' ? 'nav_link_active' : 'nav_link_inactive' %>
   <% end %>
 
   <div class="min-w-fit ml-12 relative flex items-center gap-2"  data-controller="user-options">
-      <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= link_to current_user.name, profile_path %></span></p>
-      <div class="flex gap-2 items-center justify-end relative group">
-        <% if current_user.verification_status == 'unverified' || current_user.verification_status == 'pending'%>
-          <%= image_tag 'unchecked.svg', class: 'w-4 h-4' %>
-          <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute translate-x-1/3 -translate-y-4 p-1 whitespace-nowrap text-xs text-textPrimary bg-[#A29898] rounded-md mb-4">Não verificado</p>
-        <% else %>
-          <%= image_tag 'checked.svg', class: 'w-4 h-4' %>
-          <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute translate-x-1/3 -translate-y-4 p-1 whitespace-nowrap text-xs text-[#206A24] bg-[#B4DFB6] rounded-md mb-4">Verificado</p>
-        <% end %>
-      </div>
+    <p class="text-right">Olá, <span class="font-bold text-[#669FD6]"><%= link_to current_user.name, profile_path %></span></p>
+    <div class="flex gap-2 items-center justify-end relative group">
+      <% if current_user.verification_status == 'unverified' || current_user.verification_status == 'pending'%>
+        <%= image_tag 'unchecked.svg', class: 'w-4 h-4' %>
+        <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute translate-x-1/3 -translate-y-4 p-1 whitespace-nowrap text-xs text-textPrimary bg-[#A29898] rounded-md mb-4">Não verificado</p>
+      <% else %>
+        <%= image_tag 'checked.svg', class: 'w-4 h-4' %>
+        <p class="opacity-0 group-hover:opacity-100 transition-opacity absolute translate-x-1/3 -translate-y-4 p-1 whitespace-nowrap text-xs text-[#206A24] bg-[#B4DFB6] rounded-md mb-4">Verificado</p>
+      <% end %>
+    </div>
 
     <%= image_tag 'chevron.svg', class: 'hover:cursor-pointer h-4 w-4', data: { 'user-options-target': 'chevron', action: 'click->user-options#toggleProfileMenu' } %>
     <div class="opacity-0 transition-opacity w-52 mt-2 absolute top-5 right-0 p-4 rounded-md bg-backgroundWhite border border-primary text-textPrimary font-light" data-user-options-target="profileMenu">

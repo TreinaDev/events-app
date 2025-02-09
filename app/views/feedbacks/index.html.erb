@@ -1,19 +1,62 @@
-<section class="max-w-[40vw] min-w-[30vw] mx-auto">
-    <% @feedbacks.each do |feedback|%>
-        <div class="bg-white rounded mb-10 shadow-md p-10 w-full">
-            <p><%= feedback.participant_username%></p>
-            <div class="flex gap-2">
-                <span><%= feedback.mark%></span>
-                <% feedback.mark.times do %>
-                    <img src="<%=asset_path('star.svg')%>" alt="Star" class="w-6">
-                <% end %>
-                <% (5 - feedback.mark).times do%>
-                    <img src="<%=asset_path('star-outline.svg')%>" alt="Star" class="w-6">
-                <% end %>
+<div class="max-w-[50vw] min-w-[50vw] mx-auto">
+    <turbo-frame id="feedbacks">
+    <section class="bg-white w-full rounded shadow-md mb-10 min-h-[20vh] p-10">
+        <h1 class="mb-4">Feedbacks</h1>
+        <% if @feedbacks.any?%>
+            <div class="flex gap-32">
+                <div>
+                    <p class="text-4xl"><%= Feedback.overall_rating(@feedbacks).to_f%></p>
+                    
+                    <%= render partial: 'rating_stars', locals: { rating: Feedback.overall_rating(@feedbacks)}%>
+                    
+                    <p><%= @feedbacks.count%> feedbacks</p>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <% 5.downto(1) do |r| %>
+                        <div class="flex gap-4">
+                            <%= render partial: 'rating_stars', locals: { rating: r, width: "w-4"}%> 
+                            <% feedback_count = @feedbacks.count { |feedback| feedback.mark == r} %>
+                            <% if feedback_count > 0%>
+                                <%= link_to feedback_count, event_feedbacks_path(@event, rating: r), class: 'font-bold hover:underline hover:text-primary'%>
+                            <% else%>
+                                <span><%= feedback_count %></span>
+                            <% end %>
+                        </div>
+                    <% end %>
+                </div>
             </div>
+        <% else %>
+            <p>Esse evento ainda não possui feedbacks</p>
+        <% end %>
         
-            <h2><%= feedback.title %></h2>
-            <p><%= feedback.comment%></p>
+    </section>
+    
+    <section class="py-5">
+        <div class="flex gap-2">
+        <%= link_to 'Todos', event_feedbacks_path(@event), class: "border-4 rounded-full border-primary px-4 py-2 #{"filter_button" if @target_rating.nil?}"%>
+        <%(1..5).each do |r| %>
+            <%= link_to event_feedbacks_path(@event, rating: r), class: "flex border-2 items-center rounded-full border-primary px-4 py-2 #{"filter_button" if @target_rating == r}" do %>
+                <span><%= r %></span>
+                <img src="<%= asset_path("#{@target_rating == r ? 'star-secondary.svg' : 'star.svg'}") %>" alt="Star" class="w-4 ml-2 inline-block">
+            <% end %>
+        <% end%>
         </div>
-    <% end %>
-</section>
+        
+    </section>
+    <section>
+        
+        <% @filtered_feedbacks.each do |feedback|%>
+            <div class="bg-white rounded mb-10 shadow-md p-10 w-full">
+                <div class="flex justify-between mb-2">
+                    <%= render partial: 'rating_stars', locals: { rating: feedback.mark}%>
+                    <p><%= feedback.participant_username%></p>
+                </div>
+                
+            
+                <h2><%= feedback.title %></h2>
+                <p><%= feedback.comment%></p>
+            </div>
+        <% end %>
+    </section>
+    </turbo-frame>
+</div>

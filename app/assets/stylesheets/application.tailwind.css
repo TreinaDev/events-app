@@ -19,6 +19,10 @@
     @apply text-xl font-bold text-primary;
   }
 
+  h3 {
+    @apply text-lg font-bold text-primary;
+  }
+
   .form {
     @apply flex flex-col self-start w-2/3 gap-5 mt-10;
   }
@@ -105,5 +109,9 @@
 
   .breadcrumb_active_route {
     @apply text-primary font-semibold text-lg;
+  }
+
+  .filter_button {
+    @apply bg-primary text-white;
   }
 }

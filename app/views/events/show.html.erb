@@ -1,3 +1,4 @@
+<div class="bg-white p-10 rounded shadow-md">
 <div class="flex items-center justify-between">
   <div class="flex items-center gap-4">
     <% if @event.logo.attached? %>
@@ -39,26 +40,24 @@
     <% end %>
 
     <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Status:</span>
-        <% if @event.draft? %>
-          <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
-        <% else %>
-          <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
-        <% end %>
-    </p>
-
-    <p class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary">Limite de Participantes:</span>
-      <%= @event.participants_limit %>
-    </p>
-
-
-    <div class="font-light text-textSecondary">
-      <span class="font-bold text-textPrimary mr-2">Descrição:</span>
-      <%= render layout: 'layouts/action_text/contents/content' do %>
-      <%= @event.description %>
+      <% if @event.draft? %>
+        <span class="text-warning font-bold"><%= Event.human_enum_name(:status, @event.status)%> 🏷️</span>
+      <% else %>
+        <span class="text-success font-bold"><%= Event.human_enum_name(:status, @event.status)%> ✅</span>
       <% end %>
-    </div>
+    </p>
+
+    <% if @event.published?%>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Ingressos Vendidos:</span>
+        <%= @event.participants_count %> / <%= @event.participants_limit %>
+      </p>
+    <% else %>
+      <p class="font-light text-textSecondary">
+        <span class="font-bold text-textPrimary">Limite de Participantes:</span>
+        <%= @event.participants_limit %>
+      </p>
+    <% end %>
 
     <p class="font-bold text-textPrimary">Evento <%= Event.human_enum_name(:event_type, @event.event_type)%></p>
 
@@ -73,11 +72,17 @@
         <%= @event.address %>
       </p>
     <% end %>
+
+    <div class="font-light text-textSecondary">
+      <%= render layout: 'layouts/action_text/contents/content' do %>
+      <%= @event.description %>
+      <% end %>
+    </div>
   </article>
 
   <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit">
     <h2 class="text-right">Agendas do Evento</h2>
-      <% @event.schedules.each do |schedule| %>
+      <% @event.schedules.order(date: :asc).each do |schedule| %>
         <%= link_to event_schedule_path(@event, schedule), class: "text-right justify-end underline underline-offset-4 decoration-primary hover:bg-textPrimary/15 p-3 rounded-md transition duration-150 font-bold hover:brightness-90" do %>
           Dia <%= l schedule.date.to_date, format: :short %>
         <% end %>

@@ -4,6 +4,7 @@ class TicketBatchesController < ApplicationController
   before_action :authorize_event_access
   before_action :set_ticket_batch, only: [ :edit, :update ]
   add_breadcrumb "Home", :dashboard_path
+  add_breadcrumb "Meus Eventos", :events_path
 
   def index
     @ticket_batches = @event.ticket_batches
