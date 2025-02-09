@@ -82,8 +82,8 @@ describe 'Event API' do
         start_date:  (Time.now + 1.day).change(hour: 8, min: 0, sec: 0),
         end_date: (Time.now + 3.day).change(hour: 18, min: 0, sec: 0)
         )
-        event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/png')
-        event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/jpg')
+        event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/jpg')
+        event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/png')
       event.save
       create(:event, user: user, status: 'published',
         name: 'Formação de Padeiros',
@@ -119,8 +119,8 @@ describe 'Event API' do
       event = build(
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published', categories: [ category ]
       )
-      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/jpg')
+      event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.jpg', content_type: 'img/png')
       event.save
 
       other_category = Category.create!(name: 'Workshop')
@@ -130,8 +130,8 @@ describe 'Event API' do
       other_event = build(
         :event, name: 'Formação de Padeiros', user: user, status: 'published', categories: [ other_category ]
       )
-      other_event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      other_event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      other_event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/jpg')
+      other_event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/png')
       other_event.save
 
 
@@ -164,8 +164,8 @@ describe 'Event API' do
         :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
         categories: [ category ])
 
-      event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
-      event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      event.logo.attach(io: File.open('spec/support/images/logo.jpg'), filename: 'logo.jpg', content_type: 'img/jpg')
+      event.banner.attach(io: File.open('spec/support/images/banner.png'), filename: 'banner.png', content_type: 'img/png')
 
       event.save
 
