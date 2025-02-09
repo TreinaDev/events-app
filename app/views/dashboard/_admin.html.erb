@@ -51,7 +51,7 @@
                   <div class="h-full w-px bg-gray-300 "></div>
 
                   <div class="h-full w-full flex flex-col items-center justify-center text-center">
-                    <strong class="text-lg">5 / <%= event.participants_limit %></strong>
+                    <strong class="text-lg"><%= event.participants_count %> / <%= event.participants_limit %></strong>
                     <p class="text-sm text-wrap">ingressos<br />
                       vendidos</p>
                   </div>
@@ -89,7 +89,7 @@
           <div>
             <strong class="text-3xl"><%= @pending_verifications_count %></strong>
 
-            <p class="mt-2"> verificações pendentes</p>
+            <p class="mt-2"><%= @pending_verifications_count == 1 ? 'verificação pendente' : 'verificações pendentes' %></p>
           </div>
         </div>
       </div>
