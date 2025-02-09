@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  layout "dashboard"
+  layout "dashboard_with_sidebar"
   before_action :authenticate_user!
   before_action :authorize_event_access
   before_action :check_if_event_ended
