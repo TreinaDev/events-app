@@ -2,9 +2,14 @@ puts 'Criando DOIS usuários do tipo ADMINISTRADOR...'
 FactoryBot.create(:user, :admin)
 FactoryBot.create(:user, :admin, name: 'Kleber', family_name: 'Renan', registration_number: CPF.generate, email: 'kleber@meuevento.com.br', password: 'password123')
 
-puts 'Criando DOIS usuários do tipo ORGANIZADOR...'
+puts 'Criando SETE usuários do tipo ORGANIZADOR...'
 joao_user = FactoryBot.create(:user, name: 'Joao', family_name: 'Campus', registration_number: CPF.generate, email: 'joao@email.com', password: 'password123')
 maria_user = FactoryBot.create(:user, :with_pending_request, name: 'Maria', family_name: 'Campus', registration_number: CPF.generate, email: 'maria@email.com', password: 'password123')
+FactoryBot.create(:user, :with_pending_request, name: 'Josnei', family_name: 'da Silva', registration_number: CPF.generate, email: 'josnei@email.com', password: 'password123')
+FactoryBot.create(:user, :with_pending_request, name: 'Carlos', family_name: 'Alberto', registration_number: CPF.generate, email: 'carlos@email.com', password: 'password123')
+FactoryBot.create(:user, :with_pending_request, name: 'Roberto', family_name: 'Toledo', registration_number: CPF.generate, email: 'roberto@email.com', password: 'password123')
+FactoryBot.create(:user, :with_pending_request, name: 'Sidnei', family_name: 'Almeida', registration_number: CPF.generate, email: 'sidnei@email.com', password: 'password123')
+FactoryBot.create(:user, :with_pending_request, name: 'Jorge', family_name: 'Carlos', registration_number: CPF.generate, email: 'jorge@email.com', password: 'password123')
 
 puts 'Criando CINCO categorias...'
 ruby_category = FactoryBot.create(:category, name: 'Ruby')
@@ -201,7 +206,8 @@ FactoryBot.create(:schedule_item, schedule: aws_event.schedules.order(date: :asc
 FactoryBot.create(:schedule_item, schedule: aws_event.schedules.order(date: :asc).fourth, name: 'Workshop - Automação e DevOps com AWS', description: 'Explore práticas avançadas de automação usando AWS CDK, CloudFormation e Terraform.', start_time: (Time.now).change(hour: 11, min: 0, sec: 0), end_time: (Time.now).change(hour: 12, min: 30, sec: 0), responsible_name: 'Kurt Kufeld', responsible_email: 'kurt@email.com')
 FactoryBot.create(:schedule_item, schedule: aws_event.schedules.order(date: :asc).fourth, name: 'Painel - Casos de Sucesso na AWS', description: 'Empresas compartilham suas histórias de inovação e transformação digital na AWS.', start_time: (Time.now).change(hour: 14, min: 0, sec: 0), end_time: (Time.now).change(hour: 14, min: 45, sec: 0), responsible_name: 'Clientes AWS', responsible_email: 'sucessos@email.com')
 FactoryBot.create(:schedule_item, schedule: aws_event.schedules.order(date: :asc).fourth, name: 'Encerramento e Despedida', description: 'Última oportunidade para networking e fechamento oficial do evento.', start_time: (Time.now).change(hour: 16, min: 30, sec: 0), end_time: (Time.now).change(hour: 17, min: 30, sec: 0), responsible_name: 'Equipe AWS', responsible_email: 'contact@email.com')
-puts 'Adicionando Comunicados...'
+
+  puts 'Adicionando Comunicados...'
 FactoryBot.create(:announcement, user: joao_user, event: tropical_event, title: '📢 Comunicado Importante Tropical Rails 🌴🚂', description: '<div>Prezados participantes,</div><div>Agradecemos por fazerem parte da <strong>Tropical Rails</strong>! 🎉 Esperamos que estejam aproveitando as palestras, workshops e as incríveis conexões que este evento proporciona.</div><div>📌 <strong>Avisos Importantes:</strong><br>✅ <strong>Próxima palestra:</strong> hotwire em ação com João – 📍 Salão de palestras ⏰ 12:30<br>✅ <strong>Área de networking</strong> disponível na sala 3 para quem deseja trocar experiências com outros profissionais do setor.<br>✅ <strong>Lembre-se de usar a hashtag #TropicalRails para compartilhar sua experiência nas redes sociais!</strong></div><div>⚠️ <strong>Problemas ou dúvidas?</strong> Nossa equipe de apoio está disponível no balcão de informações e pelo WhatsApp: [inserir contato].</div><div>Aproveitem ao máximo e bons trilhos rumo à inovação! 🚆💡</div><div>Atenciosamente,<br><strong>Equipe Tropical Rails</strong></div>')
 sleep(1)
 FactoryBot.create(:announcement, user: joao_user, event: tropical_event, title: '📢 Pegue seu adesivo exclusivo da Tropical Rails! 🌴🚂', description: ActionText::Content.new('<div>Prezados participantes,</div><div>Para marcar sua presença na <strong>Tropical Rails</strong>, estamos distribuindo <strong>adesivos exclusivos do evento</strong>! 🎉</div><div><img src="	https://cdn.awsli.com.br/600x450/2772/2772081/produto/307088910/sticker-tzfqqiuiqp.jpg" alt="stickers"></div><div><br>🎟️ <strong>Quem pode retirar?</strong> Todos os participantes credenciados</div><div>Cole no seu notebook, garrafa, caderno ou onde quiser e mostre que você faz parte dessa experiência incrível!</div><div>⚠️ <strong>Os adesivos são limitados</strong>, então garanta o seu o quanto antes!</div><div>Nos vemos pelos trilhos da inovação! 🚆✨</div><div>Atenciosamente,<br><strong>Equipe Tropical Rails</strong></div>'))
