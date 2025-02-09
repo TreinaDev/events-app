@@ -22,7 +22,7 @@ describe 'Usuário tenta editar lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
     find("a[data-test-id='edit-#{batch.id}']").click
     fill_in 'Nome', with: 'CCXP'
     click_on 'Atualizar'
@@ -42,7 +42,7 @@ describe 'Usuário tenta editar lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
     find("a[data-test-id='edit-#{batch.id}']").click
     fill_in 'Nome', with: ''
     click_on 'Atualizar'

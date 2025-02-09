@@ -20,6 +20,9 @@ class TicketBatch < ApplicationRecord
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
+  rescue Rack::Timeout::RequestTimeoutException => error
+    Rails.logger.error(error)
+    []
   end
 
   private

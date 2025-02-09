@@ -27,7 +27,7 @@ describe 'Usuário tenta editar lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
 
     expect(page).to have_content 'Lotes de Ingresso - Evento: CCXP'
     expect(page).to have_content 'CCXP'
@@ -51,7 +51,7 @@ describe 'Usuário tenta editar lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
 
     expect(page).to have_content 'Lotes de Ingresso - Evento: CCXP'
     expect(page).to have_content 'Ingresso Premium'
