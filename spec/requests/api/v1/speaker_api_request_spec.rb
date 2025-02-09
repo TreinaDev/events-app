@@ -190,6 +190,7 @@ describe 'Speaker API' do
       expect(json_response['event']['code']).to eq event.code
       expect(json_response['event']['start_date']).to eq event.start_date.iso8601(3)
       expect(json_response['event']['end_date']).to eq event.end_date.iso8601(3)
+      expect(json_response['schedule_date']).to eq schedule.date.iso8601(3)
     end
 
     it 'e código do palestrante não é encontrado' do

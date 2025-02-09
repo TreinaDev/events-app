@@ -83,7 +83,8 @@ class Api::V1::SpeakersController < Api::V1::ApiController
         code: event.code,
         start_date: event.start_date,
         end_date: event.end_date
-      }
+      },
+      schedule_date: schedule_item.schedule.date
     ), status: :ok
   end
 
