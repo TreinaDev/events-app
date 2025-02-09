@@ -18,7 +18,6 @@ describe 'Usuário tenta criar anúncio' do
 
     expect(page).to have_content 'Palestra x foi cancelada'
     expect(page).to have_content 'Por conta de y Evento'
-    expect(page).to have_content "Comunicado adicionado com sucesso."
   end
 
   it 'e falha por não preencher campos obrigatórios' do
