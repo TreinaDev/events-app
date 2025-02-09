@@ -114,23 +114,32 @@ describe 'Event API' do
 
       category = Category.create!(name: 'Palestra')
       keyword = Keyword.create!(value: 'programming')
-
       CategoryKeyword.create!(category: category, keyword: keyword)
 
       event = build(
-        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published',
-        categories: [ category ])
-
+        :event, name: 'Formação de Churrasqueiros', user: user, status: 'published', categories: [ category ]
+      )
       event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
       event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
-
       event.save
+
+      other_category = Category.create!(name: 'Workshop')
+      other_keyword = Keyword.create!(value: 'ruby')
+      CategoryKeyword.create!(category: other_category, keyword: other_keyword)
+
+      other_event = build(
+        :event, name: 'Formação de Padeiros', user: user, status: 'published', categories: [ other_category ]
+      )
+      other_event.logo.attach(io: File.open('spec/support/images/logo.png'), filename: 'logo.png', content_type: 'img/png')
+      other_event.banner.attach(io: File.open('spec/support/images/banner.jpg'), filename: 'banner.png', content_type: 'img/jpg')
+      other_event.save
+
 
       get '/api/v1/events', params: { query: 'programming' }
 
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
-      expect(response.parsed_body['events'][0]['name']).to include(event.name)
+      expect(response.parsed_body['events'][0]['name']).to include('Formação de Churrasqueiros')
       expect(response.parsed_body['events'][0]['address']).to include(event.address)
       expect(response.parsed_body['events'][0]['description']).to include(event.description.to_plain_text)
       expect(response.parsed_body['events'][0]['code']).to eq event.code
