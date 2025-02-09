@@ -30,13 +30,13 @@
 
     <%= render 'shared/flash_messages'%>
 
-      <div class="flex">
-        <%= render 'shared/sidebar'%>
-        <main class="site-main">
-          <%= render 'shared/breadcrumbs' %>
-          <%= yield %>
-        </main>
-      </div>
+ 
+    <%= render 'shared/sidebar'%>
+    <main class="site-main">
+      <%= render 'shared/breadcrumbs' %>
+      <%= yield %>
+    </main>
+     
     
   </body>
 </html>
