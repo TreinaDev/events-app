@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  layout "dashboard"
+  layout :determine_layout
   before_action :authenticate_user!
   before_action :check_if_admin, only: [ :history ]
   before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
@@ -75,6 +75,14 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def determine_layout
+    if [ "index", "new", "create", "history" ].include?(action_name)
+      "dashboard"
+    else
+      "dashboard_with_sidebar"
+    end
+  end
 
   def event_params
     params.require(:event).permit(:name, :address, :event_type, :participants_limit, :url, :logo, :banner, :description, :start_date, :end_date, category_ids: [])
