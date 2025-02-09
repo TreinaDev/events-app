@@ -4,7 +4,7 @@
 
 @layer components {
   .site-header {
-    @apply sticky z-10 top-0 flex justify-between items-center py-4 px-32 bg-primary p-5 drop-shadow-[5px_5px_20px_rgba(51,102,40,0.4)] min-h-20;
+    @apply fixed z-10 top-0 w-screen flex justify-between items-center py-4 px-32 bg-primary p-5 drop-shadow-[5px_5px_20px_rgba(51,102,40,0.4)] min-h-20;
   }
 
   .site-main {
@@ -52,11 +52,11 @@
   }
 
   .notice {
-    @apply p-5 bg-success text-textPrimary rounded-3xl font-bold absolute top-[90px] right-32 left-32;
+    @apply p-5 bg-success text-textPrimary rounded-3xl font-bold mx-32;
   }
 
   .alert {
-    @apply p-5 bg-alert text-backgroundWhite rounded-3xl font-bold absolute top-[90px] right-32 left-32;
+    @apply fixed top-[90px] left-1/2 transform -translate-x-1/2 z-50 min-w-[40vw] p-5 bg-alert text-backgroundWhite rounded-3xl font-bold;
   }
 
   .success_button {

@@ -1,0 +1,11 @@
+<div class="mt-[90px]" data-controller="flash">
+    <% if flash[:notice] %>
+    <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+    <div class="alert flex justify-between" data-flash-target="message">
+        <p class=""><%= alert %></p>
+        <button data-action="flash#close"><img src="<%= asset_path('close.svg')%>" alt="close" class="w-4"></button>
+    </div>
+    <% end %>
+</div>

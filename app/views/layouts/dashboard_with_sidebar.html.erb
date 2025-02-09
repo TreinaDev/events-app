@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "E-Ventos" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= favicon_link_tag asset_path('wind.svg') %>
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans">
+    <header class="site-header">
+      <%= link_to dashboard_path do %>
+        <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
+      <% end %>
+
+      <%= render 'shared/navbar' %>
+    </header>
+
+    <%= render 'shared/flash_messages'%>
+
+      <div class="flex">
+        <aside class="fixed w-64 mr-30 top-20 h-screen bg-primary text-white">
+          <nav>
+            <ul class="flex flex-col gap-2 px-2 py-10">
+              <%= link_to event_path(current_event) do%>
+                <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'events'%>">Detalhes</li>
+              <% end %>
+              <%= link_to event_ticket_batches_path(current_event) do%>
+                <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'ticket_batches'%>">Lotes</li>
+              <% end %>
+              <% if @event.published?%>
+                <%= link_to event_announcements_path(current_event) do%>
+                  <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'announcements'%>">Comunicados</li>
+                <% end %>
+              <% else %>
+                <li class="text-gray-500 py-6 px-6">Comunicados</li>
+              <% end %>
+              <% if @event.ended?%>
+                <%= link_to event_feedbacks_path(current_event) do%>
+                  <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'feedbacks'%>">Feedbacks</li>
+                <% end %>
+              <% else %>
+                 <li class="text-gray-500 py-6 px-6">Feedbacks</li>
+              <% end %>
+            </ul>
+          </nav>
+        </aside>
+        <div class="ml-64"></div>
+        <main class="site-main">
+          <%= render 'shared/breadcrumbs' %>
+          <%= yield %>
+        </main>
+      </div>
+  </body>
+</html>

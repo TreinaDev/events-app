@@ -26,16 +26,12 @@
       <%= render 'shared/navbar' %>
     </header>
 
-    <% if flash[:notice] %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if flash[:alert] %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-
-    <main class="site-main">
-      <%= render 'shared/breadcrumbs' %>
-      <%= yield %>
-    </main>
+      <%= render 'shared/flash_messages'%>
+    
+      <main class="site-main">
+        <%= render 'shared/breadcrumbs' %>
+        <%= yield %>
+      </main>
+    
   </body>
 </html>
