@@ -60,7 +60,7 @@
   }
 
   .alert {
-    @apply fixed top-[90px] left-1/2 transform -translate-x-1/2 z-50 min-w-[40vw] p-5 bg-alert text-backgroundWhite rounded-3xl font-bold;
+    @apply p-5 bg-alert text-backgroundWhite rounded-3xl font-bold absolute top-[90px] right-32 left-32;
   }
 
   .success_button {
@@ -113,5 +113,13 @@
 
   .filter_button {
     @apply bg-primary text-white;
+  }
+
+  .sidebar-item-div {
+    @apply flex relative justify-center items-center p-2 min-h-[50px];
+  }
+
+  .sidebar-tooltip {
+    @apply absolute px-4 py-2 rounded-full left-24 bg-[#C2CFDE] hidden;
   }
 }

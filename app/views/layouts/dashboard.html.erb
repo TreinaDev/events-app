@@ -26,13 +26,11 @@
       <%= render 'shared/navbar' %>
     </header>
 
-      <turbo-frame id="main">
         <%= render 'shared/flash_messages'%>
       
         <main class="site-main">
           <%= render 'shared/breadcrumbs' %>
           <%= yield %>
         </main>
-      </turbo-frame>
   </body>
 </html>

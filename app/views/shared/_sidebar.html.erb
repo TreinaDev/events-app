@@ -1,0 +1,46 @@
+<aside class="z-50 rounded-full fixed w-20 left-5 top-1/2 transform -translate-y-1/2 h-1/2 bg-[#DDEAF8] text-primary" data-sidebar-target="menu">
+    <nav class="flex h-full justify-center w-full">
+        <ul class="flex flex-col justify-around h-full w-full py-5">
+            <div class="sidebar-item-div group hover:bg-[#C2CFDE] <%= 'bg-[#C2CFDE]' if controller_name == 'events'%>">
+                <div class='rounded-xl'>
+                    <%= link_to event_path(current_event) do%>
+                        <img src="<%=asset_path('details.svg')%>" alt="detalhes" class="w-10">
+                    <% end %>
+                </div>
+                <div class="sidebar-tooltip group-hover:block">Detalhes</div>
+            </div>
+            <div class="sidebar-item-div group hover:bg-[#C2CFDE] <%= 'bg-[#C2CFDE]' if controller_name == 'ticket_batches'%>">
+                <div class=''>
+                    <%= link_to event_ticket_batches_path(current_event) do%>
+                        <img src="<%=asset_path('ticket.svg')%>" alt="lotes" class="w-10">
+                    <% end %>
+                </div>
+                <div class="sidebar-tooltip group-hover:block">Lotes</div>
+            </div>
+            <div class="sidebar-item-div group <%="hover:bg-[#C2CFDE]" if @event.published?%> <%= 'bg-[#C2CFDE]' if controller_name == 'announcements'%>">
+                <div class=''>
+                    <% if @event.published?%>
+                        <%= link_to event_announcements_path(current_event) do%>
+                            <img src="<%=asset_path('announcement.svg')%>" alt="close" class="w-10">
+                        <% end %>
+                    <% else %>
+                        <img src="<%=asset_path('announcement-disable.svg')%>" alt="close" class="w-10">
+                    <% end %>
+                </div>
+                <div class="sidebar-tooltip group-hover:block">Comunicados</div>
+            </div>
+            <div class="sidebar-item-div group <%="hover:bg-[#C2CFDE]" if @event.ended?%> <%= 'bg-[#C2CFDE]' if controller_name == 'feedbacks'%>">
+                <div class='rounded-xl'>
+                    <% if @event.ended?%>
+                        <%= link_to event_feedbacks_path(current_event) do%>
+                        <img src="<%=asset_path('star.svg')%>" alt="close" class="w-10">
+                    <% end %>
+                    <% else %>
+                        <img src="<%=asset_path('star-disable.svg')%>" alt="close" class="w-10">
+                    <% end %>
+                </div>
+                <div class="sidebar-tooltip group-hover:block">Feedbacks</div>
+            </div>
+        </ul>
+    </nav>
+</aside>

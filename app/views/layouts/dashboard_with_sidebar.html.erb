@@ -17,52 +17,26 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans">
+  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans" data-controller="sidebar">
     <header class="site-header">
-      <%= link_to dashboard_path do %>
-        <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
-      <% end %>
-
+        <%= link_to dashboard_path do %>
+          <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
+        <% end %>
+    
       <%= render 'shared/navbar' %>
     </header>
 
-    <turbo-frame id="main">
+    
 
     <%= render 'shared/flash_messages'%>
 
       <div class="flex">
-        <aside class="fixed w-64 mr-30 top-20 h-screen bg-primary text-white">
-          <nav>
-            <ul class="flex flex-col gap-2 px-2 py-10">
-              <%= link_to event_path(current_event) do%>
-                <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'events'%>">Detalhes</li>
-              <% end %>
-              <%= link_to event_ticket_batches_path(current_event) do%>
-                <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'ticket_batches'%>">Lotes</li>
-              <% end %>
-              <% if @event.published?%>
-                <%= link_to event_announcements_path(current_event) do%>
-                  <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'announcements'%>">Comunicados</li>
-                <% end %>
-              <% else %>
-                <li class="text-gray-500 py-6 px-6">Comunicados</li>
-              <% end %>
-              <% if @event.ended?%>
-                <%= link_to event_feedbacks_path(current_event) do%>
-                  <li class="rounded py-6 hover:bg-[#4D6589] px-6 <%= 'bg-[#4D6589]' if controller_name == 'feedbacks'%>">Feedbacks</li>
-                <% end %>
-              <% else %>
-                 <li class="text-gray-500 py-6 px-6">Feedbacks</li>
-              <% end %>
-            </ul>
-          </nav>
-        </aside>
-        <div class="ml-64"></div>
+        <%= render 'shared/sidebar'%>
         <main class="site-main">
           <%= render 'shared/breadcrumbs' %>
           <%= yield %>
         </main>
       </div>
-    </turbo-frame>
+    
   </body>
 </html>
