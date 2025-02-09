@@ -14,7 +14,8 @@
             <tr>
               <th class="px-4 py-2 border-b border-blue-gray-500">Nome</th>
               <th class="px-4 py-2 border-b border-blue-gray-500">Vendido/Total</th>
-              <th class="px-4 py-2 border-b border-blue-gray-500">Valor</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Valor do ingresso</th>
+              <th class="px-4 py-2 border-b border-blue-gray-500">Total vendido</th>
               <th class="px-4 py-2 border-b border-blue-gray-500">Desconto</th>
               <th class="px-4 py-2 border-b border-blue-gray-500">Data de início</th>
               <th class="px-4 py-2 border-b border-blue-gray-500">Data de fim</th>
@@ -25,8 +26,9 @@
               <% @ticket_batches.each do |batch| %>
                 <tr class="even:bg-gray-100">
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= batch.name%></td>
-                  <td class="px-4 py-2 border-b border-blue-gray-100">0 - <%= batch.tickets_limit %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= batch.sold_tickets_count %> - <%= batch.tickets_limit %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= number_to_currency batch.ticket_price %></td>
+                  <td class="px-4 py-2 border-b border-blue-gray-100"><%= number_to_currency (batch.sold_tickets_count * batch.ticket_price) %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= TicketBatch.human_enum_name(:discount_option, batch.discount_option) %></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(batch.start_date.to_date)%></td>
                   <td class="px-4 py-2 border-b border-blue-gray-100"><%= l(batch.end_date.to_date)%></td>

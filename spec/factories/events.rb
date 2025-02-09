@@ -4,6 +4,7 @@ FactoryBot.define do
     event_type { :inperson }
     address { "Av dos Bancos" }
     participants_limit { 30 }
+    description { "Um festival daora" }
     url { "http://Lollapalooza.com" }
     association :user
     start_date { (Time.now + 4.weeks) }

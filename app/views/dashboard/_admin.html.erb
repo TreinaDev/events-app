@@ -1,0 +1,128 @@
+<div class="flex flex-col gap-4">
+  <div class="border-l-4 pl-4 py-2 flex flex-col border-blue-800">
+    <h2>Total de vendas na plataforma: R$42.000,00</h2>
+    <p>No último mês: R$2.000,00</p>
+  </div>
+
+  <div class="grid grid-cols-2 w-full mt-6 gap-10">
+    <div class="flex flex-col gap-8" id="events-stats">
+      <h2>Detalhes de eventos</h2>
+
+      <div class="ml-6 flex gap-16 text-center items-center">
+        <div>
+          <strong class="text-3xl underline underline-offset-8"><%= @events_count %></strong>
+
+          <p class="mt-4"><%= @events_count == 1 ? 'evento criado' : 'eventos criados' %></p>
+        </div>
+
+        <div class="h-full w-px bg-gray-300"></div>
+
+        <div>
+          <strong class="text-3xl underline underline-offset-8"><%= @published_events_count %></strong>
+
+          <p class="mt-4"><%= @published_events_count == 1 ? 'evento publicado' : 'eventos publicados' %></p>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <h3 class="mb-3">Últimos eventos publicados</h3>
+
+        <% @last_published_events.each do |event| %>
+          <%= link_to event_path(event) do %>
+            <div class="mb-3 rounded w-full h-24 bg-slate-500 bg-opacity-5 shadow flex gap-4 pr-4 cursor-pointer hover:shadow-md duration-150">
+              <%= image_tag url_for(event.logo), class: "h-full w-[100px]" %>
+
+              <div class="w-full flex justify-between">
+                <div class="flex flex-col h-full justify-center gap-1">
+                  <strong><%= event.name %></strong>
+                  <p class="text-sm">Evento publicado por <%= event.user.name %> <%= event.user.family_name %></p>
+                  <p class="text-sm">
+                    <% if event.start_date > Time.current %>
+                      O evento irá começar em <%= l event.start_date, format: "%-d de %B de %Y" %>
+                    <% elsif event.end_date.present? && event.end_date < Time.current %>
+                      O evento terminou em <%= l event.end_date, format: "%-d de %B de %Y" %>
+                    <% else %>
+                      O evento já começou! Iniciado em <%= l event.start_date, format: "%-d de %B de %Y" %>
+                    <% end %>
+                  </p>
+                </div>
+
+                <div class="flex gap-4">
+                  <div class="h-full w-px bg-gray-300 "></div>
+
+                  <div class="h-full w-full flex flex-col items-center justify-center text-center">
+                    <strong class="text-lg"><%= event.participants_count %> / <%= event.participants_limit %></strong>
+                    <p class="text-sm text-wrap">ingressos<br />
+                      vendidos</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-8" id="users-stats">
+      <div class="flex items-center justify-between">
+        <div class="space-y-8">
+          <h2>Detalhes de usuários</h2>
+
+          <div class="flex gap-16 text-center items-center">
+            <div>
+              <strong class="text-3xl underline underline-offset-8"><%= @users_count %></strong>
+
+              <p class="mt-4"><%= @users_count == 1 ? 'usuário cadastrado' : 'usuários cadastrados' %></p>
+            </div>
+
+            <div class="h-full w-px bg-gray-300"></div>
+
+            <div>
+              <strong class="text-3xl underline underline-offset-8"><%= @verified_users_count %></strong>
+
+              <p class="mt-4"><%= @verified_users_count == 1 ? 'usuário verificado' : 'usuários verificados' %></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-36 h-36 border-2 border-warning flex items-center justify-center rounded-full text-center text-warning">
+          <div>
+            <strong class="text-3xl"><%= @pending_verifications_count %></strong>
+
+            <p class="mt-2"><%= @pending_verifications_count == 1 ? 'verificação pendente' : 'verificações pendentes' %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <% if @pending_verifications.size > 0 %>
+          <h3 class="mb-3">Últimas verificações pendentes</h3>
+
+          <% @pending_verifications.each do |verification| %>
+            <%= link_to verification_path(verification) do %>
+              <div class='mt-3 border-l-4 border-warning pl-4 py-2 flex flex-col mb-3 hover:pl-6 duration-150'>
+                <p class="font-bold text-textPrimary">Solicitação de <%= verification.user.name %> <%= verification.user.family_name %> - Enviada em: <%= l verification.created_at, format: :short %></p>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <h3 class="mb-3">Últimas solicitações analisadas</h3>
+
+          <% @reviewed_verifications.each do |verification| %>
+            <%= link_to verification_path(verification) do %>
+              <div class='mt-3 border-l-4 <%= case verification.status
+                                 when 'rejected' then 'border-alert'
+                                 when 'approved' then 'border-success'
+                                 else '' 
+                               end %> pl-4 py-2 flex flex-col mb-3 hover:pl-6 duration-150'>
+                <p class="font-bold text-textPrimary">
+                  Solicitação de <%= verification.user.name %> <%= verification.user.family_name %> - Enviada em: <%= l verification.created_at, format: :short %>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
