@@ -26,6 +26,8 @@
       <%= render 'shared/navbar' %>
     </header>
 
+    <turbo-frame id="main">
+
     <%= render 'shared/flash_messages'%>
 
       <div class="flex">
@@ -61,5 +63,6 @@
           <%= yield %>
         </main>
       </div>
+    </turbo-frame>
   </body>
 </html>
