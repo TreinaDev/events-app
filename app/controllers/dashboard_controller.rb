@@ -19,9 +19,6 @@ class DashboardController < ApplicationController
     end
 
     if current_user.event_manager?
-      @total_profit = current_user.events.published.sum do |event|
-        event.ticket_batches.sum { |batch| batch.ticket_price * batch.sold_tickets_count }
-      end
       @events_count = current_user.events.count
       @published_events_count = current_user.events.published.count
       @last_published_events = current_user.events.published.order(created_at: :desc).limit(3)

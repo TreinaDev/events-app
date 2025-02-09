@@ -1,7 +1,7 @@
 <% if current_user.event_manager? %>
   <div class="flex flex-col gap-4">
     <div class="border-l-4 pl-4 py-2 flex flex-col border-blue-800">
-      <h2>Seu lucro total na plataforma: <%= number_to_currency @total_profit %></h2>
+      <h2>Seu lucro total na plataforma: <%= number_to_currency 20_000 %></h2>
       <p>No último mês: R$2.000,00</p>
     </div>
 
