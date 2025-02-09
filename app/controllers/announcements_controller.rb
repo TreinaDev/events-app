@@ -26,7 +26,7 @@ class AnnouncementsController < ApplicationController
     if @announcement.save
       redirect_to event_announcements_path(@event)
     else
-      @announcements = @event.announcements
+      @announcements = @event.announcements.order(created_at: :desc)
       flash.now[:alert] = t(".failure")
       render :index, status: :unprocessable_entity
     end
