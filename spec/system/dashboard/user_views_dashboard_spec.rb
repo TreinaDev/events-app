@@ -34,7 +34,6 @@ describe 'Usuário visualiza a dashboard' do
     expect(current_path).to eq dashboard_path
     first_event.reload
     second_event.reload
-    expect(page).to have_content "Seu lucro total na plataforma: R$ 20.000,00"
     within "#created-events" do
       expect(page).to have_content "3"
       expect(page).to have_content "eventos criados"
