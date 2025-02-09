@@ -1,5 +1,5 @@
 class ParticipantsApiService
-  BASE_URL = "http://localhost:3000/api/v1/events"
+  BASE_URL = "http://localhost:3002/api/v1/events"
 
 
   def self.get_feedbacks_by_event_code(event_code)
