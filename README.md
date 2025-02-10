@@ -81,6 +81,10 @@ node 16.20.2
 
 Para ver os endpoint acesse esse link: [Documentação da API](doc/API_README.md).
 
+# Diagrama Relacional
+
+Para ver o diagrama completo acesse: [Diagrama Relacional](doc/RELATIONAL-DIAGRAM.md)
+
 ## Contribuidores
 
 | [<img src="https://avatars.githubusercontent.com/u/62516296?v=4" width=100> <br> <sub>Vinícius Fernandes</sub>](https://github.com/viniciusfer01) | [<img src="https://avatars.githubusercontent.com/u/133027507?v=4" width=100> <br> <sub>Gabriel Costa Toledo</sub>](https://github.com/gctoledo) | [<img src="https://avatars.githubusercontent.com/u/145959872?v=4" width=100> <br> <sub>Willian Deiviti Daniel</sub>](https://github.com/WillianDDaniel) | [<img src="https://avatars.githubusercontent.com/u/102266797?v=4" width=100> <br> <sub>Marcos Guimarães</sub>](https://github.com/marcos-grocha) | [<img src="https://avatars.githubusercontent.com/u/65390774?v=4" width=100> <br> <sub>Rodrigo Moreno</sub>](https://github.com/rmoreno-w) | [<img src="https://avatars.githubusercontent.com/u/140606120?v=4" width=100> <br> <sub>Fábio Mizo Guti</sub>](https://github.com/Fabio-k) |
