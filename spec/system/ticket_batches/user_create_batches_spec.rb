@@ -25,7 +25,7 @@ describe 'Usuário cria lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
     click_on '+ Lote'
     fill_in 'Nome', with: 'Primeiro Lote'
     fill_in 'Limite de Ingresso', with: 30
@@ -56,7 +56,7 @@ describe 'Usuário cria lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
     click_on '+ Lote'
     fill_in 'Nome', with: 'Primeiro Lote - Meia Estudante'
     fill_in 'Limite de Ingresso', with: 30
@@ -81,7 +81,7 @@ describe 'Usuário cria lotes' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Lotes'
+    find('a[href*="ticket_batches"]').click
     click_on '+ Lote'
     fill_in 'Nome', with: ''
     fill_in 'Limite de Ingresso', with: 25

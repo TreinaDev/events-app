@@ -17,20 +17,26 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans">
+  <body class="relative bg-backgroundWhite min-h-screen text-textPrimary font-sans" data-controller="sidebar">
     <header class="site-header">
-      <%= link_to dashboard_path do %>
-        <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
-      <% end %>
-
+        <%= link_to dashboard_path do %>
+          <span class="w-20 lg:w-auto user-select-none"><%= image_tag "Logo.svg"%></span>
+        <% end %>
+    
       <%= render 'shared/navbar' %>
     </header>
 
-        <%= render 'shared/flash_messages'%>
-      
-        <main class="site-main">
-          <%= render 'shared/breadcrumbs' %>
-          <%= yield %>
-        </main>
+    
+
+    <%= render 'shared/flash_messages'%>
+
+ 
+    <%= render 'shared/sidebar'%>
+    <main class="site-main">
+      <%= render 'shared/breadcrumbs' %>
+      <%= yield %>
+    </main>
+     
+    
   </body>
 </html>

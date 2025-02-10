@@ -47,7 +47,7 @@ describe 'Usuário visita a tela de criacao de evento' do
     expect(page).to have_content '<strong>test</strong>'
     expect(page).to have_selector "img"
     expect(page).to have_content "Agendas do Evento"
-    within 'aside' do
+    within '[data-shedule-items]' do
       expect(page).to have_selector "a", count: 9
     end
   end

@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  layout "dashboard"
+  layout "dashboard_with_sidebar"
   before_action :authenticate_user!
   before_action :set_event
   before_action :check_if_published
@@ -24,9 +24,9 @@ class AnnouncementsController < ApplicationController
     @announcement.user = current_user
     @announcement.event = @event
     if @announcement.save
-      redirect_to event_announcements_path(@event), notice: t(".success")
+      redirect_to event_announcements_path(@event)
     else
-      @announcements = @event.announcements
+      @announcements = @event.announcements.order(created_at: :desc)
       flash.now[:alert] = t(".failure")
       render :index, status: :unprocessable_entity
     end

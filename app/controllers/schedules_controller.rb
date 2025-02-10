@@ -1,5 +1,5 @@
 class SchedulesController < ApplicationController
-  layout "dashboard"
+  layout "dashboard_with_sidebar"
   before_action :authenticate_user!
   before_action :authorize_schedule_access, only: [ :show ]
   before_action :find_event, only: [ :show ]
