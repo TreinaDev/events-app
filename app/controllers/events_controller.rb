@@ -14,7 +14,6 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-
     add_breadcrumb "Cadastro de Evento"
   end
 
@@ -25,6 +24,7 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to @event, notice: "Evento criado com sucesso."
     else
+      @event_places  = current_user.event_places
       flash.now[:alert] = "Não foi possível criar o evento."
       render :new, status: :unprocessable_entity
     end
@@ -77,7 +77,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :address, :event_type, :participants_limit, :url, :logo, :banner, :description, :start_date, :end_date, category_ids: [])
+    params.require(:event).permit(:name, :event_place_id, :event_type, :participants_limit, :url, :logo, :banner, :description, :start_date, :end_date, category_ids: [])
   end
 
   def authorize_event_access
