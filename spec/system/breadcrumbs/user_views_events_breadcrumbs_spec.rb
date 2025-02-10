@@ -57,7 +57,6 @@ describe 'Usuário consegue ver as breadcrumbs' do
     expect(current_path).to eq history_events_path
     within "#breadcrumbs" do
       expect(page).to have_link "Home"
-      expect(page).to have_link "Meus Eventos"
       expect(page).to have_content "Histórico de eventos"
     end
   end
