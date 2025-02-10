@@ -25,7 +25,7 @@ describe 'Usuário tenta ver anuncios' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Comunicados'
+    find('a[href*="announcements"]').click
 
     expect(page).to have_content 'Distribuição de cartas One Piece'
   end
@@ -42,7 +42,7 @@ describe 'Usuário tenta ver anuncios' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Comunicados'
+    find('a[href*="announcements"]').click
 
     announcements = all('[data-announcement-title]')
     expect(announcements.map(&:text)).to eq [ 'Transporte da estação Luz', 'Distribuição de cartas One Piece' ]
@@ -65,7 +65,7 @@ describe 'Usuário tenta ver anuncios' do
       click_on 'Meus Eventos'
     end
     click_on 'Gerenciar'
-    click_on 'Comunicados'
+    find('a[href*="announcements"]').click
 
     expect(page).to have_content 'Distribuição de cartas One Piece'
     expect(page).not_to have_content 'Lembrem de trazer seus utensílios'

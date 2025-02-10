@@ -19,17 +19,19 @@ describe 'Usuário visita a tela de criacao de evento' do
 
 
   it 'e cria um evento com sucesso', js: true do
-    user = FactoryBot.create(:user)
+    user = create(:user)
+    event_place = create(:event_place, user: user, name: 'Arena de Grêmio')
+    create(:event_place, user: user, name: 'Salão de Espetadores')
 
     Category.create!(name: 'Festa')
     Category.create!(name: 'Palestra')
 
-    login_as user
+    login_as user, scope: :user
 
     visit new_event_path
 
     fill_in 'Nome', with: 'Lollapaluza'
-    fill_in 'Endereço', with: 'Rua X'
+    select 'Salão de Espetadores', from: 'Local de Evento'
     select 'Presencial', from: 'Tipo de evento'
     fill_in 'Limite de participantes', with: 30
     fill_in 'URL do evento', with: 'www.Lollapaluza.com'
@@ -47,7 +49,7 @@ describe 'Usuário visita a tela de criacao de evento' do
     expect(page).to have_content '<strong>test</strong>'
     expect(page).to have_selector "img"
     expect(page).to have_content "Agendas do Evento"
-    within 'aside' do
+    within '[data-shedule-items]' do
       expect(page).to have_selector "a", count: 9
     end
   end
@@ -63,6 +65,5 @@ describe 'Usuário visita a tela de criacao de evento' do
 
     expect(page).to have_content 'Não foi possível criar o evento.'
     expect(page).to have_content 'Nome não pode ficar em branco'
-    expect(page).to have_content 'Endereço não pode ficar em branco'
   end
 end

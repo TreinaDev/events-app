@@ -17,12 +17,11 @@ class Api::V1::SpeakersController < Api::V1::ApiController
 
   def events
     events = @speaker.events.distinct.map do |event|
-      {
+      data = {
         code: event.code,
         name: event.name,
         event_type: event.event_type,
         description: event.description.body ? event.description.body.to_html : "",
-        address: event.address,
         logo_url: event.logo.attached? ? url_for(event.logo) : nil,
         banner_url: event.banner.attached? ? url_for(event.banner) : nil,
         participants_limit: event.participants_limit,
@@ -30,6 +29,12 @@ class Api::V1::SpeakersController < Api::V1::ApiController
         start_date: event.start_date,
         end_date: event.end_date
       }
+
+      unless event.online?
+        data[:address] = "#{event.event_place.street}, #{event.event_place.number}" if event.event_place
+      end
+
+      data
     end
 
     render json: events, status: :ok
@@ -44,7 +49,6 @@ class Api::V1::SpeakersController < Api::V1::ApiController
       name: event.name,
       event_type: event.event_type,
       description: event.description.body ? event.description.body.to_html : "",
-      address: event.address,
       logo_url: event.logo.attached? ? url_for(event.logo) : nil,
       banner_url: event.banner.attached? ? url_for(event.banner) : nil,
       participants_limit: event.participants_limit,
@@ -53,6 +57,9 @@ class Api::V1::SpeakersController < Api::V1::ApiController
       end_date: event.end_date
     }
 
+    unless event.online?
+      json_response[:address] = "#{event.event_place.street}, #{event.event_place.number}" if event.event_place
+    end
     render json: json_response, status: :ok
   end
 

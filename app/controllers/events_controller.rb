@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  layout "dashboard"
+  layout :determine_layout
   before_action :authenticate_user!
   before_action :check_if_admin, only: [ :history ]
   before_action :authorize_event_access, only: [ :show, :publish, :destroy, :edit, :update ]
@@ -14,7 +14,6 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-
     add_breadcrumb "Cadastro de Evento"
   end
 
@@ -25,6 +24,7 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to @event, notice: "Evento criado com sucesso."
     else
+      @event_places  = current_user.event_places
       flash.now[:alert] = "Não foi possível criar o evento."
       render :new, status: :unprocessable_entity
     end
@@ -76,8 +76,16 @@ class EventsController < ApplicationController
 
   private
 
+  def determine_layout
+    if [ "index", "new", "create", "history" ].include?(action_name)
+      "dashboard"
+    else
+      "dashboard_with_sidebar"
+    end
+  end
+
   def event_params
-    params.require(:event).permit(:name, :address, :event_type, :participants_limit, :url, :logo, :banner, :description, :start_date, :end_date, category_ids: [])
+    params.require(:event).permit(:name, :event_place_id, :event_type, :participants_limit, :url, :logo, :banner, :description, :start_date, :end_date, category_ids: [])
   end
 
   def authorize_event_access

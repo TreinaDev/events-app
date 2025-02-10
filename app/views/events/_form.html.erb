@@ -21,10 +21,10 @@
     </div>
 
     <div class="input_container" data-event-target="address">
-      <%= f.label :address, class: 'input_label' %>
-      <%= f.text_field :address, class: "input"%>
-      <% if event.errors[:address].any? %>
-        <% event.errors.full_messages_for(:address).each do |e| %>
+      <%= f.label :event_place_id, class: 'input_label' %>
+      <%= f.collection_select :event_place_id, EventPlace.all.where(user: current_user), :id, :name, class: "input", prompt: "Selecione um local" %>
+      <% if event.errors[:event_place].any? %>
+        <% event.errors.full_messages_for(:event_place).each do |e| %>
           <span class="form_error"><%= e %></span>
         <% end %>
       <% end %>
@@ -103,7 +103,7 @@
           <%= b.label %>
         </div>
       <% end %>
-  
+
       <% if event.errors[:categories].any? %>
         <% event.errors.full_messages_for(:categories).each do |e| %>
           <span class='form_error'><%= e %></span>

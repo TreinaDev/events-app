@@ -4,7 +4,7 @@
 
 @layer components {
   .site-header {
-    @apply sticky z-10 top-0 flex justify-between items-center py-4 px-32 bg-primary p-5 drop-shadow-[5px_5px_20px_rgba(51,102,40,0.4)] min-h-20;
+    @apply fixed z-10 top-0 w-screen flex justify-between items-center py-4 px-32 bg-primary p-5 drop-shadow-[5px_5px_20px_rgba(51,102,40,0.4)] min-h-20;
   }
 
   .site-main {
@@ -56,7 +56,7 @@
   }
 
   .notice {
-    @apply p-5 bg-success text-textPrimary rounded-3xl font-bold absolute top-[90px] right-32 left-32;
+    @apply p-5 bg-success text-textPrimary rounded-3xl font-bold mx-32;
   }
 
   .alert {
@@ -113,5 +113,13 @@
 
   .filter_button {
     @apply bg-primary text-white;
+  }
+
+  .sidebar-item-div {
+    @apply flex relative justify-center items-center p-2 min-h-[50px];
+  }
+
+  .sidebar-tooltip {
+    @apply absolute px-4 py-2 rounded-full left-24 bg-[#C2CFDE] hidden;
   }
 }

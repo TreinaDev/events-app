@@ -9,7 +9,6 @@ class Api::V1::EventsController < Api::V1::ApiController
         name: event.name,
         description: event.description.body ? event.description.body.to_html : "",
         event_type: event.event_type,
-        address: event.address,
         logo_url: event.logo.attached? ? url_for(event.logo) : nil,
         banner_url: event.banner.attached? ? url_for(event.banner) : nil,
         participants_limit: event.participants_limit,
@@ -18,7 +17,10 @@ class Api::V1::EventsController < Api::V1::ApiController
         end_date: event.end_date
       }
 
-      data.delete(:address) if event.online?
+      unless event.online?
+        data[:address] = "#{event.event_place.street}, #{event.event_place.number}" if event.event_place
+      end
+
       data
     end
 
@@ -37,7 +39,6 @@ class Api::V1::EventsController < Api::V1::ApiController
       name: event.name,
       description: event.description.body ? event.description.body.to_html : "",
       event_type: event.event_type,
-      address: event.address,
       logo_url: event.logo.attached? ? url_for(event.logo) : nil,
       banner_url: event.banner.attached? ? url_for(event.banner) : nil,
       participants_limit: event.participants_limit,
@@ -64,7 +65,9 @@ class Api::V1::EventsController < Api::V1::ApiController
       end
     }
 
-    event_data.delete(:address) if event.online?
+    unless event.online?
+      event_data[:address] = "#{event.event_place.street}, #{event.event_place.number}" if event.event_place
+    end
     render status: :ok, json: event_data
   end
 end
