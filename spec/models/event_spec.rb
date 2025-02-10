@@ -160,7 +160,7 @@ RSpec.describe Event, type: :model do
   context 'feedbacks do evento' do
     it 'e retorna com sucesso' do
       event = create(:event)
-      url = "http://localhost:3000/api/v1/events/#{event.code}/feedbacks"
+      url = "http://localhost:3002/api/v1/events/#{event.code}/feedbacks"
       feedbacks = {
         feedbacks: [
           {
