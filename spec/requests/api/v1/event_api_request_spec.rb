@@ -140,7 +140,7 @@ describe 'Event API' do
       expect(response).to have_http_status :success
       expect(response.content_type).to include('application/json')
       expect(response.parsed_body['events'][0]['name']).to include('Formação de Churrasqueiros')
-      expect(response.parsed_body['events'][0]['address']).to include(event.address)
+      expect(response.parsed_body['events'][0]['address']).to include("#{event.event_place.street}, #{event.event_place.number}")
       expect(response.parsed_body['events'][0]['description']).to include(event.description.to_plain_text)
       expect(response.parsed_body['events'][0]['code']).to eq event.code
       expect(response.parsed_body['events'][0]['logo_url']).to eq url_for(event.logo)
