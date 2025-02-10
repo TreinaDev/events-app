@@ -37,6 +37,7 @@ describe 'Usuário visualiza detalhes do evento' do
 
   it 'com sucesso um evento em rascunho' do
     user = create(:user)
+    event_place = create(:event_place, user: user, street: 'Av. Padre Leopoldo Brentano', number: '110')
     event = create(:event, user: user)
     login_as user
 
@@ -47,7 +48,7 @@ describe 'Usuário visualiza detalhes do evento' do
     expect(page).to have_content "Limite de Participantes: #{event.participants_limit}"
     expect(page).to have_content "Evento #{Event.human_enum_name(:event_type, event.event_type)}"
     expect(page).to have_content "Site do Evento: #{event.url}"
-    expect(page).to have_content "Endereço: #{event.address}"
+    expect(page).to have_content "Local de Evento: #{event.event_place.street}, #{event.event_place.number}"
     expect(page).to have_content "#{event.description.body.to_html}"
   end
 
@@ -70,7 +71,7 @@ describe 'Usuário visualiza detalhes do evento' do
     expect(page).to have_content "Ingressos Vendidos: #{event.participants_count} / #{event.participants_limit}"
     expect(page).to have_content "Evento #{Event.human_enum_name(:event_type, event.event_type)}"
     expect(page).to have_content "Site do Evento: #{event.url}"
-    expect(page).to have_content "Endereço: #{event.address}"
+    expect(page).to have_content "Local de Evento: #{event.event_place.street}, #{event.event_place.number}"
     expect(page).to have_content "#{event.description.body.to_html}"
   end
 end

@@ -23,3 +23,5 @@ pt-BR:
         description: "Descrição"
         start_date: "Data de início"
         end_date: "Data de fim"
+        event_place: "Local de Evento"
+        event_place_id: "Local de Evento"

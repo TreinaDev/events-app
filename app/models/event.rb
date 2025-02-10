@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   default_scope -> { kept }
 
   belongs_to :user
+  belongs_to :event_place, optional: true
 
   has_one_attached :logo
   has_one_attached :banner
@@ -20,11 +21,11 @@ class Event < ApplicationRecord
 
   validates :code, uniqueness: true
   validates :name, :participants_limit, :url, :status, :start_date, :end_date, presence: true
-  validates :address, presence: true, if: -> { inperson? || hybrid? }
   validates :logo, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
   validates :banner, content_type: { in: [ "image/png", "image/jpeg", "image/jpg" ], message: "deve ser uma imagem do tipo PNG, JPG ou JPEG" }
   validates :start_date, :end_date, comparison: { greater_than: Time.now, message: "não pode ser depois da data atual" }
   validates :start_date, comparison: { less_than: :end_date, message: "não pode ser depois da data de fim", if: -> { end_date.present? } }
+  validates :event_place, presence: true, if: -> { inperson? || hybrid? }
   validate :participants_limit_for_unverified_user
   validate :should_have_at_least_one_category
 

@@ -10,11 +10,19 @@ RSpec.describe Event, type: :model do
       expect(event).not_to be_valid
     end
 
-    it 'falso quando endereço não está preenchido' do
-      event = FactoryBot.build(:event, address: '')
+    it 'falso quando quando é hibrido e o local de evento não está selecionado' do
+      event = Event.new(event_place: nil, event_type: "hybrid")
       event.valid?
 
-      expect(event.errors[:address]).to include 'não pode ficar em branco'
+      expect(event.errors[:event_place]).to include 'não pode ficar em branco'
+      expect(event).not_to be_valid
+    end
+
+    it 'falso quando quando é presencial e o endereço de evento não está preenchido' do
+      event = Event.new(event_place: nil, event_type: "inperson")
+      event.valid?
+
+      expect(event.errors[:event_place]).to include 'não pode ficar em branco'
       expect(event).not_to be_valid
     end
 
@@ -108,11 +116,11 @@ RSpec.describe Event, type: :model do
     expect(event.status).to eq "draft"
   end
 
-  it 'endereço deve ser obrigatório somente quando o evento for presencial ou hibrido' do
-    event = FactoryBot.build(:event, event_type: :online, address: '')
+  it 'Local de evento deve ser obrigatório somente quando o evento for presencial ou hibrido' do
+    event = FactoryBot.build(:event, event_type: :online, event_place: nil)
     event.valid?
 
-    expect(event.errors).not_to include(:address)
+    expect(event.errors).not_to include(:event_place)
     expect(event).to be_valid
   end
 

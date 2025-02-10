@@ -6,6 +6,7 @@ describe 'Usuário tenta editar evento' do
       user = create(:user)
       category = create(:category, name: 'Tecnologia')
       create(:event, user: user, name: 'Introdução ao RoR', categories: [ category ])
+      create(:event_place, user: user, name: 'Ouro Branco')
 
       login_as user
       visit root_path
@@ -15,6 +16,8 @@ describe 'Usuário tenta editar evento' do
       click_on 'Gerenciar'
       click_on 'Editar'
       fill_in 'Nome', with: 'Rails Brasil'
+      select 'Ouro Branco', from: 'Local de Evento'
+
       click_on 'Atualizar'
 
       expect(page).to have_content 'Evento atualizado com sucesso'
