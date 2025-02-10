@@ -17,11 +17,6 @@
     <% if @event.draft? %>
       <%= button_to 'Publicar', publish_event_path(@event), method: :patch, class: 'outline_button' %>
     <% end %>
-    <%= link_to 'Comunicados', event_announcements_path(@event), class: 'outline_button' %>
-    <%= link_to 'Lotes', event_ticket_batches_path(@event), class: 'outline_button' %>
-    <% if @event.ended?%>
-      <%= link_to 'Feedbacks', event_feedbacks_path(@event), class: 'outline_button'%>
-    <% end %>
     <%= link_to 'Editar', edit_event_path(@event), class: 'outline_button' %>
     <%= button_to 'Excluir', event_path(@event), method: :delete, class: 'danger_button h-full w-full', data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja deletar o evento:\n#{@event.name}", test_id: "delete-#{@event.id}" }  %>
     </div>
@@ -80,7 +75,7 @@
     </div>
   </article>
 
-  <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit">
+  <aside class="flex flex-col gap-4 items-end pl-10 min-w-fit" data-shedule-items>
     <h2 class="text-right">Agendas do Evento</h2>
       <% @event.schedules.order(date: :asc).each do |schedule| %>
         <%= link_to event_schedule_path(@event, schedule), class: "text-right justify-end underline underline-offset-4 decoration-primary hover:bg-textPrimary/15 p-3 rounded-md transition duration-150 font-bold hover:brightness-90" do %>

@@ -87,7 +87,7 @@ describe 'Usuário tenta visualizar feedbacks' do
           click_on 'Meus Eventos'
         end
         click_on 'Gerenciar'
-        click_on 'Feedbacks'
+        find('a[href*="feedbacks"]').click
 
       expect(page).to have_content 'Feedback'
       expect(page).to have_content 'Caio'
@@ -125,7 +125,7 @@ describe 'Usuário tenta visualizar feedbacks' do
           click_on 'Meus Eventos'
         end
       click_on 'Gerenciar'
-      click_on 'Feedbacks'
+      find('a[href*="feedbacks"]').click
       click_on '3'
 
       expect(page).to have_content 'Feedback 1'
@@ -150,7 +150,7 @@ describe 'Usuário tenta visualizar feedbacks' do
           click_on 'Meus Eventos'
         end
       click_on 'Gerenciar'
-      click_on 'Feedbacks'
+      find('a[href*="feedbacks"]').click
 
       expect(page).to have_content 'Esse evento ainda não possui feedbacks'
     end

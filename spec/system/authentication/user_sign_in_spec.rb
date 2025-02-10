@@ -6,7 +6,7 @@ describe 'Usuário tenta fazer login' do
     click_on 'Entrar'
 
     expect(current_path).to eq new_user_session_path
-    expect(page).to have_content "Log in"
+    expect(page).to have_content "Login"
     expect(page).to have_selector 'form'
     expect(page).to have_field 'E-mail'
     expect(page).to have_field 'Senha'
